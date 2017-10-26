@@ -17,6 +17,7 @@
         <module>../spring-cloud-demo-web-gateway</module>
         <module>../spring-cloud-demo-web-turbine</module>
         <module>../spring-cloud-demo-web-app-order</module>
+        <module>../spring-cloud-demo-web-app-user</module>
     </modules>
 
     <!-- SpringIO 依赖版本管理 -->
@@ -63,6 +64,17 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>1.2.0</version>
+            </dependency>
+            <!-- swagger 接口测试框架-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>2.7.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
