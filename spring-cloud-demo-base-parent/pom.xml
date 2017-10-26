@@ -16,8 +16,6 @@
         <module>../spring-cloud-demo-web-eureka</module>
         <module>../spring-cloud-demo-web-gateway</module>
         <module>../spring-cloud-demo-web-turbine</module>
-        <module>../spring-cloud-demo-web-app-user</module>
-        <module>../spring-cloud-demo-web-app-order</module>
         <module>../spring-cloud-demo-web-app-order</module>
     </modules>
 
@@ -29,14 +27,12 @@
         <relativePath/>
     </parent>
 
-
     <!-- jdk编译版本 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
-
 
     <!-- 项目公共依赖 -->
     <dependencyManagement>
