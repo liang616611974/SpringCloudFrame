@@ -1,6 +1,8 @@
 package com.liangfeng.study.user.config;
 
-import com.sellercube.aucenter.base.result.Response;
+import com.liangfeng.study.user.dev.pojo.dto.response.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,8 +23,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Configuration
 @ControllerAdvice
 public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
+
+	private static final Logger logger = LoggerFactory.getLogger(WebRequestParamErrConfig.class);
+
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+		logger.info("请求参数错误：");
 		StringBuffer sb = new StringBuffer();
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
 			sb.append(error.getField());

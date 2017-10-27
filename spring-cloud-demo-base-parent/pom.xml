@@ -20,6 +20,13 @@
         <module>../spring-cloud-demo-web-app-user</module>
     </modules>
 
+    <!-- jdk编译版本 -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
     <!-- SpringIO 依赖版本管理 -->
     <parent>
         <groupId>io.spring.platform</groupId>
@@ -28,12 +35,6 @@
         <relativePath/>
     </parent>
 
-    <!-- jdk编译版本 -->
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
 
     <!-- 项目公共依赖 -->
     <dependencyManagement>
@@ -105,6 +106,12 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

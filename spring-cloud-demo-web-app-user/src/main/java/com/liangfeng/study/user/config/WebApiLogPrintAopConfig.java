@@ -9,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -25,21 +26,18 @@ import java.util.Arrays;
  */
 @Component
 @Aspect
-public class ApiLogRecordAopConfig {
+public class WebApiLogPrintAopConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiLogRecordAopConfig.class);
-
-    // 切入点表达式
-    private static final String pointcuntExp = "execution(public * com.banggood.fastdfsstore.admin.dev.controller.*.*(..))";
+    private static final Logger logger = LoggerFactory.getLogger(WebApiLogPrintAopConfig.class);
 
     ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
-    @Pointcut(pointcuntExp)
-    public void log() {
+    // 切入点设置
+    @Pointcut("execution(public * com.liangfeng.study.user.dev.controller.*.*(..))")
+    public void apiLog() {
     }
 
-
-    @Before("log()")
+    @Before("apiLog()")
     public void before(JoinPoint joinPoint) {
         // 1.设置开始时间
         startTime.set(System.currentTimeMillis());
@@ -56,7 +54,7 @@ public class ApiLogRecordAopConfig {
                 Arrays.toString(joinPoint.getArgs()));
     }
 
-    @AfterReturning(returning = "result", pointcut = "log()")
+    @AfterReturning(returning = "result", pointcut = "apiLog()")
     public void doAfterReturning(Object result) throws Throwable {
         // 打印结果和消耗时间
         logger.info("【 result:{} {} spendTime: {} milliseconds 】",
