@@ -10,8 +10,8 @@
 
     <!-- 文件输出格式 -->
     <!-- <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />-->
-    <property name="CONSOLE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) --- [%yellow(%21thread)] %green(%-50c{50}) [%blue(%4L)] : %msg%n"/>
-    <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level --- [%21thread] %-50c{50} [%4L] : %msg%n"/>
+    <property name="CONSOLE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) [%yellow(%21thread)] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %green(%-50c{50}) [%blue(%4L)] : %msg%n"/>
+    <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- test文件路径 -->
     <property name="TEST_FILE_PATH" value="/logs/${PRJ_NAME}/${APP_NAME}"/>

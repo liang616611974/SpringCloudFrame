@@ -2,9 +2,13 @@ package com.liangfeng.study.user.dev.pojo.dto.request;
 
 
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.groups.Default;
 
 /**
  * @author Liangfeng
@@ -19,14 +23,15 @@ public class UserOptRequestBody {
     /**
      * 用户主键
      */
-    @ApiModelProperty(value = "用户主键")
-    private String id;
+    @ApiModelProperty(value = "用户主键,修改必传")
+    @NotNull(groups = {Request.Modify.class,Request.Remove.class,Request.Get.class})
+    private Long id;
 
     /**
      * 用户名
      */
-    @ApiModelProperty(value = "用户名",required = true)
-    @NotBlank
+    @ApiModelProperty(value = "用户名,新增必传")
+    @NotBlank(groups = {Request.Create.class})
     private String username;
 
     /**
@@ -45,7 +50,7 @@ public class UserOptRequestBody {
      * 手机
      */
     @ApiModelProperty(value = "手机",required = true)
-    @NotBlank
+    @NotBlank(groups = {Request.Create.class,Request.Modify.class})
     private String mobile;
 
     /**
@@ -53,5 +58,11 @@ public class UserOptRequestBody {
      */
     @ApiModelProperty(value = "电子邮箱")
     private String email;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
 
 }

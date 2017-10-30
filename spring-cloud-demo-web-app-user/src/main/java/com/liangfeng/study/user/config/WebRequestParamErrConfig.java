@@ -28,13 +28,13 @@ public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-		logger.info("请求参数错误：");
 		StringBuffer sb = new StringBuffer();
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
 			sb.append(error.getField());
 			sb.append(error.getDefaultMessage());
 			sb.append(",");
 		}
+		logger.info("请求参数错误:{}",sb.toString());
 		return new ResponseEntity<Object>(Response.paramErr(sb.toString()), headers, HttpStatus.OK);
 	}
 }

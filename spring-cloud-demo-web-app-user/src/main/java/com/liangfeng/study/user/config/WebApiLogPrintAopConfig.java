@@ -1,7 +1,7 @@
 package com.liangfeng.study.user.config;
 
 
-import com.liangfeng.study.eureka.common.constant.SystemConstant;
+import com.liangfeng.study.common.helper.WebHelper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,10 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -42,13 +39,12 @@ public class WebApiLogPrintAopConfig {
         // 1.设置开始时间
         startTime.set(System.currentTimeMillis());
         // 2.获取相应参数
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = WebHelper.getRequest();
         // 3.打印日志
         logger.info("【 requestUrl:{} , httpMethod:{} , IP:{} , classMethod:{}.{} , args:{} 】",
                 request.getRequestURL().toString(),
                 request.getMethod(),
-                request.getRemoteAddr(),
+                WebHelper.getRequestIp(request),
                 joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(),
                 Arrays.toString(joinPoint.getArgs()));
@@ -57,9 +53,8 @@ public class WebApiLogPrintAopConfig {
     @AfterReturning(returning = "result", pointcut = "apiLog()")
     public void doAfterReturning(Object result) throws Throwable {
         // 打印结果和消耗时间
-        logger.info("【 result:{} {} spendTime: {} milliseconds 】",
+        logger.info("【 result:{} , spendTime: {} milliseconds 】",
                 result,
-                SystemConstant.SYS_LINE_SEPARATOR,
                 (System.currentTimeMillis() - startTime.get()));
     }
 }

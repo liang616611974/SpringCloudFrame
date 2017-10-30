@@ -1,5 +1,9 @@
 package com.liangfeng.study.user.config;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -18,17 +22,32 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class WebApiSwaggerConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(WebApiSwaggerConfig.class);
+
+    private static final String SWAGGER_NAME = "SwaggerApi";
+
     @Autowired
     SwaggerApiConfig swaggerApiConfig;
 
+
     @Bean
-    public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                .apis(RequestHandlerSelectors.basePackage(swaggerApiConfig.getBasePackage()))
-                .paths(PathSelectors.any())
-                .build();
+    public Docket swaggerApi() {
+        logger.info("=======================注册{} 开始=========================",SWAGGER_NAME);
+        logger.info("SwaggerApiConfig配置:{}",swaggerApiConfig);
+        Docket docket = null;
+        try{
+            docket = new Docket(DocumentationType.SWAGGER_2)
+                    .apiInfo(apiInfo())
+                    .select()
+                    .apis(RequestHandlerSelectors.basePackage(swaggerApiConfig.getBasePackage()))
+                    .paths(PathSelectors.any())
+                    .build();
+        }catch (Exception e){
+            logger.error("注册{}发生异常",SWAGGER_NAME,e);
+            throw new RuntimeException("注册" + SWAGGER_NAME + "发生异常", e);
+        }
+        logger.info("=======================注册{} 结束=========================",SWAGGER_NAME);
+        return docket;
     }
 
     private ApiInfo apiInfo() {
@@ -115,6 +134,11 @@ public class WebApiSwaggerConfig {
 
         public void setContactEmail(String contactEmail) {
             this.contactEmail = contactEmail;
+        }
+
+        @Override
+        public String toString() {
+            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
         }
     }
 

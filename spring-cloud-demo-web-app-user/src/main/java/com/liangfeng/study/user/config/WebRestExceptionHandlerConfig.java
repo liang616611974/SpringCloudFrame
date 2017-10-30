@@ -1,6 +1,6 @@
 package com.liangfeng.study.user.config;
 
-import com.liangfeng.study.eureka.common.exception.ParamException;
+import com.liangfeng.study.common.exception.ParamException;
 import com.liangfeng.study.user.dev.pojo.dto.response.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ public class WebRestExceptionHandlerConfig {
     private static final Logger logger = LoggerFactory.getLogger(WebRestExceptionHandlerConfig.class);
 
     @Autowired
-    private AppConfig appConfig;
+    private AppCommonConfig.AppConfig appConfig;
 
     /**
      * 统一ParamException异常处理
@@ -37,7 +37,7 @@ public class WebRestExceptionHandlerConfig {
     @ExceptionHandler({ParamException.class})
     @ResponseStatus(HttpStatus.OK)
     public Object processException(ParamException exception) {
-        logger.error("自定义异常处理-ParamException", exception);
+        logger.error("系统自定义异常处理-ParamException", exception);
         return Response.paramErr(exception.getMessage());
     }
 
@@ -50,7 +50,7 @@ public class WebRestExceptionHandlerConfig {
     @ExceptionHandler({RuntimeException.class})
     @ResponseStatus(HttpStatus.OK)
     public Object processException(RuntimeException exception) {
-        logger.error("自定义异常处理-RuntimeException", exception);
+        logger.error("系统自定义异常处理-RuntimeException", exception);
         return getErrResponse(exception);
     }
 
@@ -63,7 +63,7 @@ public class WebRestExceptionHandlerConfig {
     @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.OK)
     public Object processException(Exception exception) {
-        logger.error("自定义异常处理-exception", exception);
+        logger.error("系统自定义异常处理-exception", exception);
         return getErrResponse(exception);
     }
 
