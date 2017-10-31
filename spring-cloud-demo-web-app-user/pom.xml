@@ -18,7 +18,16 @@
 
     <!-- 项目依赖 -->
     <dependencies>
-        <!-- Spring -->
+        <!-- 项目其它模块 -->
+        <dependency>
+            <groupId>com.liangfeng.study</groupId>
+            <artifactId>spring-cloud-demo-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.liangfeng.study</groupId>
+            <artifactId>spring-cloud-demo-common-api</artifactId>
+        </dependency>
+        <!-- SpringCloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
@@ -32,17 +41,6 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
-        <!-- 项目其它模块 -->
-        <dependency>
-            <groupId>com.liangfeng.study</groupId>
-            <artifactId>spring-cloud-demo-common-core</artifactId>
-        </dependency>
-
         <!-- swagger 接口测试框架-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -52,7 +50,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-
        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>

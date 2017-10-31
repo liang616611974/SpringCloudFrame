@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-cloud-demo-base-parent</artifactId>
+        <groupId>com.liangfeng.study</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../spring-cloud-demo-base-parent/pom.xml</relativePath>
+    </parent>
+
+    <!-- 项目声明 -->
+    <artifactId>spring-cloud-demo-common-api</artifactId>
+    <packaging>jar</packaging>
+    <name>spring-cloud-demo-common-api</name>
+    <description>spring-cloud project for Spring Boot</description>
+
+    <dependencies>
+        <!-- 项目其它模块 -->
+        <dependency>
+            <groupId>com.liangfeng.study</groupId>
+            <artifactId>spring-cloud-demo-common-core</artifactId>
+        </dependency>
+        <!-- SpringBoot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- SpringCloud -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+        <!-- swagger 接口测试框架-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+    </dependencies>
+
+
+</project>
