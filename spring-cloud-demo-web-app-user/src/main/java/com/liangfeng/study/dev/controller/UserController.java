@@ -1,12 +1,12 @@
 package com.liangfeng.study.dev.controller;
 
 
-import com.liangfeng.study.api.dto.request.UserOptRequestBody;
-import com.liangfeng.study.api.dto.response.UserQueryResponseBody;
-import com.liangfeng.study.api.dto.response.UserResponseBody;
+import com.liangfeng.study.bean.dto.request.UserOptRequestBody;
+import com.liangfeng.study.bean.dto.response.UserQueryResponseBody;
+import com.liangfeng.study.bean.dto.response.UserResponseBody;
 import com.liangfeng.study.common.component.id.IdGenerator;
-import com.liangfeng.study.common.pojo.dto.Request;
-import com.liangfeng.study.common.pojo.dto.Response;
+import com.liangfeng.study.common.dto.Request;
+import com.liangfeng.study.common.dto.Response;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

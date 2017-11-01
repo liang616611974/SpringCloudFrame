@@ -25,8 +25,12 @@
         </dependency>
         <dependency>
             <groupId>com.liangfeng.study</groupId>
-            <artifactId>spring-cloud-demo-common-api</artifactId>
+            <artifactId>spring-cloud-demo-common-bean</artifactId>
         </dependency>
+       <!-- <dependency>
+            <groupId>com.liangfeng.study</groupId>
+            <artifactId>spring-cloud-demo-common-api</artifactId>
+        </dependency>-->
         <!-- SpringCloud -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
