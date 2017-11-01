@@ -2,8 +2,10 @@ package com.liangfeng.study.dev.controller;
 
 
 import com.liangfeng.study.api.service.IUserBiz;
-import com.liangfeng.study.bean.dto.request.OrderOptRequestBody;
+import com.liangfeng.study.bean.dto.request.GoodsOptRequestBody;
+import com.liangfeng.study.bean.dto.request.GoodsOptRequestBody;
 import com.liangfeng.study.bean.dto.request.UserOptRequestBody;
+import com.liangfeng.study.bean.dto.response.GoodsResponseBody;
 import com.liangfeng.study.bean.dto.response.OrderResponseBody;
 import com.liangfeng.study.bean.dto.response.UserResponseBody;
 import com.liangfeng.study.common.component.id.IdGenerator;
@@ -27,7 +29,7 @@ import java.math.BigDecimal;
  * @date  2017/10/31 16:34
  */
 @RestController
-public class OrderController {
+public class GoodsController {
 
     @Autowired
     IdGenerator idGenerator;
@@ -35,19 +37,19 @@ public class OrderController {
     @Autowired
     IUserBiz userBiz;
 
-    @ApiOperation(value = "创建订单", notes = "")
-    @ApiImplicitParam(name = "requestBody", value = "创建订单请求参数", paramType = "body", dataType = "OrderOptRequestBody")
-    @PostMapping("/order/create")
-    public Response create(@Validated(Request.Create.class) @RequestBody OrderOptRequestBody requestBody) {
+    @ApiOperation(value = "创建商品", notes = "")
+    @ApiImplicitParam(name = "requestBody", value = "创建商品请求参数", paramType = "body", dataType = "GoodsOptRequestBody")
+    @PostMapping("/goods/create")
+    public Response create(@Validated(Request.Create.class) @RequestBody GoodsOptRequestBody requestBody) {
         return Response.success();
     }
 
-    @ApiOperation(value = "获取订单", notes = "")
-    @ApiImplicitParam(name = "requestBody", value = "获取订单请求参数", paramType = "body", dataType = "OrderOptRequestBody")
-    @PostMapping("/order/get")
-    public Response<OrderResponseBody> get(@Validated(Request.Get.class) @RequestBody OrderOptRequestBody requestBody) {
+    @ApiOperation(value = "获取商品", notes = "")
+    @ApiImplicitParam(name = "requestBody", value = "获取商品请求参数", paramType = "body", dataType = "GoodsOptRequestBody")
+    @PostMapping("/goods/get")
+    public Response<GoodsResponseBody> get(@Validated(Request.Get.class) @RequestBody GoodsOptRequestBody requestBody) {
         // 1.定义变量
-        OrderResponseBody responseBody = null;
+        GoodsResponseBody responseBody = null;
         UserOptRequestBody userOptRequestBody = null;
         Response<UserResponseBody> response = null;
         // 2.获取卖家数据
@@ -55,20 +57,15 @@ public class OrderController {
         userOptRequestBody.setId(111L);
         response = userBiz.get(userOptRequestBody);
         UserResponseBody sellUser = response.getResponseBody();
-        // 3.获取买家数据
+       /* // 3.获取买家数据
         userOptRequestBody.setId(222L);
         response = userBiz.get(userOptRequestBody);
-        UserResponseBody buyUser = response.getResponseBody();
+        UserResponseBody buyUser = response.getResponseBody();*/
         //4.返回结果
-        responseBody = new OrderResponseBody();
+        responseBody = new GoodsResponseBody();
         responseBody.setId(idGenerator.generateId());
-        responseBody.setOrderNo("123456");
-        responseBody.setOrderType(1);
-        responseBody.setOrderStatus(1);
         responseBody.setSellUserId(sellUser.getId());
         responseBody.setSellUsername(sellUser.getUsername());
-        responseBody.setBuyUserId(buyUser.getId());
-        responseBody.setBuyUsername(buyUser.getUsername());
         responseBody.setGoodsName("耐克运动鞋");
         responseBody.setPrice(new BigDecimal(279));
         return Response.success(responseBody);

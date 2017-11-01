@@ -13,12 +13,14 @@
     <!--所有子模块 -->
     <modules>
         <module>../spring-cloud-demo-common-core</module>
+        <module>../spring-cloud-demo-common-api</module>
+        <module>../spring-cloud-demo-common-bean</module>
         <module>../spring-cloud-demo-web-eureka</module>
         <module>../spring-cloud-demo-web-gateway</module>
         <module>../spring-cloud-demo-web-turbine</module>
+        <module>../spring-cloud-demo-web-app-goods</module>
         <module>../spring-cloud-demo-web-app-order</module>
         <module>../spring-cloud-demo-web-app-user</module>
-        <module>../spring-cloud-demo-common-api</module>
     </modules>
 
     <!-- 依赖版本配置 -->
@@ -46,6 +48,11 @@
             <dependency>
                 <groupId>com.liangfeng.study</groupId>
                 <artifactId>spring-cloud-demo-common-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.liangfeng.study</groupId>
+                <artifactId>spring-cloud-demo-common-bean</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

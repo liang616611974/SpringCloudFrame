@@ -1,7 +1,7 @@
 package com.liangfeng.study.common.config;
 
+import com.liangfeng.study.common.dto.Response;
 import com.liangfeng.study.common.exception.ParamException;
-import com.liangfeng.study.common.pojo.dto.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
