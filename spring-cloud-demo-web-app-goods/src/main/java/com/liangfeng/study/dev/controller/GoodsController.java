@@ -3,10 +3,8 @@ package com.liangfeng.study.dev.controller;
 
 import com.liangfeng.study.api.service.IUserBiz;
 import com.liangfeng.study.bean.dto.request.GoodsOptRequestBody;
-import com.liangfeng.study.bean.dto.request.GoodsOptRequestBody;
 import com.liangfeng.study.bean.dto.request.UserOptRequestBody;
 import com.liangfeng.study.bean.dto.response.GoodsResponseBody;
-import com.liangfeng.study.bean.dto.response.OrderResponseBody;
 import com.liangfeng.study.bean.dto.response.UserResponseBody;
 import com.liangfeng.study.common.component.id.IdGenerator;
 import com.liangfeng.study.common.dto.Request;
@@ -66,6 +64,7 @@ public class GoodsController {
         responseBody.setId(idGenerator.generateId());
         responseBody.setSellUserId(sellUser.getId());
         responseBody.setSellUsername(sellUser.getUsername());
+        responseBody.setType(1);
         responseBody.setGoodsName("耐克运动鞋");
         responseBody.setPrice(new BigDecimal(279));
         return Response.success(responseBody);

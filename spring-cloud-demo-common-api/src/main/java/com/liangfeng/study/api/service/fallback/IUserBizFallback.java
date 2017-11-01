@@ -4,6 +4,7 @@ package com.liangfeng.study.api.service.fallback;
 import com.liangfeng.study.api.service.IUserBiz;
 import com.liangfeng.study.bean.dto.request.UserOptRequestBody;
 import com.liangfeng.study.bean.dto.response.UserResponseBody;
+import com.liangfeng.study.bean.service.UserApiService;
 import com.liangfeng.study.common.dto.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

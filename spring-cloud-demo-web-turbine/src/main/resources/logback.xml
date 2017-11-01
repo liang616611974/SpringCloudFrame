@@ -4,7 +4,7 @@
     <!-- 项目名称 -->
     <property name="PRJ_NAME" value="spring-cloud-demo"/>
     <!-- 应用名称 -->
-    <property name="APP_NAME" value="web-eureka"/>
+    <property name="APP_NAME" value="web-turbine"/>
     <!-- 应用包路径 -->
     <property name="APP_PACKAGE_NAME" value="com.liangfeng.study"/>
 
