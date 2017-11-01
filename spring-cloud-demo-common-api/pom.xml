@@ -20,7 +20,7 @@
         <!-- 项目其它模块 -->
         <dependency>
             <groupId>com.liangfeng.study</groupId>
-            <artifactId>spring-cloud-demo-common-core</artifactId>
+            <artifactId>spring-cloud-demo-common-bean</artifactId>
         </dependency>
         <!-- SpringBoot -->
         <dependency>
@@ -31,15 +31,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-feign</artifactId>
-        </dependency>
-        <!-- swagger 接口测试框架-->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
     </dependencies>
 
