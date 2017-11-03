@@ -1,4 +1,4 @@
-package com.liangfeng.study.eureka;
+package com.liangfeng.study;
 
 
 import org.springframework.boot.SpringApplication;

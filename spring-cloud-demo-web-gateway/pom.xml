@@ -2,19 +2,75 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>spring-cloud-demo-base-parent</artifactId>
         <groupId>com.liangfeng.study</groupId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../spring-cloud-demo-base-parent/pom.xml</relativePath>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <!-- 项目声明 -->
     <artifactId>spring-cloud-demo-web-gateway</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>../spring-cloud-demo-web-turbine</module>
-    </modules>
+    <packaging>jar</packaging>
+    <name>spring-cloud-demo-web-gateway</name>
+    <description>spring-cloud project for Spring Boot</description>
 
+    <!-- 项目依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zuul</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- 配置文件环境配置 开始 -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profileActive>dev</profileActive>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- 项目构建 -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
