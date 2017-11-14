@@ -12,9 +12,9 @@
     </parent>
 
     <!-- 项目声明 -->
-    <artifactId>spring-cloud-demo-web-app-goods</artifactId>
+    <artifactId>spring-cloud-demo-service-goods</artifactId>
     <packaging>jar</packaging>
-    <name>spring-cloud-demo-web-app-goods</name>
+    <name>spring-cloud-demo-service-goods</name>
     <description>spring-cloud project for Spring Boot</description>
 
     <!-- 项目依赖 -->

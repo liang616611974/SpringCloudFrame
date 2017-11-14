@@ -5,17 +5,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 /**
- * @author Liangfeng
- * @version 1.0
- * @Title: GatewayApplication
- * @Description:
- * @date  2017/11/3 16:19
- */
+ * @Title ZuulApplication.java
+ * @Description 
+ * @version 1.0
+ * @author Liangfeng
+ * @date 2017/11/14 0014 下午 11:31
+ */
 @EnableZuulProxy
 @SpringBootApplication
-public class GatewayApplication {
+public class ZuulApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(ZuulApplication.class, args);
     }
 }
