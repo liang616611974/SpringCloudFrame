@@ -16,14 +16,14 @@
         <module>../spring-cloud-demo-common-api</module>
         <module>../spring-cloud-demo-common-bean</module>
         <module>../spring-cloud-demo-web-eureka</module>
-        <module>../spring-cloud-demo-web-gateway</module>
+        <module>../spring-cloud-demo-web-zuul</module>
         <module>../spring-cloud-demo-web-turbine</module>
-        <module>../spring-cloud-demo-web-app-goods</module>
-        <module>../spring-cloud-demo-web-app-order</module>
-        <module>../spring-cloud-demo-web-app-user</module>
+        <module>../spring-cloud-demo-service-goods</module>
+        <module>../spring-cloud-demo-service-order</module>
+        <module>../spring-cloud-demo-service-user</module>
     </modules>
 
-    <!-- 依赖版本配置 -->
+    <!-- 工程依赖版本管理 -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -41,7 +41,7 @@
         <relativePath/>
     </parent>
 
-    <!-- 项目公共依赖 -->
+    <!-- 工程依赖管理 -->
     <dependencyManagement>
         <dependencies>
             <!-- 应用公共核心模块 -->
@@ -93,7 +93,7 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- 公用的依赖-->
+    <!-- 工程公用的依赖-->
     <dependencies>
         <!-- lombok 解决set/get代码冗余-->
         <dependency>
