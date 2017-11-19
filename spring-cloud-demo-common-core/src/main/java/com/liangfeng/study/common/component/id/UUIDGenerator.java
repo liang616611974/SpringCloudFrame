@@ -14,7 +14,7 @@ public class UUIDGenerator extends IdGenerator {
 
 	@Override
 	public <T> T generateId() {
-		 return (T) UUIDHelper.generateCompressedUUID();
+		 return (T) UUIDHelper.generateUUID();
 	}
 
 }

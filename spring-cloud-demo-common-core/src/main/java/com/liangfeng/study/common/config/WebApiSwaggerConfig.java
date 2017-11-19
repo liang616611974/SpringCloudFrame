@@ -5,9 +5,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -20,6 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
+@Profile({"dev", "test"})
 public class WebApiSwaggerConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(WebApiSwaggerConfig.class);
@@ -32,9 +35,20 @@ public class WebApiSwaggerConfig {
 
     @Bean
     public Docket swaggerApi() {
-        logger.info("=======================注册{} 开始=========================",SWAGGER_NAME);
-        logger.info("SwaggerApiConfig配置:{}",swaggerApiConfig);
         Docket docket = null;
+        logger.info("SwaggerApiConfig信息配置:{}",swaggerApiConfig);
+        // 是否启用swagger配置
+        boolean b = Boolean.valueOf(swaggerApiConfig.getEnabled());
+        if(!b) {
+            docket = new Docket(DocumentationType.SWAGGER_2)
+                    .apiInfo(new ApiInfoBuilder().build())
+                    .select()
+                    .apis(RequestHandlerSelectors.basePackage("none"))
+                    .paths(PathSelectors.any())
+                    .build();
+            return docket;
+        }
+        logger.info("=======================注册 {} 开始=========================",SWAGGER_NAME);
         try{
             docket = new Docket(DocumentationType.SWAGGER_2)
                     .apiInfo(apiInfo())
@@ -46,7 +60,7 @@ public class WebApiSwaggerConfig {
             logger.error("注册{}发生异常",SWAGGER_NAME,e);
             throw new RuntimeException("注册" + SWAGGER_NAME + "发生异常", e);
         }
-        logger.info("=======================注册{} 结束=========================",SWAGGER_NAME);
+        logger.info("=======================注册 {} 结束=========================",SWAGGER_NAME);
         return docket;
     }
 
@@ -63,6 +77,12 @@ public class WebApiSwaggerConfig {
     @Component
     @ConfigurationProperties(prefix = "swagger.api.info", ignoreUnknownFields = false)
     public class SwaggerApiConfig{
+
+        /**
+         * 是否启用swagger
+         */
+        //@Value("${swagger.api.info.enabled}")
+        private String enabled;
         /**
          * 扫描的包路径
          */
@@ -87,6 +107,14 @@ public class WebApiSwaggerConfig {
          * 联系电子邮箱
          */
         private String contactEmail;
+
+        public String getEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(String enabled) {
+            this.enabled = enabled;
+        }
 
         public String getBasePackage() {
             return basePackage;

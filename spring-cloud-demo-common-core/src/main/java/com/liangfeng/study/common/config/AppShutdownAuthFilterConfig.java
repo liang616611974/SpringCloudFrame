@@ -1,5 +1,6 @@
 package com.liangfeng.study.common.config;
 
+import com.liangfeng.study.common.constant.SystemConstant;
 import com.liangfeng.study.common.helper.WebHelper;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -20,6 +21,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *  * @Title AppShutdownAuthFilterConfig.java
@@ -34,7 +36,7 @@ public class AppShutdownAuthFilterConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(AppShutdownAuthFilterConfig.class);
 
-    private static final String SHUTDOWN_AUTH_FILTER_NAME = "shutdownAuthFilter";
+    private static final String SHUTDOWN_AUTH_FILTER_NAME = "ShutdownAuthFilter";
 
     @Autowired
     private AppShutdownConfig appShutdownConfig;
@@ -46,22 +48,43 @@ public class AppShutdownAuthFilterConfig {
      */
     @Bean
     public FilterRegistrationBean shutdownAuthFilter() {
-        logger.info("AppShutdownConfig:{}",appShutdownConfig);
+        logger.info("AppShutdownConfig系统关闭配置:{}", appShutdownConfig);
         FilterRegistrationBean shutdownAuthFilter = null;
-        boolean b = Boolean.valueOf(appShutdownConfig.enabled);
+        boolean b = Boolean.valueOf(appShutdownConfig.getEnabled());
+        // 未开启应用关闭服务
         if (!b) {
-            return null;
+            shutdownAuthFilter = new FilterRegistrationBean();
+            shutdownAuthFilter.addUrlPatterns("/shutdown");
+            shutdownAuthFilter.setFilter(new OncePerRequestFilter() {
+                @Override
+                protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    String ip = WebHelper.getRequestIp(request);
+                    if (ip.equals("127.0.0.1") || ip.equals("localhost") || ip.equals("0:0:0:0:0:0:0:1")) {
+                        response.reset();
+                        response.setHeader("Content-type", "text/html;charset=" + SystemConstant.SYS_ENCODING);
+                        request.setCharacterEncoding(SystemConstant.SYS_ENCODING);
+                        PrintWriter writer = response.getWriter();
+                        writer.print("应用关闭服务未开启....");
+                        writer.flush();
+                        writer.close();
+                    } else {
+                        logger.error("应用关闭服务没开启!!!攻击IP:" + ip);
+                    }
+                }
+            });
+            return shutdownAuthFilter;
         }
-        logger.info("=======================注册{} 开始=========================", SHUTDOWN_AUTH_FILTER_NAME);
+        // 开启应用关闭服务
+        logger.info("=======================注册 {} 开始=========================", SHUTDOWN_AUTH_FILTER_NAME);
         try {
             shutdownAuthFilter = new FilterRegistrationBean();
-            shutdownAuthFilter.addUrlPatterns("/" + appShutdownConfig.id);
+            shutdownAuthFilter.addUrlPatterns("/" + appShutdownConfig.getId());
             shutdownAuthFilter.setFilter(new ShutdownAuthFilter());
         } catch (Exception e) {
             logger.error("注册{}发生异常", SHUTDOWN_AUTH_FILTER_NAME, e);
             throw new RuntimeException("注册" + SHUTDOWN_AUTH_FILTER_NAME + "发生异常", e);
         }
-        logger.info("=======================注册{} 结束=========================", SHUTDOWN_AUTH_FILTER_NAME);
+        logger.info("=======================注册 {} 结束=========================", SHUTDOWN_AUTH_FILTER_NAME);
         return shutdownAuthFilter;
     }
 

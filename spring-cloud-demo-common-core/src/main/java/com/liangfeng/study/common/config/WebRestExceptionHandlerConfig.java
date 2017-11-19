@@ -75,7 +75,7 @@ public class WebRestExceptionHandlerConfig {
      */
     private Response getErrResponse(Throwable throwable) {
         // 是否打印异常的堆栈信息
-        boolean isPrintStackTrace = Boolean.valueOf(appConfig.getPrintApiExceptionStackTrace());
+        boolean isPrintStackTrace = Boolean.valueOf(appConfig.getPrintExceptionStackTrace());
         if (isPrintStackTrace) {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);

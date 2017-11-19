@@ -3,11 +3,14 @@ package com.liangfeng.study.common.config;
 
 import com.liangfeng.study.common.component.id.IdGenerator;
 import com.liangfeng.study.common.component.id.SnowflakeIdGenerator;
+import com.liangfeng.study.common.component.id.UUIDGenerator;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,9 +28,8 @@ import org.springframework.stereotype.Component;
 public class AppCommonConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(AppCommonConfig.class);
-
-    private static final String ID_GENERATOR_NAME = "SnowflakeIdGenerator";
-
+    private static final String DEFAULT_ID_GENERATOR_TYPE = "uuid"; // 默认主键生成器类型,uuid主键
+    private static final String SNOWFLAKE_ID_GENERATOR_TYPE = "snowflake"; // snowflake主键生成器类型
     @Autowired
     AppConfig appConfig;
 
@@ -38,64 +40,106 @@ public class AppCommonConfig {
      */
     @Bean
     public IdGenerator idGenerator() {
-        logger.info("=======================注册{} 开始=========================",ID_GENERATOR_NAME);
         logger.info("AppConfig系统应用配置:{}",appConfig);
-        // 使用SnowflakeId主键策略
-        IdGenerator idGenerator;
-        try {
-            idGenerator = new SnowflakeIdGenerator(Integer.valueOf(appConfig.getWorkerId()), Integer.valueOf(appConfig.getDatacenterId()));
-        } catch (Exception e) {
-            logger.error("注册{} 发生异常", ID_GENERATOR_NAME,e);
-            throw new RuntimeException("注册" + ID_GENERATOR_NAME + "发生异常", e);
+        boolean enable = Boolean.valueOf(appConfig.getIdGeneratorEnable());
+        if(!enable){
+            return null;
         }
-        logger.info("=======================注册{} 结束=========================",ID_GENERATOR_NAME);
+        // 声明变量
+        IdGenerator idGenerator;
+        String idGeneratorType = DEFAULT_ID_GENERATOR_TYPE;
+        if (StringUtils.isNoneBlank(appConfig.getIdGeneratorType()) && SNOWFLAKE_ID_GENERATOR_TYPE.equals(appConfig.getIdGeneratorType().toLowerCase())) {
+            idGeneratorType = SNOWFLAKE_ID_GENERATOR_TYPE;
+        }
+        logger.info("=======================注册 {}IdGenerator 开始=========================",idGeneratorType);
+        try {
+            // 使用snowflake主键生成策略
+            if (StringUtils.isNoneBlank(appConfig.getIdGeneratorType()) && SNOWFLAKE_ID_GENERATOR_TYPE.equals(appConfig.getIdGeneratorType().toLowerCase())) {
+                idGenerator = new SnowflakeIdGenerator(Integer.valueOf(appConfig.getSnowflakeWorkerId()), Integer.valueOf(appConfig.getSnowflakeDatacenterId()));
+            }else {
+                // 否则使用uuid主键生成策略
+                idGenerator = new UUIDGenerator();
+            }
+        } catch (Exception e) {
+            logger.error("注册{}IdGenerator 发生异常", idGeneratorType,e);
+            throw new RuntimeException("注册" + idGeneratorType + "IdGenerator发生异常", e);
+        }
+        logger.info("=======================注册 {}IdGenerator 结束=========================",idGeneratorType);
         return idGenerator;
     }
 
 
     @Component
-    @ConfigurationProperties(prefix = "app", ignoreUnknownFields = true)
     public class AppConfig {
+
+        /**
+         * 是否启用idGenerator
+         */
+        @Value("${app.idGenerator.enabled}")
+        private String idGeneratorEnable;
+
+        /**
+         * ID主键生成器类型
+         */
+        @Value("${app.idGenerator.type}")
+        private String idGeneratorType;
 
         /**
          * SnowflakeIdGenerator.workerId 工作ID (0-31)
          */
-        private String workerId;
+        @Value("${app.snowflake.workerId}")
+        private String snowflakeWorkerId;
 
         /**
          * SnowflakeIdGenerator.datacenterId 数据中心ID (0-31)
          */
-        private String datacenterId;
+        @Value("${app.snowflake.datacenterId}")
+        private String snowflakeDatacenterId;
 
         /**
          * 是否打印接口的异常堆栈信息
          */
-        private String printApiExceptionStackTrace;
+        @Value("${app.api.printExceptionStackTrace}")
+        private String printExceptionStackTrace;
 
-        //private String print-api-log-pointcuntExp;
-
-        public String getWorkerId() {
-            return workerId;
+        public String getIdGeneratorEnable() {
+            return idGeneratorEnable;
         }
 
-        public void setWorkerId(String workerId) {
-            this.workerId = workerId;
+        public void setIdGeneratorEnable(String idGeneratorEnable) {
+            this.idGeneratorEnable = idGeneratorEnable;
         }
 
-        public String getDatacenterId() {
-            return datacenterId;
+        public String getIdGeneratorType() {
+            return idGeneratorType;
         }
 
-        public void setDatacenterId(String datacenterId) {
-            this.datacenterId = datacenterId;
+        public void setIdGeneratorType(String idGeneratorType) {
+            this.idGeneratorType = idGeneratorType;
         }
 
-        public String getPrintApiExceptionStackTrace() {
-            return printApiExceptionStackTrace;
+        public String getSnowflakeWorkerId() {
+            return snowflakeWorkerId;
         }
 
-        public void setPrintApiExceptionStackTrace(String printApiExceptionStackTrace) {
-            this.printApiExceptionStackTrace = printApiExceptionStackTrace;
+        public void setSnowflakeWorkerId(String snowflakeWorkerId) {
+            this.snowflakeWorkerId = snowflakeWorkerId;
+        }
+
+        public String getSnowflakeDatacenterId() {
+            return snowflakeDatacenterId;
+        }
+
+        public void setSnowflakeDatacenterId(String snowflakeDatacenterId) {
+            this.snowflakeDatacenterId = snowflakeDatacenterId;
+        }
+
+        public String getPrintExceptionStackTrace() {
+            return printExceptionStackTrace;
+        }
+
+        public void setPrintExceptionStackTrace(String printExceptionStackTrace) {
+            this.printExceptionStackTrace = printExceptionStackTrace;
         }
 
         @Override

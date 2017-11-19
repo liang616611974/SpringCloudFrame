@@ -36,7 +36,7 @@ public class AppLogMDCFilterConfig {
      */
     @Bean
     public FilterRegistrationBean loggerMDCFilter() {
-        logger.info("=======================注册{} 开始=========================",LOGGER_FILTER_NAME);
+        logger.info("=======================注册 {} 开始=========================",LOGGER_FILTER_NAME);
         FilterRegistrationBean loggerMDCFilter = null;
         try {
             loggerMDCFilter = new FilterRegistrationBean();
@@ -46,7 +46,7 @@ public class AppLogMDCFilterConfig {
             logger.error("注册{}发生异常",LOGGER_FILTER_NAME, e);
             throw new RuntimeException("注册" + LOGGER_FILTER_NAME + "发生异常", e);
         }
-        logger.info("=======================注册{} 结束=========================",LOGGER_FILTER_NAME);
+        logger.info("=======================注册 {} 结束=========================",LOGGER_FILTER_NAME);
         return loggerMDCFilter;
     }
 
