@@ -11,9 +11,9 @@
     </parent>
 
     <!-- 项目声明 -->
-    <artifactId>spring-cloud-demo-web-gateway</artifactId>
+    <artifactId>spring-cloud-demo-web-zuul</artifactId>
     <packaging>jar</packaging>
-    <name>spring-cloud-demo-web-gateway</name>
+    <name>spring-cloud-demo-web-zuul</name>
     <description>spring-cloud project for Spring Boot</description>
 
     <!-- 项目依赖 -->
