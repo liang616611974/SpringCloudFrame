@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>spring-cloud-demo-base-parent</artifactId>
+        <artifactId>spring-cloud-demo</artifactId>
         <groupId>com.liangfeng.study</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../spring-cloud-demo-base-parent/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <!-- 项目声明-->
