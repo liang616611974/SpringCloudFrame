@@ -1,5 +1,7 @@
 package com.liangfeng.study.common.constant;
 
+import org.springframework.web.bind.annotation.RequestHeader;
+
 /**
  * @Title: WebConstant.java
  * @Description: Web层常量
@@ -8,23 +10,29 @@ package com.liangfeng.study.common.constant;
  * @version 1.0
  */
 public class WebConstant {
-	
-	/** ajax请求头 */
-	public static final String AJAX_REQUEST_HEADER = "x-requested-with";
-	
-	/** ajax请求头value */
-	public static final String AJAX_REQUEST_HEADER_VALUE = "XMLHttpRequest"; 
-	
-	/** refer请求头 */
-	public static final String REFERER_REQUEST_HEADER = "referer";
 
-	/** 文件下载请求头 */
-	public static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";
+	/**
+	 * 请求头
+	 */
+	public static class RequestHeader{
+		/** ajax请求头 */
+		public static final String AJAX = "x-requested-with";
+		/** ajax请求头value */
+		public static final String AJAX_VALUE = "XMLHttpRequest";
+		/** refer请求头 */
+		public static final String REFERER = "referer";
+		/** 文件下载请求头 */
+		public static final String FILE_DOWNLOAD = "Content-Disposition";
+		/** 浏览器信息请求头 */
+		public static final String BROWSER_INFO= "USER-AGENT";
+	}
 
-	/** 浏览器信息请求头 */
-	public static final String BROWSER_INFO_HEADER = "USER-AGENT";
-
-	/** EXCEL ContentType  */
-	public static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel";
+	/**
+	 * 请求类型
+	 */
+	public static class ResponseContentType{
+		/** EXCEL ContentType  */
+		public static final String EXCEL = "application/vnd.ms-excel";
+	}
 
 }
