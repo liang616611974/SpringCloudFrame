@@ -10,11 +10,13 @@ import jxl.format.VerticalAlignment;
 import jxl.write.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -29,7 +31,7 @@ import java.util.Map;
  * @Description Excel文件操作帮助类
  * @version 1.0
  * @author Liangfeng
- * @date 2018/2/3 0003 上午 12:20
+ * @date 2018/2/3 0003 下午 8:22
  */
 public class ExcelHelper {
 
@@ -59,13 +61,13 @@ public class ExcelHelper {
     /**
      * 导出文件到浏览器，供下载
      *
-     * @param request      http请求对象
-     * @param response     http响应对象
-     * @param downloadName 下载名称
-     * @param headerArrs   Excel表头集合，允许多行表头
-     * @param data         表格数据
+     * @param request          http请求对象
+     * @param response         http响应对象
+     * @param downloadName     下载名称
+     * @param headerArrs       Excel表头集合，允许多行表头
+     * @param data             表格数据
      */
-    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) {
+    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Object> data) {
         exportForDownload(request, response, downloadName, headerArrs, data, null);
     }
 
@@ -77,18 +79,54 @@ public class ExcelHelper {
      * @param downloadName     下载名称
      * @param headerArrs       Excel表头集合，允许多行表头
      * @param data             表格数据
-     * @param mergeColumnNames 需要合并的列名集合
+     * @param mergeColumnNames 需要合并行的列名集合
      */
-    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
+    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Object> data, String[] mergeColumnNames) {
+        // 1.定义封装数据Map
+        List<Map<String, Object>> maps = new ArrayList<>();
+        try {
+            for (Object obj : data) {
+                maps.add(PropertyUtils.describe(obj));
+            }
+            exportForDownloadByMap(request, response, downloadName, headerArrs, maps, mergeColumnNames);
+        } catch (Exception e) {
+            throw new RuntimeException("Excle文件下载发生异常", e);
+        }
+    }
+
+    /**
+     * 导出文件到浏览器，供下载
+     *
+     * @param request      http请求对象
+     * @param response     http响应对象
+     * @param downloadName 下载名称
+     * @param headerArrs   Excel表头集合，允许多行表头
+     * @param data         表格数据
+     */
+    public static void exportForDownloadByMap(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) {
+        exportForDownloadByMap(request, response, downloadName, headerArrs, data, null);
+    }
+
+    /**
+     * 导出文件到浏览器，供下载
+     *
+     * @param request          http请求对象
+     * @param response         http响应对象
+     * @param downloadName     下载名称
+     * @param headerArrs       Excel表头集合，允许多行表头
+     * @param data             表格数据
+     * @param mergeColumnNames 需要合并行的列名集合
+     */
+    public static void exportForDownloadByMap(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
         try {
             // 1.设置Excel工作表名称
             String sheetName = downloadName;
             // 2.设置下载Excel响应头
             setDownloadResponse(request, response, downloadName);
             // 3.导出
-            export(response.getOutputStream(), sheetName, headerArrs, data, mergeColumnNames);
+            exportByMap(response.getOutputStream(), sheetName, headerArrs, data, mergeColumnNames);
         } catch (Exception e) {
-            throw new RuntimeException("Excle文件下载发生异常",e);
+            throw new RuntimeException("Excle文件下载发生异常", e);
         }
 
     }
@@ -100,9 +138,28 @@ public class ExcelHelper {
      * @param sheetName        Excel工作表名称
      * @param headerArrs       Excel表头集合，允许多行表头
      * @param data             Excel表格数据
-     * @param mergeColumnNames 需要合并的列名集合
+     * @param mergeColumnNames 需要合并行的列名集合
+     * @throws Exception
      */
-    public static void export(OutputStream os, String sheetName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
+    public static void export(OutputStream os, String sheetName, List<ExcelHeader[]> headerArrs, List<Object> data, String[] mergeColumnNames) throws Exception {
+        // 1.定义封装数据Map
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (Object obj : data) {
+            maps.add(PropertyUtils.describe(obj));
+        }
+        exportByMap(os, sheetName, headerArrs, maps, mergeColumnNames);
+    }
+
+    /**
+     * 导出Excel表格文件
+     *
+     * @param os               文件输出流
+     * @param sheetName        Excel工作表名称
+     * @param headerArrs       Excel表头集合，允许多行表头
+     * @param data             Excel表格数据
+     * @param mergeColumnNames 需要合并行的列名集合
+     */
+    public static void exportByMap(OutputStream os, String sheetName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
 
         // 校验数据
         if (os == null || CollectionUtils.isEmpty(headerArrs)) {
@@ -122,15 +179,13 @@ public class ExcelHelper {
             sheet = book.createSheet(sheetName, 0);
 
             // 3.创建表头
-            for (int i = 0; i < headerArrs.size(); i++) {
-                createExcelHead(sheet, headerArrs.get(i), i);
-            }
+            createExcelHead(sheet, headerArrs);
 
             // 4.创建表体
             createExcelBody(sheet, headerArrs, data);
 
             // 5.合并某列单元格
-            for(String mergeColumnName : mergeColumnNames){
+            for (String mergeColumnName : mergeColumnNames) {
                 createMergeColumnCells(sheet, headerArrs, data, mergeColumnName);
             }
 
@@ -150,13 +205,12 @@ public class ExcelHelper {
      * 创建Excle表头
      *
      * @param sheet    Excel工作表对象
-     * @param headers  表头集合，某行表头
-     * @param rowIndex 第几行表头
+     * @param headerArrs  Excel表头集合，允许多行表头
      * @throws Exception
      */
-    private static void createExcelHead(WritableSheet sheet, ExcelHeader[] headers, int rowIndex) throws Exception {
+    private static void createExcelHead(WritableSheet sheet, List<ExcelHeader[]> headerArrs) throws Exception {
         // 校验数据
-        if (sheet == null || headers == null) {
+        if (sheet == null || CollectionUtils.isEmpty(headerArrs)) {
             return;
         }
         // 1.设置表头单元格样式
@@ -171,20 +225,47 @@ public class ExcelHelper {
         headCellFormat.setWrap(true);
 
         // 2.写入Excle表头
-        for (int i = 0; i < headers.length; i++) {
-            // 2.1 设置表头的高度，选择最高的表头高度
-            int height = 0;
-            if (headers[i].getHeight() > height) {
-                height = headers[i].getHeight();
-                sheet.setRowView(rowIndex, height);
+        for(int r=0; r<headerArrs.size(); r++){
+            ExcelHeader[] headers = headerArrs.get(r);
+            int rowIndex = r;
+            int colIndex = 0;
+            for (int c = 0; c< headers.length; c++) {
+                // 2.1 设置表头的高度，选择最高的表头高度
+                int height = 0;
+                ExcelHeader header = headers[c];
+                if (header.getHeight() > height) {
+                    height = header.getHeight();
+                    sheet.setRowView(rowIndex, height);
+                }
+                // 2.2 设置各列的宽度
+                if(c>0){
+                    colIndex = colIndex + headers[c-1].getColSpan();
+                }
+                sheet.setColumnView(colIndex, header.getWidth());
+                // 2.3 设置表头数据
+                sheet.addCell(new Label(colIndex, rowIndex, header.getName(), headCellFormat));
+                // 合并列
+                if(header.colSpan>1){
+                    sheet.mergeCells(colIndex, rowIndex, colIndex + header.colSpan - 1, rowIndex);
+                }
             }
-            // 2.2 设置各列的宽度
-            sheet.setColumnView(i, headers[i].getWidth());
-            // 2.3 设置表头数据
-            sheet.addCell(new Label(i, rowIndex, headers[i].getName(), headCellFormat));
         }
 
-        // 3.合并表头
+        // 3.合并表头行
+        for(int r=0; r<headerArrs.size(); r++){
+            ExcelHeader[] headers = headerArrs.get(r);
+            int rowStartIndex = r;
+            int rowEndIndex = 0;
+            for (int c = 0; c< headers.length; c++) {
+                ExcelHeader header = headers[c];
+                int colIndex = c;
+                if(header.rowSpan>1){
+                    rowEndIndex = rowStartIndex + header.rowSpan -1;
+                    sheet.mergeCells(colIndex, rowStartIndex,colIndex, rowEndIndex);
+                }
+            }
+        }
+
     }
 
     /**
@@ -194,7 +275,7 @@ public class ExcelHelper {
      * @param headerArrs Excle表头集合
      * @param data       Excle表格数据
      */
-    private static void createExcelBody(WritableSheet sheet, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) throws Exception{
+    private static void createExcelBody(WritableSheet sheet, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) throws Exception {
         // 校验数据
         if (sheet == null || CollectionUtils.isEmpty(headerArrs) || CollectionUtils.isEmpty(data)) {
             return;
@@ -243,11 +324,12 @@ public class ExcelHelper {
     }
 
     /**
-     * 合并指定列的单元格
-     * @param sheet Excel工作表对象
+     * 合并某列的行
+     *
+     * @param sheet      Excel工作表对象
      * @param headerArrs Excle表头集合
-     * @param data Excle表格数据
-     * @param columnName 需要合并的列名
+     * @param data       Excle表格数据
+     * @param columnName 需要合并行的列名
      * @throws Exception
      */
     private static void createMergeColumnCells(WritableSheet sheet, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String columnName) throws Exception {
@@ -289,8 +371,8 @@ public class ExcelHelper {
         // 合并单元格
         ExcelHeader[] lastHeaders = headerArrs.get(headerArrs.size() - 1); // 最后一行表头
         int mergeColumnIndex = 0;
-        int mergeCellStart = 0;
-        int mergeCellEnd = 0;
+        int mergeRowStart = 0;
+        int mergeRowEnd = 0;
         for (int i = 0; i < lastHeaders.length; i++) {
             if (lastHeaders[i].getValue().equals(columnName)) {
                 mergeColumnIndex = i;
@@ -298,9 +380,9 @@ public class ExcelHelper {
             }
         }
         for (Map<String, Integer> map : merges) {
-            mergeCellStart = map.get("index");
-            mergeCellEnd = map.get("index") + map.get("rowspan") - 1;
-            sheet.mergeCells(mergeColumnIndex, mergeCellStart, mergeColumnIndex, mergeCellEnd);// 合并单元格
+            mergeRowStart = map.get("index");
+            mergeRowEnd = map.get("index") + map.get("rowspan") - 1;
+            sheet.mergeCells(mergeColumnIndex, mergeRowStart, mergeColumnIndex, mergeRowEnd);// 合并单元格
         }
     }
 
@@ -381,18 +463,17 @@ public class ExcelHelper {
          * 表头宽度
          */
         private int width;
-
+        /**
+         * 合并列数
+         */
+        private int colSpan = 1;
         /**
          * 合并行数
          */
         private int rowSpan = 1;
 
-        /**
-         * 合并列数
-         */
-        private int colSpan = 1;
-
-        public ExcelHeader() { }
+        public ExcelHeader() {
+        }
 
         public ExcelHeader(String name, String value, int height, int width) {
             this.name = name;
@@ -409,18 +490,21 @@ public class ExcelHelper {
         String sheetName = "第一页";
         // 3.设置Excel表头集合
         List<ExcelHeader[]> headerArrs = new ArrayList<>();
-        List<ExcelHeader> heads = new ArrayList<>();
-        heads.add(new ExcelHeader("名称", "name", 100, 30));
-        heads.add(new ExcelHeader("值键", "value", 200, 30));
-        heads.add(new ExcelHeader("高度", "height", 300, 50));
-        heads.add(new ExcelHeader("宽度", "width", 300, 50));
-        headerArrs.add(heads.toArray(new ExcelHeader[heads.size()]));
+        List<ExcelHeader> heads1 = new ArrayList<>();
+        heads1.add(new ExcelHeader("测试导出Excel表格","title",500,30,4,1));
+        headerArrs.add(heads1.toArray(new ExcelHeader[heads1.size()]));
         List<ExcelHeader> heads2 = new ArrayList<>();
-        heads2.add(new ExcelHeader("名称2", "name", 100, 30));
-        heads2.add(new ExcelHeader("值键2", "value", 200, 30));
-        heads2.add(new ExcelHeader("高度2", "height", 300, 50));
-        heads2.add(new ExcelHeader("宽度2", "width", 300, 50));
+        heads2.add(new ExcelHeader("名称", "name", 100, 30));
+        heads2.add(new ExcelHeader("值键", "value", 200, 30));
+        heads2.add(new ExcelHeader("高度", "height", 300, 50,1,2));
+        heads2.add(new ExcelHeader("宽度", "width", 300, 50,1,2));
         headerArrs.add(heads2.toArray(new ExcelHeader[heads2.size()]));
+        List<ExcelHeader> heads3 = new ArrayList<>();
+        heads3.add(new ExcelHeader("名称2", "name", 100, 30));
+        heads3.add(new ExcelHeader("值键2", "value", 200, 30));
+        heads3.add(new ExcelHeader("高度2", "height", 300, 50));
+        heads3.add(new ExcelHeader("宽度2", "width", 300, 50));
+        headerArrs.add(heads3.toArray(new ExcelHeader[heads3.size()]));
         // 3.设置Excel表体数据
         List<Map<String, Object>> data = new ArrayList<>();
         for (int i = 1; i <= 10; i++) {
@@ -440,24 +524,8 @@ public class ExcelHelper {
             data.add(map);
         }
         // 4.设置和并列
-        String[] mergeColumnNames = new String[]{"name","value"};
-        /*
-        heads.add(new ExcelHeader("姓名","name",100,30));
-        heads.add(new ExcelHeader("年龄","age",200,30));
-        heads.add(new ExcelHeader("手机号码","mobile",300,50));
-
-        Map<String, Object> row = new HashedMap();
-        row.put("name", "张三");
-        row.put("age",25);
-        row.put("mobile", "1311806543");
-        data.add(row);
-        Map<String, Object> row2 = new HashedMap();
-        row2.put("name", "李四");
-        row2.put("age",23);
-        row2.put("mobile", "1321806543");
-        data.add(row2);
-        */
-        ExcelHelper.export(os, sheetName, headerArrs, data, mergeColumnNames);
+        String[] mergeColumnNames = new String[]{"name", "value"};
+        ExcelHelper.exportByMap(os, sheetName, headerArrs, data, mergeColumnNames);
     }
 
 
