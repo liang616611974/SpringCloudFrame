@@ -19,22 +19,19 @@ public class GoodsGetResponseBody {
     /**
      * 商品主键
      */
-    @ApiModelProperty(value = "商品主键,修改、删除、获取必传")
-    @NotNull(groups = {Request.Modify.class})
+    @ApiModelProperty(value = "商品主键")
     private Long id;
 
     /**
      * 商品名称
      */
     @ApiModelProperty(value = "商品名称")
-    @NotNull(groups = {Request.add.class})
     private String goodsName;
 
     /**
      * 商品类型
      */
     @ApiModelProperty(value = "商品类型",allowableValues = "1-食物,2-玩具,3-家庭用品")
-    @NotNull(groups = {Request.add.class})
     private Integer type;
 
     /**
@@ -48,5 +45,13 @@ public class GoodsGetResponseBody {
      */
     @ApiModelProperty(value = "卖家id")
     private Long sellUserId;
+
+    /**
+     * 卖家名称
+     */
+    @ApiModelProperty(value = "卖家名称")
+    private String sellUsername;
+
+
 
 }

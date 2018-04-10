@@ -8,6 +8,7 @@ import com.liangfeng.study.goods.dao.ext.mapper.GoodsMapperExt;
 import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsQueryRequestBody;
 import com.liangfeng.study.goods.web.request.GoodsSaveOrUptRequestBody;
+import com.liangfeng.study.goods.web.response.GoodsGetResponseBody;
 import com.liangfeng.study.goods.web.response.GoodsQueryResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,8 +45,8 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void get(GetRequestBody requestBody) {
-
+    public GoodsGetResponseBody get(GetRequestBody requestBody) {
+        return null;
     }
 
     @Override
