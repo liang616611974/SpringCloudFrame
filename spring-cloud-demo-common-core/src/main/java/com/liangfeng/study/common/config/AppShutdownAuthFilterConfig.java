@@ -1,13 +1,11 @@
 package com.liangfeng.study.common.config;
 
-import com.liangfeng.study.common.constant.SystemConstant;
+import com.liangfeng.study.common.constant.AppConstant;
 import com.liangfeng.study.common.helper.WebHelper;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -61,8 +58,8 @@ public class AppShutdownAuthFilterConfig {
                     String ip = WebHelper.getRequestIp(request);
                     if (ip.equals("127.0.0.1") || ip.equals("localhost") || ip.equals("0:0:0:0:0:0:0:1")) {
                         response.reset();
-                        response.setHeader("Content-type", "text/html;charset=" + SystemConstant.SYS_ENCODING);
-                        request.setCharacterEncoding(SystemConstant.SYS_ENCODING);
+                        response.setHeader("Content-type", "text/html;charset=" + AppConstant.ENCODING);
+                        request.setCharacterEncoding(AppConstant.ENCODING);
                         PrintWriter writer = response.getWriter();
                         writer.print("应用关闭服务未开启....");
                         writer.flush();
@@ -104,6 +101,7 @@ public class AppShutdownAuthFilterConfig {
 
     @Component
     @ConfigurationProperties(prefix = "endpoints.shutdown", ignoreUnknownFields = true)
+    @Data
     public class AppShutdownConfig {
 
         /**
@@ -123,33 +121,5 @@ public class AppShutdownAuthFilterConfig {
          */
         private String sensitive;
 
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(String enabled) {
-            this.enabled = enabled;
-        }
-
-        public String getSensitive() {
-            return sensitive;
-        }
-
-        public void setSensitive(String sensitive) {
-            this.sensitive = sensitive;
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-        }
     }
 }

@@ -1,6 +1,6 @@
 package com.liangfeng.study.common.helper;
 
-import com.liangfeng.study.common.constant.SystemConstant;
+import com.liangfeng.study.common.constant.AppConstant;
 import com.liangfeng.study.common.constant.WebConstant;
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.beans.PropertyDescriptor;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -38,7 +37,7 @@ public class ExcelHelper {
     /**
      * 系统字符编码
      */
-    private static final String SYS_ENCODING = SystemConstant.SYS_ENCODING; //"UTF-8"
+    private static final String APP_ENCODING = AppConstant.ENCODING; //"UTF-8"
     /**
      * 浏览器信息请求头
      */
@@ -419,26 +418,26 @@ public class ExcelHelper {
       /*
         if (null != agent && -1 != agent.toLowerCase().indexOf("firefox")) {
             // firefox
-            downloadName = new String(downloadName.getBytes(SYS_ENCODING), "iso-8859-1");
+            downloadName = new String(downloadName.getBytes(ENCODING), "iso-8859-1");
         } else if (null != agent && -1 != agent.toUpperCase().indexOf("CHROME")) {
             //chrome
-            downloadName = java.net.URLEncoder.encode(downloadName, SYS_ENCODING);
+            downloadName = java.net.URLEncoder.encode(downloadName, ENCODING);
         } else {
             //IE
-            downloadName = java.net.URLEncoder.encode(downloadName, SYS_ENCODING);
+            downloadName = java.net.URLEncoder.encode(downloadName, ENCODING);
         }*/
 
         if (!userAgent.contains("MSIE") && !userAgent.contains("Trident")) {
-            downloadName = new String(downloadName.getBytes(SYS_ENCODING), "iso-8859-1");
+            downloadName = new String(downloadName.getBytes(APP_ENCODING), "iso-8859-1");
         } else {
-            downloadName = URLEncoder.encode(downloadName, SYS_ENCODING);
+            downloadName = URLEncoder.encode(downloadName, APP_ENCODING);
         }
 
         // 2.设置response
         response.reset();
-        request.setCharacterEncoding(SYS_ENCODING);
+        request.setCharacterEncoding(APP_ENCODING);
         response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + ".xls");// 表示以附件形式可下载
-        response.setContentType(EXCEL_CONTENT_TYPE + "; charset=" + SYS_ENCODING);// 设置下载格式为EXCEL
+        response.setContentType(EXCEL_CONTENT_TYPE + "; charset=" + APP_ENCODING);// 设置下载格式为EXCEL
     }
 
     @Data

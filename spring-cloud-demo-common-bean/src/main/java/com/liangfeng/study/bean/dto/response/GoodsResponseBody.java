@@ -1,13 +1,11 @@
 package com.liangfeng.study.bean.dto.response;
 
 
-import com.liangfeng.study.common.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**

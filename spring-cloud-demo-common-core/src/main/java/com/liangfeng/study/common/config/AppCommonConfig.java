@@ -4,6 +4,7 @@ package com.liangfeng.study.common.config;
 import com.liangfeng.study.common.component.id.IdGenerator;
 import com.liangfeng.study.common.component.id.SnowflakeIdGenerator;
 import com.liangfeng.study.common.component.id.UUIDGenerator;
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -70,6 +71,7 @@ public class AppCommonConfig {
 
 
     @Component
+    @Data
     public class AppConfig {
 
         /**
@@ -102,49 +104,5 @@ public class AppCommonConfig {
         @Value("${app.api.printExceptionStackTrace}")
         private String printExceptionStackTrace;
 
-        public String getIdGeneratorEnable() {
-            return idGeneratorEnable;
-        }
-
-        public void setIdGeneratorEnable(String idGeneratorEnable) {
-            this.idGeneratorEnable = idGeneratorEnable;
-        }
-
-        public String getIdGeneratorType() {
-            return idGeneratorType;
-        }
-
-        public void setIdGeneratorType(String idGeneratorType) {
-            this.idGeneratorType = idGeneratorType;
-        }
-
-        public String getSnowflakeWorkerId() {
-            return snowflakeWorkerId;
-        }
-
-        public void setSnowflakeWorkerId(String snowflakeWorkerId) {
-            this.snowflakeWorkerId = snowflakeWorkerId;
-        }
-
-        public String getSnowflakeDatacenterId() {
-            return snowflakeDatacenterId;
-        }
-
-        public void setSnowflakeDatacenterId(String snowflakeDatacenterId) {
-            this.snowflakeDatacenterId = snowflakeDatacenterId;
-        }
-
-        public String getPrintExceptionStackTrace() {
-            return printExceptionStackTrace;
-        }
-
-        public void setPrintExceptionStackTrace(String printExceptionStackTrace) {
-            this.printExceptionStackTrace = printExceptionStackTrace;
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-        }
     }
 }

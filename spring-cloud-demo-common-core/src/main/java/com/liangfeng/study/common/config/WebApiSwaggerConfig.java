@@ -1,5 +1,6 @@
 package com.liangfeng.study.common.config;
 
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
@@ -76,6 +77,7 @@ public class WebApiSwaggerConfig {
 
     @Component
     @ConfigurationProperties(prefix = "swagger.api.info", ignoreUnknownFields = false)
+    @Data
     public class SwaggerApiConfig{
 
         /**
@@ -108,66 +110,6 @@ public class WebApiSwaggerConfig {
          */
         private String contactEmail;
 
-        public String getEnabled() {
-            return enabled;
-        }
-
-        public void setEnabled(String enabled) {
-            this.enabled = enabled;
-        }
-
-        public String getBasePackage() {
-            return basePackage;
-        }
-
-        public void setBasePackage(String basePackage) {
-            this.basePackage = basePackage;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getVersion() {
-            return version;
-        }
-
-        public void setVersion(String version) {
-            this.version = version;
-        }
-
-        public String getContactName() {
-            return contactName;
-        }
-
-        public void setContactName(String contactName) {
-            this.contactName = contactName;
-        }
-
-        public String getContactUrl() {
-            return contactUrl;
-        }
-
-        public void setContactUrl(String contactUrl) {
-            this.contactUrl = contactUrl;
-        }
-
-        public String getContactEmail() {
-            return contactEmail;
-        }
-
-        public void setContactEmail(String contactEmail) {
-            this.contactEmail = contactEmail;
-        }
-
-        @Override
-        public String toString() {
-            return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-        }
     }
 
 }
