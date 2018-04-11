@@ -1,6 +1,6 @@
 package com.liangfeng.study.common.config;
 
-import com.liangfeng.study.common.web.Response;
+import com.liangfeng.study.common.web.dto.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;

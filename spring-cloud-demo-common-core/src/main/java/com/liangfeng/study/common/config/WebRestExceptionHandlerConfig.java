@@ -1,6 +1,6 @@
 package com.liangfeng.study.common.config;
 
-import com.liangfeng.study.common.web.Response;
+import com.liangfeng.study.common.web.dto.Response;
 import com.liangfeng.study.common.exception.ParamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

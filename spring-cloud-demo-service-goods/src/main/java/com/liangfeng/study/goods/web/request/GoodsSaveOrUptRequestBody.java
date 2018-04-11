@@ -1,12 +1,16 @@
 package com.liangfeng.study.goods.web.request;
 
 
-import com.liangfeng.study.common.web.Request;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.common.web.dto.BaseRequestBody;
+import com.liangfeng.study.common.web.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Liangfeng
@@ -16,11 +20,7 @@ import java.math.BigDecimal;
  * @date  2018/4/9 16:36
  */
 @Data
-public class GoodsSaveOrUptRequestBody {
-
-    @ApiModelProperty(value = "商品主键")
-    @NotNull(groups = {Request.Modify.class})
-    private Long id;
+public class GoodsSaveOrUptRequestBody extends BaseRequestBody{
 
     @ApiModelProperty(value = "商品名称")
     @NotNull(groups = {Request.add.class})
@@ -33,6 +33,10 @@ public class GoodsSaveOrUptRequestBody {
     @ApiModelProperty(value = "商品价格")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "卖家id")
-    private Long sellUserId;
+    @ApiModelProperty(value = "生产商名称")
+    private String producerName;
+
+    @ApiModelProperty(value = "生产日期")
+    @JsonFormat(pattern = AppConstant.PATTERN_DATE,locale = AppConstant.LOCALE)
+    private Date produceDate;
 }

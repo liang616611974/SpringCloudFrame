@@ -1,10 +1,8 @@
 package com.liangfeng.study.goods.web.response;
 
 
-import com.liangfeng.study.common.web.Request;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**

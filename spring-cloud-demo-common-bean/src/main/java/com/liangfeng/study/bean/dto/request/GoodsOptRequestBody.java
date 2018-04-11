@@ -1,7 +1,7 @@
 package com.liangfeng.study.bean.dto.request;
 
 
-import com.liangfeng.study.common.web.Request;
+import com.liangfeng.study.common.web.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -29,14 +29,14 @@ public class GoodsOptRequestBody {
      * 商品名称
      */
     @ApiModelProperty(value = "商品名称")
-    @NotNull(groups = {Request.Create.class})
+    @NotNull(groups = {Request.add.class})
     private String goodsName;
 
     /**
      * 商品类型
      */
     @ApiModelProperty(value = "商品类型",allowableValues = "1-食物,2-玩具,3-家庭用品")
-    @NotNull(groups = {Request.Create.class})
+    @NotNull(groups = {Request.add.class})
     private Integer type;
 
     /**

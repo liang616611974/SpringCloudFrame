@@ -3,7 +3,7 @@ package com.liangfeng.study.bean.service;
 
 import com.liangfeng.study.bean.dto.request.UserOptRequestBody;
 import com.liangfeng.study.bean.dto.response.UserResponseBody;
-import com.liangfeng.study.common.web.Response;
+import com.liangfeng.study.common.web.dto.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 
 /**

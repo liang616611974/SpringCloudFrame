@@ -16,16 +16,16 @@ public class AppConstant {
 	public static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
 	/** 应用的地区 */
-	private static final String LOCALE = "zh";
+	public static final String LOCALE = "zh";
 
 	/** 应用的时区 */
-	private static final String TIMEZONE = "GMT+8";
+	public static final String TIMEZONE = "GMT+8";
 
 	/** 应用的日期格式 */
-	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	public static final String PATTERN_DATE = "yyyy-MM-dd";
 
 	/** 应用的日期时间格式 */
-	private static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	public static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
 	
 	
 }

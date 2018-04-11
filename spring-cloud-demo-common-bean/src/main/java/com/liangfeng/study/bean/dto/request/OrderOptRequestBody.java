@@ -1,7 +1,7 @@
 package com.liangfeng.study.bean.dto.request;
 
 
-import com.liangfeng.study.common.web.Request;
+import com.liangfeng.study.common.web.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;

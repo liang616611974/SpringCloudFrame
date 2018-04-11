@@ -1,8 +1,7 @@
 package com.liangfeng.study.goods.service;
 
-import com.liangfeng.study.common.web.GetRequestBody;
-import com.liangfeng.study.common.web.RemoveRequestBody;
-import com.liangfeng.study.goods.dao.auto.model.Goods;
+import com.liangfeng.study.common.web.dto.GetRequestBody;
+import com.liangfeng.study.common.web.dto.RemoveRequestBody;
 import com.liangfeng.study.goods.web.request.GoodsQueryRequestBody;
 import com.liangfeng.study.goods.web.request.GoodsSaveOrUptRequestBody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponseBody;
