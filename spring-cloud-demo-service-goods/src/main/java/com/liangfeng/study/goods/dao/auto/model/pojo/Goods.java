@@ -1,6 +1,17 @@
 package com.liangfeng.study.goods.dao.auto.model.pojo;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.common.framework.base.BaseEntity;
+import com.liangfeng.study.common.web.dto.Request;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * @author Liangfeng
  * @version 1.0
@@ -8,5 +19,57 @@ package com.liangfeng.study.goods.dao.auto.model.pojo;
  * @Description:
  * @date  2018/4/9 17:03
  */
-public class Goods {
+@Data
+public class Goods extends BaseEntity{
+
+    /**
+     * 主键
+     */
+    private Long id;
+
+    /**
+     * 商品名称
+     */
+    private String goodsName;
+
+    /**
+     * 商品类型
+     */
+    private String type;
+
+    /**
+     * 商品价格
+     */
+    private BigDecimal price;
+
+    /**
+     * 生产商名称
+     */
+    private String producerName;
+
+    /**
+     * 生产日期
+     */
+    private Date produceDate;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 修改时间
+     */
+    private Date modifyTime;
+
+    /**
+     * 创建用户主键
+     */
+    private Long createUser;
+
+    /**
+     * 修改用户主键
+     */
+    private Long modifyUser;
+
 }

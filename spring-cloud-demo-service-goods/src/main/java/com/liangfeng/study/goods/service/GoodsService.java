@@ -1,6 +1,7 @@
 package com.liangfeng.study.goods.service;
 
 import com.liangfeng.study.common.web.dto.GetRequestBody;
+import com.liangfeng.study.common.web.dto.QueryPageResponseBody;
 import com.liangfeng.study.common.web.dto.RemoveRequestBody;
 import com.liangfeng.study.goods.web.request.GoodsQueryRequestBody;
 import com.liangfeng.study.goods.web.request.GoodsSaveOrUptRequestBody;
@@ -42,9 +43,9 @@ public interface GoodsService {
     GoodsGetResponseBody get(GetRequestBody requestBody);
 
     /**
-     * 查询商品
+     * 分页查询商品
      * @param requestBody
      */
-    GoodsQueryResponseBody query(GoodsQueryRequestBody requestBody);
+    GoodsQueryResponseBody queryPage(GoodsQueryRequestBody requestBody);
 
 }

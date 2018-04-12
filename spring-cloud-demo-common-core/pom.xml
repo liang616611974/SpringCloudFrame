@@ -79,6 +79,12 @@
             <artifactId>jxl</artifactId>
         </dependency>
 
+        <!-- Commons 工具 -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
     </dependencies>
 
 

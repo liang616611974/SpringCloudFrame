@@ -26,6 +26,8 @@ public class AppConstant {
 
 	/** 应用的日期时间格式 */
 	public static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
-	
+
+	/** session userid 属性key */
+	public static final String SESSION_ATTR_NAME_USERID = "userId";
 	
 }

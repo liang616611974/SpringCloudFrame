@@ -31,7 +31,7 @@ public class UserOptRequestBody {
      * 用户名
      */
     @ApiModelProperty(value = "用户名,新增必传")
-    @NotBlank(groups = {Request.Create.class})
+    @NotBlank(groups = {Request.Add.class})
     private String username;
 
     /**
@@ -50,7 +50,7 @@ public class UserOptRequestBody {
      * 手机
      */
     @ApiModelProperty(value = "手机",required = true)
-    @NotBlank(groups = {Request.Create.class,Request.Modify.class})
+    @NotBlank(groups = {Request.Add.class,Request.Modify.class})
     private String mobile;
 
     /**

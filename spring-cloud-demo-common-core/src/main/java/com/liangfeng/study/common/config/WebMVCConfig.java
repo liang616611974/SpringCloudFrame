@@ -63,7 +63,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        logger.info("===================注册Jackson转换器[(BigDecimal转String)] 开始 ===================");
+        logger.info("===================注册Jackson转换器[(BigDecimal和Long转String)] 开始 ===================");
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
         /**
@@ -72,10 +72,11 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
          */
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addSerializer(BigDecimal.class, ToStringSerializer.instance);
+        simpleModule.addSerializer(Long.class,ToStringSerializer.instance);
         objectMapper.registerModule(simpleModule);
         messageConverter.setObjectMapper(objectMapper);
         converters.add(messageConverter);
-        logger.info("===================注册Jackson转换器[(BigDecimal转String)] 结束 ===================");
+        logger.info("===================注册Jackson转换器[(BigDecimal和Long转String)] 结束 ===================");
     }
 
     /* *//**

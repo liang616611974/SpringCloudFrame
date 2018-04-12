@@ -1,5 +1,8 @@
 package com.liangfeng.study.common.framework.base;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
 * @Title: BaseEntity.java
 * @Description: 实体基类，包含一些共有属性
@@ -19,5 +22,11 @@ public class BaseEntity implements java.io.Serializable {
 
 	/** 时间戳格式 */
 	protected static final String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm:ss.S";
-	
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+	}
+
+
 }

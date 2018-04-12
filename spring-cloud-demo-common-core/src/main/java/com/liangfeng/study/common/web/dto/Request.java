@@ -23,7 +23,7 @@ public class Request<T> {
     }
 
     // 验证新增组
-    public interface add{ }
+    public interface Add { }
 
     // 验证修改组
     public interface Modify { }
@@ -38,7 +38,7 @@ public class Request<T> {
     public interface Query { }
 
     // 按照顺序验证组
-    @GroupSequence({Default.class, Remove.class, Get.class, Query.class, Modify.class, add.class,})
+    @GroupSequence({Default.class, Remove.class, Get.class, Query.class, Modify.class, Add.class,})
     public interface All { }
 }
 

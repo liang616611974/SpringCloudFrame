@@ -1,9 +1,14 @@
 package com.liangfeng.study.goods.web.response;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.common.web.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Liangfeng
@@ -14,41 +19,35 @@ import java.math.BigDecimal;
  */
 public class GoodsGetResponseBody {
 
-    /**
-     * 商品主键
-     */
-    @ApiModelProperty(value = "商品主键")
-    private Long id;
-
-    /**
-     * 商品名称
-     */
     @ApiModelProperty(value = "商品名称")
     private String goodsName;
 
-    /**
-     * 商品类型
-     */
-    @ApiModelProperty(value = "商品类型",allowableValues = "1-食物,2-玩具,3-家庭用品")
+    @ApiModelProperty(value = "商品类型")
     private Integer type;
 
-    /**
-     * 价格
-     */
     @ApiModelProperty(value = "商品价格")
     private BigDecimal price;
 
-    /**
-     * 卖家id
-     */
-    @ApiModelProperty(value = "卖家id")
-    private Long sellUserId;
+    @ApiModelProperty(value = "生产商名称")
+    private String producerName;
 
-    /**
-     * 卖家名称
-     */
-    @ApiModelProperty(value = "卖家名称")
-    private String sellUsername;
+    @ApiModelProperty(value = "生产日期")
+    @JsonFormat(pattern = AppConstant.PATTERN_DATE,locale = AppConstant.LOCALE)
+    private Date produceDate;
+
+    @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE)
+    private Date createTime;
+
+    @ApiModelProperty(value = "修改时间")
+    @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE)
+    private Date modifyTime;
+
+    @ApiModelProperty(value = "创建用户主键")
+    private Long createUser;
+
+    @ApiModelProperty(value = "修改用户主键")
+    private Long modifyUser;
 
 
 

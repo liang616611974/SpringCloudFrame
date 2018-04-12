@@ -1,8 +1,10 @@
 package com.liangfeng.study.common.config;
 
 
+import com.liangfeng.study.common.constant.AppConstant;
 import com.liangfeng.study.common.helper.UUIDHelper;
 import com.liangfeng.study.common.helper.WebHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -10,6 +12,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +30,7 @@ public class AppLogMDCFilterConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(AppLogMDCFilterConfig.class);
 
+    /** 日志记录过滤器名称 */
     private static final String LOGGER_FILTER_NAME = "LoggerMDCFilter";
 
     /**
@@ -53,29 +57,32 @@ public class AppLogMDCFilterConfig {
 
     public class LoggerMDCFilter extends OncePerRequestFilter {
 
-        private static final String USER_ID_KEY_SESSION = "userId";
-        private static final String USER_ID_KEY = "userId";
-        private static final String REQUEST_URI_KEY = "requestURI";
-        private static final String REMOTE_ADDR_KEY = "remoteAddr";
-        private static final String UUID_KEY = "uuid";
-        private static final String PREFIX = "(";
-        private static final String SUFFIX = ")";
+        /** 日志打印名称UserId */
+        private static final String LOG_PRINT_NAME_USERID = "userId";
+        /** 日志打印名称requestURI */
+        private static final String LOG_PRINT_NAME_REQUESTURI = "requestURI";
+        /** 日志打印名称remoteAddr */
+        private static final String LOG_PRINT_NAME_REMOTEADDR = "remoteAddr";
+        /** 日志打印名称uuid */
+        private static final String LOG_PRINT_NAME_UUID = "uuid";
+        /*private static final String PREFIX = "(";
+        private static final String SUFFIX = ")";*/
 
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
             try {
                 //1.加入当前登陆用户id
-                String userId = WebHelper.getSession(request, USER_ID_KEY_SESSION);
-                MDC.put(USER_ID_KEY, userId);
+                String userId = String.valueOf(WebUtils.getSessionAttribute(request, AppConstant.SESSION_ATTR_NAME_USERID));
+                MDC.put(LOG_PRINT_NAME_USERID, userId);
                 //2.加入请求URI
                 String requestURI = request.getRequestURI() + (request.getQueryString() == null ? "" : "?" + request.getQueryString());
-                MDC.put(REQUEST_URI_KEY, requestURI);
+                MDC.put(LOG_PRINT_NAME_REQUESTURI, requestURI);
                 //3.加入远程访问地址
                 String remoteAddr = WebHelper.getRequestIp(request);
-                MDC.put(REMOTE_ADDR_KEY, remoteAddr);
+                MDC.put(LOG_PRINT_NAME_REMOTEADDR, remoteAddr);
                 //4.为每一个请求创建一个ID，方便查找日志时可以根据ID查找出一个http请求所有相关日志
                 String uuid = UUIDHelper.generateUUID();
-                MDC.put(UUID_KEY, uuid);
+                MDC.put(LOG_PRINT_NAME_UUID, uuid);
                 //5.放行
                 chain.doFilter(request, response);
             } catch (Exception e) {

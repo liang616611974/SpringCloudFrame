@@ -14,7 +14,7 @@ import java.util.List;
  * @date  2018/4/11 17:47
  */
 @Data
-public class PageResponseBody<T> {
+public class QueryPageResponseBody<T> {
     /**
      * 总数
      */

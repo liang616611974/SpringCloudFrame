@@ -34,7 +34,7 @@ public class UserController {
     @ApiOperation(value = "创建用户", notes = "")
     @ApiImplicitParam(name = "requestBody", value = "创建用户请求参数", paramType = "body", dataType = "UserOptRequestBody")
     @PostMapping("/user/create")
-    public Response create(@Validated(Request.Create.class) @RequestBody UserOptRequestBody requestBody) {
+    public Response create(@Validated(Request.Add.class) @RequestBody UserOptRequestBody requestBody) {
         //int i = 1 / 0;
         return Response.success();
     }

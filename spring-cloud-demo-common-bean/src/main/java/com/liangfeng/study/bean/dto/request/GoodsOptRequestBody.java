@@ -29,14 +29,14 @@ public class GoodsOptRequestBody {
      * 商品名称
      */
     @ApiModelProperty(value = "商品名称")
-    @NotNull(groups = {Request.add.class})
+    @NotNull(groups = {Request.Add.class})
     private String goodsName;
 
     /**
      * 商品类型
      */
     @ApiModelProperty(value = "商品类型",allowableValues = "1-食物,2-玩具,3-家庭用品")
-    @NotNull(groups = {Request.add.class})
+    @NotNull(groups = {Request.Add.class})
     private Integer type;
 
     /**

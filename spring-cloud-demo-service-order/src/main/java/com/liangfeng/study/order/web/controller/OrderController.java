@@ -38,7 +38,7 @@ public class OrderController {
     @ApiOperation(value = "创建订单", notes = "")
     @ApiImplicitParam(name = "requestBody", value = "创建订单请求参数", paramType = "body", dataType = "OrderOptRequestBody")
     @PostMapping("/order/create")
-    public Response create(@Validated(Request.Create.class) @RequestBody OrderOptRequestBody requestBody) {
+    public Response add(@Validated(Request.Add.class) @RequestBody OrderOptRequestBody requestBody) {
         return Response.success();
     }
 

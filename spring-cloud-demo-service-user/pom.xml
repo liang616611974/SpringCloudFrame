@@ -54,10 +54,12 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
-       <!-- <dependency>
+
+        <!-- 热部署 -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
     <!-- 配置文件环境配置 开始 -->

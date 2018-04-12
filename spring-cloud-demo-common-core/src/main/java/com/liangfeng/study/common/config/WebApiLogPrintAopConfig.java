@@ -30,7 +30,7 @@ public class WebApiLogPrintAopConfig {
     ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
     // 切入点设置
-    @Pointcut("execution(public * com.*.*.dev.controller.*.*(..))")
+    @Pointcut("execution(public * com.*.*.*.web.controller.*.*(..))")
     public void apiLog() {
     }
 
