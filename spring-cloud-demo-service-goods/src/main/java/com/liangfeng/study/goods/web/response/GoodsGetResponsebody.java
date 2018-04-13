@@ -4,6 +4,9 @@ package com.liangfeng.study.goods.web.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liangfeng.study.common.constant.AppConstant;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,13 +18,14 @@ import java.util.Date;
  * @Description:
  * @date  2018/4/10 10:25
  */
+@Data
 public class GoodsGetResponsebody {
 
     @ApiModelProperty(value = "商品名称")
     private String goodsName;
 
     @ApiModelProperty(value = "商品类型")
-    private Integer type;
+    private String type;
 
     @ApiModelProperty(value = "商品价格")
     private BigDecimal price;
@@ -47,6 +51,9 @@ public class GoodsGetResponsebody {
     @ApiModelProperty(value = "修改用户主键")
     private Long modifyUser;
 
-
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 
 }

@@ -2,6 +2,7 @@ package com.liangfeng.study.goods.web.request;
 
 
 import com.liangfeng.study.common.web.dto.request.BaseRequestbody;
+import com.liangfeng.study.common.web.dto.request.QueryPageRequestbody;
 import com.liangfeng.study.common.web.dto.request.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
  * @date  2018/4/9 18:28
  */
 @Data
-public class GoodsQueryPageRequestbody extends BaseRequestbody{
+public class GoodsQueryPageRequestbody extends QueryPageRequestbody{
 
     @ApiModelProperty(value = "商品名称",example = "耐克跑鞋")
     private String goodsName;

@@ -4,6 +4,8 @@ package com.liangfeng.study.common.web.dto.request;
 import com.liangfeng.study.common.component.id.IdGenerator;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
@@ -30,25 +32,14 @@ public class AddOrMdfRequestbody extends BaseRequestbody {
     @ApiModelProperty(value = "修改时间",hidden = true)
     private Date modifyTime;
 
-    /**
-     * 创建用户主键
-     */
     @ApiModelProperty(value = "创建用户主键",hidden = true)
     private Long createUser;
 
-    /**
-     * 修改用户主键
-     */
     @ApiModelProperty(value = "修改用户主键",hidden = true)
     private Long modifyUser;
 
-    /*public Long getId(){return id;}
-
-    public void setId(Long id) {
-        if(id==null){
-            this.id = idGenerator.generateId();
-        }else {
-            this.id = id;
-        }
-    }*/
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 }

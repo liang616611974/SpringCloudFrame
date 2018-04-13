@@ -3,6 +3,8 @@ package com.liangfeng.study.common.web.dto.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
@@ -26,4 +28,9 @@ public class QueryPageResponsebody<T> {
      */
     @ApiModelProperty(value = "数据集合")
     private List<T> rows;
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 }

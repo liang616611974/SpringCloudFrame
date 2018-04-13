@@ -10,7 +10,7 @@ import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
-import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryPageResponsebody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -36,11 +36,11 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void add(GoodsAddOrMdfRequestbody requestBody) {
+    public void add(GoodsAddOrMdfRequestbody requestbody) {
         // 1.定义参数
         Goods goods = new Goods();
         // 2.复制属性值
-        BeanUtils.copyProperties(requestBody, goods);
+        BeanUtils.copyProperties(requestbody, goods);
         // 3.插入数据
         //goodsMapper.insert(goods);
         logger.info("Goods:{}",goods);
@@ -48,31 +48,32 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void modify(GoodsAddOrMdfRequestbody requestBody) {
+    public void modify(GoodsAddOrMdfRequestbody requestbody) {
         // 1.定义参数
         Goods goods = new Goods();
         // 2.复制属性值
-        BeanUtils.copyProperties(requestBody, goods);
+        BeanUtils.copyProperties(requestbody, goods);
         // 3.修改数据
         //goodsMapper.update(goods);
+        logger.info("Goods:{}",goods);
     }
 
     @Override
-    public void remove(RemoveRequestbody requestBody) {
+    public void remove(RemoveRequestbody requestbody) {
         // 1.遍历删除
-        for (Long id : requestBody.getIds()) {
+        for (Long id : requestbody.getIds()) {
             //goodsMapper.delete(id);
         }
     }
 
 
     @Override
-    public GoodsGetResponsebody get(GetRequestbody requestBody) {
+    public GoodsGetResponsebody get(GetRequestbody requestbody) {
         // 1.定义参数
         GoodsGetResponsebody responseBody = new GoodsGetResponsebody();
         Goods goods = null;
         // 2.查询对象
-        //goods = goodsMapper.get(requestBody.getId());
+        //goods = goodsMapper.get(requestbody.getId());
         goods = new Goods();
         goods.setId(new Long(666666));
         goods.setGoodsName("耐克跑鞋");
@@ -83,7 +84,7 @@ public class GoodsServiceImpl implements GoodsService {
         goods.setCreateTime(DateHelper.parseDateTime("2018-03-04 09:00:00"));
         goods.setModifyTime(DateHelper.parseDateTime("2018-03-04 09:00:00"));
         goods.setCreateUser(new Long(111));
-        goods.setCreateUser(new Long(222));
+        goods.setModifyUser(new Long(222));
         // 3.复制属性
         BeanUtils.copyProperties(goods, responseBody);
         // 4.返回数据
@@ -91,13 +92,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsQueryResponsebody queryPage(GoodsQueryPageRequestbody requestBody) {
+    public GoodsQueryPageResponsebody queryPage(GoodsQueryPageRequestbody requestbody) {
         // 1.定义参数
-        GoodsQueryResponsebody responseBody = new GoodsQueryResponsebody();
+        GoodsQueryPageResponsebody responseBody = new GoodsQueryPageResponsebody();
         int total = 10;
         // 2.查询总数
         GoodsQuery goodsQuery = new GoodsQuery();
-        BeanUtils.copyProperties(requestBody, goodsQuery);
+        BeanUtils.copyProperties(requestbody, goodsQuery);
         //total = goodsMapper.total(goodsQuery);
         responseBody.setTotal(total);
         // 3.查询集合
@@ -120,7 +121,7 @@ public class GoodsServiceImpl implements GoodsService {
             goods.setCreateTime(DateHelper.parseDateTime("2018-03-04 09:00:00"));
             goods.setModifyTime(DateHelper.parseDateTime("2018-03-04 09:00:00"));
             goods.setCreateUser(new Long(111));
-            goods.setCreateUser(new Long(222));
+            goods.setModifyUser(new Long(222));
             goodss.add(goods);
         }
         for (Goods goods : goodss) {

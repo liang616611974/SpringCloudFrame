@@ -5,7 +5,7 @@ import com.liangfeng.study.common.web.dto.request.RemoveRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
-import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryPageResponsebody;
 
 /**
  * @author Liangfeng
@@ -45,6 +45,6 @@ public interface GoodsService {
      * 分页查询商品
      * @param requestBody
      */
-    GoodsQueryResponsebody queryPage(GoodsQueryPageRequestbody requestBody);
+    GoodsQueryPageResponsebody queryPage(GoodsQueryPageRequestbody requestBody);
 
 }

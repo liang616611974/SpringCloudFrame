@@ -19,7 +19,7 @@ import java.util.Arrays;
  * @Description:
  * @date  2018/4/12 10:49
  */
-@WebFilter(filterName = "myFilter", urlPatterns = "/*")
+@WebFilter(filterName = "myFilter", urlPatterns = {"/goods/*"})
 public class MyFilter implements Filter {
 
     private static final Logger logger = LoggerFactory.getLogger(MyFilter.class);

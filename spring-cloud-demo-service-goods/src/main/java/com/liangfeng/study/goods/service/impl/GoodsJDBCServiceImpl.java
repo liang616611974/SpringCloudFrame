@@ -10,7 +10,7 @@ import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
-import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryPageResponsebody;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -76,9 +76,9 @@ public class GoodsJDBCServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsQueryResponsebody queryPage(GoodsQueryPageRequestbody requestBody) {
+    public GoodsQueryPageResponsebody queryPage(GoodsQueryPageRequestbody requestBody) {
         // 1.定义参数
-        GoodsQueryResponsebody responseBody = new GoodsQueryResponsebody();
+        GoodsQueryPageResponsebody responseBody = new GoodsQueryPageResponsebody();
         int total = 0;
         // 2.查询总数
         GoodsQuery goodsQuery = new GoodsQuery();

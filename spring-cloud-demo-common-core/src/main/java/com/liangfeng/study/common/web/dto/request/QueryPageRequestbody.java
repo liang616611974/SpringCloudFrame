@@ -4,6 +4,8 @@ package com.liangfeng.study.common.web.dto.request;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @author Liangfeng
@@ -23,5 +25,9 @@ public class QueryPageRequestbody extends BaseRequestbody{
     @JsonProperty("rows")
     private Integer pageSize;
 
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
 
 }

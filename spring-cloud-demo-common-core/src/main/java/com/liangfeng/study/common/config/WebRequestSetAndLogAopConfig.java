@@ -28,9 +28,9 @@ import java.util.List;
  */
 @Component
 @Aspect
-public class WebRequestLogPrintAopConfig {
+public class WebRequestSetAndLogAopConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebRequestLogPrintAopConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebRequestSetAndLogAopConfig.class);
 
     private static final ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
