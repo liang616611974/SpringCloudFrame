@@ -1,4 +1,4 @@
-package com.liangfeng.study.common.web.dto;
+package com.liangfeng.study.common.web.dto.response;
 
 
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,7 @@ import java.util.List;
  * @date  2018/4/11 17:47
  */
 @Data
-public class QueryPageResponseBody<T> {
+public class QueryPageResponsebody<T> {
     /**
      * 总数
      */

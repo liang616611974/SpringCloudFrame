@@ -1,23 +1,19 @@
 package com.liangfeng.study.goods.service.impl;
 
 
-import com.liangfeng.study.common.component.id.IdGenerator;
 import com.liangfeng.study.common.helper.DateHelper;
-import com.liangfeng.study.common.web.dto.GetRequestBody;
-import com.liangfeng.study.common.web.dto.QueryPageResponseBody;
-import com.liangfeng.study.common.web.dto.RemoveRequestBody;
-import com.liangfeng.study.goods.dao.auto.mapper.GoodsMapper;
+import com.liangfeng.study.common.web.dto.request.GetRequestbody;
+import com.liangfeng.study.common.web.dto.request.RemoveRequestbody;
 import com.liangfeng.study.goods.dao.auto.model.pojo.Goods;
 import com.liangfeng.study.goods.dao.auto.model.qo.GoodsQuery;
 import com.liangfeng.study.goods.service.GoodsService;
-import com.liangfeng.study.goods.web.request.GoodsQueryRequestBody;
-import com.liangfeng.study.goods.web.request.GoodsSaveOrUptRequestBody;
-import com.liangfeng.study.goods.web.response.GoodsGetResponseBody;
-import com.liangfeng.study.goods.web.response.GoodsQueryResponseBody;
+import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +36,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void add(GoodsSaveOrUptRequestBody requestBody) {
+    public void add(GoodsAddOrMdfRequestbody requestBody) {
         // 1.定义参数
         Goods goods = new Goods();
         // 2.复制属性值
@@ -52,7 +48,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void modify(GoodsSaveOrUptRequestBody requestBody) {
+    public void modify(GoodsAddOrMdfRequestbody requestBody) {
         // 1.定义参数
         Goods goods = new Goods();
         // 2.复制属性值
@@ -62,7 +58,7 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void remove(RemoveRequestBody requestBody) {
+    public void remove(RemoveRequestbody requestBody) {
         // 1.遍历删除
         for (Long id : requestBody.getIds()) {
             //goodsMapper.delete(id);
@@ -71,9 +67,9 @@ public class GoodsServiceImpl implements GoodsService {
 
 
     @Override
-    public GoodsGetResponseBody get(GetRequestBody requestBody) {
+    public GoodsGetResponsebody get(GetRequestbody requestBody) {
         // 1.定义参数
-        GoodsGetResponseBody responseBody = new GoodsGetResponseBody();
+        GoodsGetResponsebody responseBody = new GoodsGetResponsebody();
         Goods goods = null;
         // 2.查询对象
         //goods = goodsMapper.get(requestBody.getId());
@@ -95,9 +91,9 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public GoodsQueryResponseBody queryPage(GoodsQueryRequestBody requestBody) {
+    public GoodsQueryResponsebody queryPage(GoodsQueryPageRequestbody requestBody) {
         // 1.定义参数
-        GoodsQueryResponseBody responseBody = new GoodsQueryResponseBody();
+        GoodsQueryResponsebody responseBody = new GoodsQueryResponsebody();
         int total = 10;
         // 2.查询总数
         GoodsQuery goodsQuery = new GoodsQuery();
@@ -106,7 +102,7 @@ public class GoodsServiceImpl implements GoodsService {
         responseBody.setTotal(total);
         // 3.查询集合
         // 3.1 如何没有数据则直接返回。
-        List<GoodsGetResponseBody> getResponseBodies = new ArrayList<>();
+        List<GoodsGetResponsebody> getResponseBodies = new ArrayList<>();
         if (responseBody.getTotal() == 0) {
             responseBody.setRows(getResponseBodies);
             return responseBody;
@@ -128,7 +124,7 @@ public class GoodsServiceImpl implements GoodsService {
             goodss.add(goods);
         }
         for (Goods goods : goodss) {
-            GoodsGetResponseBody getResponseBody = new GoodsGetResponseBody();
+            GoodsGetResponsebody getResponseBody = new GoodsGetResponsebody();
             BeanUtils.copyProperties(goods, getResponseBody);
             getResponseBodies.add(getResponseBody);
         }

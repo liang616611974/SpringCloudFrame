@@ -1,6 +1,7 @@
 package com.liangfeng.study.goods;
 
 
+import com.liangfeng.study.common.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,9 +20,9 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  */
 @ServletComponentScan
 @EnableCircuitBreaker
-@EnableFeignClients(basePackages = {"com.liangfeng.study"})
+@EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
 @EnableEurekaClient
-@SpringBootApplication(scanBasePackages = {"com.liangfeng.study"},exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
+@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE},exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class GoodsApplication {
 
     public static void main(String[] args) {

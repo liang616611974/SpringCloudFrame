@@ -1,4 +1,7 @@
-package com.liangfeng.study.common.web.dto;
+package com.liangfeng.study.common.web.dto.request;
+
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.GroupSequence;
 import javax.validation.groups.Default;
@@ -40,5 +43,11 @@ public class Request<T> {
     // 按照顺序验证组
     @GroupSequence({Default.class, Remove.class, Get.class, Query.class, Modify.class, Add.class,})
     public interface All { }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
 }
 

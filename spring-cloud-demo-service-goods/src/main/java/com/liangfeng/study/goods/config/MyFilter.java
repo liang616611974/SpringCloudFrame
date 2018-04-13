@@ -10,6 +10,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @author Liangfeng
@@ -32,6 +33,7 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         logger.info("=========MyFilter 经过==============================");
         WebUtils.setSessionAttribute((HttpServletRequest)request, AppConstant.SESSION_ATTR_NAME_USERID,new Long("666"));
+        WebUtils.setSessionAttribute((HttpServletRequest)request, AppConstant.SESSION_ATTR_NAME_USERROLES, Arrays.asList(new Long(1111),new Long(2222)));
         filterChain.doFilter(request,response);
     }
 

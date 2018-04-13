@@ -1,12 +1,11 @@
 package com.liangfeng.study.goods.service;
 
-import com.liangfeng.study.common.web.dto.GetRequestBody;
-import com.liangfeng.study.common.web.dto.QueryPageResponseBody;
-import com.liangfeng.study.common.web.dto.RemoveRequestBody;
-import com.liangfeng.study.goods.web.request.GoodsQueryRequestBody;
-import com.liangfeng.study.goods.web.request.GoodsSaveOrUptRequestBody;
-import com.liangfeng.study.goods.web.response.GoodsGetResponseBody;
-import com.liangfeng.study.goods.web.response.GoodsQueryResponseBody;
+import com.liangfeng.study.common.web.dto.request.GetRequestbody;
+import com.liangfeng.study.common.web.dto.request.RemoveRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
 
 /**
  * @author Liangfeng
@@ -21,31 +20,31 @@ public interface GoodsService {
      * 添加商品
      * @param requestBody
      */
-    void add(GoodsSaveOrUptRequestBody requestBody);
+    void add(GoodsAddOrMdfRequestbody requestBody);
 
     /**
      * 修改商品
      * @param requestBody
      */
-    void modify(GoodsSaveOrUptRequestBody requestBody);
+    void modify(GoodsAddOrMdfRequestbody requestBody);
 
     /**
      * 删除商品
      * @param requestBody
      */
-    void remove(RemoveRequestBody requestBody);
+    void remove(RemoveRequestbody requestBody);
 
     /**
      * 获取商品
      * @param requestBody
      * @return
      */
-    GoodsGetResponseBody get(GetRequestBody requestBody);
+    GoodsGetResponsebody get(GetRequestbody requestBody);
 
     /**
      * 分页查询商品
      * @param requestBody
      */
-    GoodsQueryResponseBody queryPage(GoodsQueryRequestBody requestBody);
+    GoodsQueryResponsebody queryPage(GoodsQueryPageRequestbody requestBody);
 
 }

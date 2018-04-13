@@ -1,7 +1,7 @@
 package com.liangfeng.study.goods.web.response;
 
 
-import com.liangfeng.study.common.web.dto.QueryPageResponseBody;
+import com.liangfeng.study.common.web.dto.response.QueryPageResponsebody;
 
 /**
  * @author Liangfeng
@@ -10,6 +10,6 @@ import com.liangfeng.study.common.web.dto.QueryPageResponseBody;
  * @Description:
  * @date  2018/4/9 16:37
  */
-public class GoodsQueryResponseBody extends QueryPageResponseBody<GoodsGetResponseBody>{
+public class GoodsQueryResponsebody extends QueryPageResponsebody<GoodsGetResponsebody> {
     
 }

@@ -1,4 +1,4 @@
-package com.liangfeng.study.common.web.dto;
+package com.liangfeng.study.common.web.dto.request;
 
 
 import io.swagger.annotations.ApiModelProperty;
@@ -15,7 +15,7 @@ import java.util.List;
  * @date  2018/4/9 18:19
  */
 @Data
-public class RemoveRequestBody {
+public class RemoveRequestbody extends BaseRequestbody {
     /**
      * 主键集合
      */

@@ -9,6 +9,9 @@ package com.liangfeng.study.common.constant;
  */
 public class AppConstant {
 
+	/** 应用基本包引用 */
+	public static final String BASE_PACKAGE = "com.liangfeng.study";
+
 	/** 应用字符编码 */
 	public static final String ENCODING = "UTF-8";
 	
@@ -29,5 +32,15 @@ public class AppConstant {
 
 	/** session userid 属性key */
 	public static final String SESSION_ATTR_NAME_USERID = "userId";
-	
+
+	/** session userRoles 属性key */
+	public static final String SESSION_ATTR_NAME_USERROLES = "userRoles";
+
+	/** controller 切入点表达式 */
+	public static final String POINTCUT_CONTROLLER = "execution(public * com.*.*.*.web.controller.*.*(..))";
+
+	/** 新增方法名称前缀 */
+	public static final String ADD_METHOD_PREFIX = "add";
+
+
 }

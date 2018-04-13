@@ -1,14 +1,9 @@
 package com.liangfeng.study.goods.dao.auto.model.pojo;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liangfeng.study.common.constant.AppConstant;
 import com.liangfeng.study.common.framework.base.BaseEntity;
-import com.liangfeng.study.common.web.dto.Request;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 

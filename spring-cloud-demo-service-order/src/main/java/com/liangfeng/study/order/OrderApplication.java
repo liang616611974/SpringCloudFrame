@@ -1,6 +1,7 @@
 package com.liangfeng.study.order;
 
 
+import com.liangfeng.study.common.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -16,9 +17,9 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  */
 
 @EnableCircuitBreaker
-@EnableFeignClients(basePackages = {"com.liangfeng.study"})
+@EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
 @EnableEurekaClient
-@SpringBootApplication(scanBasePackages = {"com.liangfeng.study"})
+@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})
 public class OrderApplication {
 
     public static void main(String[] args) {

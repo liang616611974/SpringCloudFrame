@@ -1,5 +1,7 @@
 package com.liangfeng.study.common.framework.page;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -9,9 +11,9 @@ import java.io.Serializable;
 * @date 2016-11-10
 * @version 1.0
  */
+@Data
 public class PageRequest implements Serializable {
 
-	
 	private static final long serialVersionUID = 1634988769228106224L;
 	
 	/**
@@ -33,42 +35,5 @@ public class PageRequest implements Serializable {
 	 * 排序的多个列,如: username desc
 	 */
 	private String sortColumns;
-	
-	public PageRequest() {
-		
-	}
-	
-	public int getPageWidth() {
-		return pageWidth;
-	}
-
-	public void setPageWidth(int pageWidth) {
-		this.pageWidth = pageWidth;
-	}
-	
-	public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	
-	public String getSortColumns() {
-		return sortColumns;
-	}
-
-	public void setSortColumns(String sortColumns) {
-		this.sortColumns = sortColumns;
-	}
-	
 	
 }

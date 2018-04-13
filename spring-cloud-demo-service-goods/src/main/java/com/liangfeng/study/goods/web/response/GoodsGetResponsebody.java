@@ -3,10 +3,8 @@ package com.liangfeng.study.goods.web.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liangfeng.study.common.constant.AppConstant;
-import com.liangfeng.study.common.web.dto.Request;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -17,7 +15,7 @@ import java.util.Date;
  * @Description:
  * @date  2018/4/10 10:25
  */
-public class GoodsGetResponseBody {
+public class GoodsGetResponsebody {
 
     @ApiModelProperty(value = "商品名称")
     private String goodsName;
