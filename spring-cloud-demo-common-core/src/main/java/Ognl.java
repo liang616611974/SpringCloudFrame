@@ -1,4 +1,4 @@
-import com.liangfeng.study.common.framework.page.SortInfo;
+import com.liangfeng.study.core.framework.page.SortInfo;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.reflect.Array;

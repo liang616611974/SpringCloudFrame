@@ -52,6 +52,25 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
+      <!--  &lt;!&ndash; 数据连接池 &ndash;&gt;
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>-->
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <!--mysql jdbc驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+
         <!-- Commons 工具 -->
         <dependency>
             <groupId>commons-io</groupId>

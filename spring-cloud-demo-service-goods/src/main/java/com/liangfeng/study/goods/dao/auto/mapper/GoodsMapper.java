@@ -1,8 +1,8 @@
 package com.liangfeng.study.goods.dao.auto.mapper;
 
-import com.liangfeng.study.common.framework.page.PageRequest;
 import com.liangfeng.study.goods.dao.auto.model.pojo.Goods;
 import com.liangfeng.study.goods.dao.auto.model.qo.GoodsQuery;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -13,6 +13,7 @@ import java.util.List;
  * @Description:
  * @date  2018/4/9 17:03
  */
+@Mapper
 public interface GoodsMapper {
     /**
      * 保存

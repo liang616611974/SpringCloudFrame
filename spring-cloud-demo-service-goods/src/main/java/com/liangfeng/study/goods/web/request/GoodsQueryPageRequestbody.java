@@ -1,15 +1,11 @@
 package com.liangfeng.study.goods.web.request;
 
 
-import com.liangfeng.study.common.web.dto.request.BaseRequestbody;
-import com.liangfeng.study.common.web.dto.request.QueryPageRequestbody;
-import com.liangfeng.study.common.web.dto.request.Request;
+import com.liangfeng.study.core.web.dto.request.QueryPageRequestbody;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Liangfeng

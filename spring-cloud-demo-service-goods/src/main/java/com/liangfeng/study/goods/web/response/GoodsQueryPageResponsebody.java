@@ -1,7 +1,7 @@
 package com.liangfeng.study.goods.web.response;
 
 
-import com.liangfeng.study.common.web.dto.response.QueryPageResponsebody;
+import com.liangfeng.study.core.web.dto.response.QueryPageResponsebody;
 
 /**
  * @author Liangfeng

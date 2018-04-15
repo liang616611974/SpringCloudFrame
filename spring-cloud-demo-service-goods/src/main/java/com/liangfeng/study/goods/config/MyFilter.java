@@ -1,7 +1,7 @@
 package com.liangfeng.study.goods.config;
 
 
-import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.core.constant.AppConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.WebUtils;

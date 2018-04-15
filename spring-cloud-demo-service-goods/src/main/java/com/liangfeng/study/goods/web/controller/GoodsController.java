@@ -1,10 +1,10 @@
 package com.liangfeng.study.goods.web.controller;
 
 
-import com.liangfeng.study.common.web.dto.request.GetRequestbody;
-import com.liangfeng.study.common.web.dto.request.RemoveRequestbody;
-import com.liangfeng.study.common.web.dto.request.Request;
-import com.liangfeng.study.common.web.dto.response.Response;
+import com.liangfeng.study.core.web.dto.request.GetRequestbody;
+import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
+import com.liangfeng.study.core.web.dto.request.Request;
+import com.liangfeng.study.core.web.dto.response.Response;
 import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;

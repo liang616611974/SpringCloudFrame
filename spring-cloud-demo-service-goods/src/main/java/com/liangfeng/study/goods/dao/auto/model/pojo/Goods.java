@@ -1,7 +1,7 @@
 package com.liangfeng.study.goods.dao.auto.model.pojo;
 
 
-import com.liangfeng.study.common.framework.base.BaseEntity;
+import com.liangfeng.study.core.framework.base.BaseEntity;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import java.util.Date;
  * @date  2018/4/9 17:03
  */
 @Data
-public class Goods extends BaseEntity{
+public class Goods extends BaseEntity {
 
     /**
      * 主键

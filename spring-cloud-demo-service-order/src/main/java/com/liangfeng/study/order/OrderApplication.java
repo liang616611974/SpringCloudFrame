@@ -1,7 +1,7 @@
 package com.liangfeng.study.order;
 
 
-import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.core.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;

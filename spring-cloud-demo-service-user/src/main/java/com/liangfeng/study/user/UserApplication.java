@@ -1,7 +1,7 @@
 package com.liangfeng.study.user;
 
 
-import com.liangfeng.study.common.constant.AppConstant;
+import com.liangfeng.study.core.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;

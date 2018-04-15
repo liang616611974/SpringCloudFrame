@@ -2,9 +2,9 @@ package com.liangfeng.study.goods.web.request;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liangfeng.study.common.constant.AppConstant;
-import com.liangfeng.study.common.web.dto.request.AddOrMdfRequestbody;
-import com.liangfeng.study.common.web.dto.request.Request;
+import com.liangfeng.study.core.constant.AppConstant;
+import com.liangfeng.study.core.web.dto.request.AddOrMdfRequestbody;
+import com.liangfeng.study.core.web.dto.request.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
