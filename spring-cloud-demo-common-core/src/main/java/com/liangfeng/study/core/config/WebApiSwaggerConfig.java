@@ -1,5 +1,6 @@
 package com.liangfeng.study.core.config;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class WebApiSwaggerConfig {
             docket = new Docket(DocumentationType.SWAGGER_2)
                     .apiInfo(apiInfo())
                     .select()
-                    .apis(RequestHandlerSelectors.basePackage(swaggerApiConfig.getBasePackage()))
+                    .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                     .paths(PathSelectors.any())
                     .build();
         }catch (Exception e){
