@@ -42,5 +42,8 @@ public class AppConstant {
 	/** 新增方法名称前缀 */
 	public static final String ADD_METHOD_PREFIX = "add";
 
+	/** 应用数据库配置前缀 */
+	public static final String DATASOURCE_CONFIG_PREFIX = "spring.datasource";
+
 
 }

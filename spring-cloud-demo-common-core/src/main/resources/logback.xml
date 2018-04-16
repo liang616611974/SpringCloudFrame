@@ -2,11 +2,14 @@
 <configuration>
 
     <!-- 项目名称 -->
-    <property name="PRJ_NAME" value="spring-cloud-demo"/>
+    <springProperty scope="context" name="PRJ_NAME" source="app.projectName"/>
+    <!--<property name="PRJ_NAME" value="spring-cloud-demo"/>-->
     <!-- 应用名称 -->
-    <property name="APP_NAME" value="app-goods"/>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
+    <!--<property name="APP_NAME" value="app-goods"/>-->
     <!-- 应用包路径 -->
-    <property name="APP_PACKAGE_NAME" value="com.liangfeng.study"/>
+    <springProperty scope="context" name="APP_PACKAGE_NAME" source="app.basePackage"/>
+    <!--<property name="APP_PACKAGE_NAME" value="com.liangfeng.study"/>-->
 
     <!-- 文件输出格式 -->
     <!-- <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />-->
@@ -14,9 +17,9 @@
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- test文件路径 -->
-    <property name="TEST_FILE_PATH" value="/logs/${PRJ_NAME}/${APP_NAME}"/>
+    <property name="TEST_FILE_PATH" value="/logs/${PRJ_NAME}/"/>
     <!-- pro文件路径 -->
-    <property name="PROD_FILE_PATH" value="/logs/${PRJ_NAME}/${APP_NAME}"/>
+    <property name="PROD_FILE_PATH" value="/logs/${PRJ_NAME}/"/>
 
     <!-- 开发环境 -->
     <springProfile name="dev">

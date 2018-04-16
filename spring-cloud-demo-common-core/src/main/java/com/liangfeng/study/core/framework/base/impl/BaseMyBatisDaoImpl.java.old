@@ -195,5 +195,5 @@ public abstract class BaseMyBatisDaoImpl<E extends Serializable,Q extends PageRe
 	private String getCountStatementForPaging(String statementName) {
 		return statementName + SQL_COUNT_SUFFIX;
 	}
-	
+
 }

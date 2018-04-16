@@ -52,16 +52,10 @@
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
 
-      <!--  &lt;!&ndash; 数据连接池 &ndash;&gt;
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>-->
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.1.1</version>
         </dependency>
 
         <!--mysql jdbc驱动 -->
@@ -97,31 +91,6 @@
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
     </dependencies>
-
-    <!-- 配置文件环境配置 开始 -->
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <profileActive>dev</profileActive>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <profileActive>test</profileActive>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <profileActive>prod</profileActive>
-            </properties>
-        </profile>
-    </profiles>
 
 
 </project>
