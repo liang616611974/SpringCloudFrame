@@ -32,6 +32,7 @@
         <swagger.version>2.7.0</swagger.version>
         <druid.version>1.1.4</druid.version>
         <mybatis-spring.version>1.3.0</mybatis-spring.version>
+        <log4jdbc-log4j2-jdbc4.1.verson>1.16</log4jdbc-log4j2-jdbc4.1.verson>
     </properties>
 
     <!-- SpringIO 依赖版本管理 -->
@@ -80,6 +81,12 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis-spring.version}</version>
+            </dependency>
+            <!-- log4jdbc-log4j2-jdbc4.1 打印数据源执行的sql日志 -->
+            <dependency>
+                <groupId>org.bgee.log4jdbc-log4j2</groupId>
+                <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+                <version>${log4jdbc-log4j2-jdbc4.1.verson}</version>
             </dependency>
             <!-- swagger 接口测试框架-->
             <dependency>

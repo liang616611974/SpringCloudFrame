@@ -4,11 +4,11 @@ package com.liangfeng.study.goods.service.impl;
 import com.liangfeng.study.core.helper.DateHelper;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
-import com.liangfeng.study.goods.dao.auto.model.pojo.Goods;
-import com.liangfeng.study.goods.dao.auto.model.qo.GoodsQuery;
+import com.liangfeng.study.goods.model.auto.pojo.Goods;
+import com.liangfeng.study.goods.model.auto.qo.GoodsQuery;
 import com.liangfeng.study.goods.service.GoodsService;
-import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
 import com.liangfeng.study.goods.web.response.GoodsQueryPageResponsebody;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ import java.util.List;
  * @Description:
  * @date  2018/4/9 16:50
  */
-@Service
+//@Service
 public class GoodsServiceImpl implements GoodsService {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsServiceImpl.class);

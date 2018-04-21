@@ -23,7 +23,6 @@ import java.util.Properties;
 
 
 
-
 /**
  * @author Liangfeng
  * @version 1.0
@@ -31,8 +30,9 @@ import java.util.Properties;
  * @Description:
  * @date  2018/4/17 23:38
  */
-@Configuration
+
 //@ConfigurationProperties(prefix = "spring.datasource")
+@Configuration
 @Data
 public class GoodsDataSourceConfig extends DataSourceConfig {
 
@@ -67,3 +67,4 @@ public class GoodsDataSourceConfig extends DataSourceConfig {
 
 
 }
+

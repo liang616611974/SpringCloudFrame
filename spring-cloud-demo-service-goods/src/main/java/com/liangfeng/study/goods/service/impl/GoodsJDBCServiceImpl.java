@@ -3,16 +3,20 @@ package com.liangfeng.study.goods.service.impl;
 
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
-import com.liangfeng.study.goods.dao.auto.mapper.GoodsMapper;
-import com.liangfeng.study.goods.dao.auto.model.pojo.Goods;
-import com.liangfeng.study.goods.dao.auto.model.qo.GoodsQuery;
+
+import com.liangfeng.study.goods.mapper.GoodsMapper;
+import com.liangfeng.study.goods.model.auto.pojo.Goods;
+import com.liangfeng.study.goods.model.auto.qo.GoodsQuery;
 import com.liangfeng.study.goods.service.GoodsService;
-import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsQueryPageRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
 import com.liangfeng.study.goods.web.response.GoodsQueryPageResponsebody;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +28,14 @@ import java.util.List;
  * @Description:
  * @date  2018/4/9 16:50
  */
-//@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-//@Service
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@Service
 public class GoodsJDBCServiceImpl implements GoodsService {
 
     @Autowired
     GoodsMapper goodsMapper;
 
-    //@Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void add(GoodsAddOrMdfRequestbody requestBody) {
         // 1.定义参数
@@ -42,7 +46,7 @@ public class GoodsJDBCServiceImpl implements GoodsService {
         goodsMapper.insert(goods);
     }
 
-    //@Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void modify(GoodsAddOrMdfRequestbody requestBody) {
         // 1.定义参数
@@ -53,7 +57,7 @@ public class GoodsJDBCServiceImpl implements GoodsService {
         goodsMapper.update(goods);
     }
 
-    //@Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void remove(RemoveRequestbody requestBody) {
         // 1.遍历删除
@@ -61,7 +65,6 @@ public class GoodsJDBCServiceImpl implements GoodsService {
             goodsMapper.delete(id);
         }
     }
-
 
     @Override
     public GoodsGetResponsebody get(GetRequestbody requestBody) {
@@ -83,7 +86,7 @@ public class GoodsJDBCServiceImpl implements GoodsService {
         // 2.查询总数
         GoodsQuery goodsQuery = new GoodsQuery();
         BeanUtils.copyProperties(requestBody,goodsQuery);
-        total = goodsMapper.total(goodsQuery);
+        total = goodsMapper.count(goodsQuery);
         responseBody.setTotal(total);
         // 3.查询集合
         // 3.1 如何没有数据则直接返回。

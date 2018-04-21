@@ -64,6 +64,11 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
+        <!-- log4jdbc-log4j2-jdbc4.1 打印数据源执行的sql日志 -->
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+        </dependency>
 
         <!-- Commons 工具 -->
         <dependency>

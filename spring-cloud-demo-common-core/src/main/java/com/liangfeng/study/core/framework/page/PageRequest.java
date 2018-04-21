@@ -1,5 +1,7 @@
 package com.liangfeng.study.core.framework.page;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -32,8 +34,26 @@ public class PageRequest implements Serializable {
 	private int pageWidth;
 	
 	/**
-	 * 排序的多个列,如: username desc
+	 * 排序的多个列,如: create_time desc id desc
 	 */
 	private String sortColumns;
-	
+
+
+	/**
+	 * 分页开始索引
+	 */
+	private int begin;
+
+	/**
+	 * 分页结束索引
+	 */
+	private int end;
+
+	public int getBegin() {
+		return ((this.pageNum - 1) * this.pageSize);
+	}
+
+	public int getEnd() {
+		return this.pageNum * this.pageSize;
+	}
 }

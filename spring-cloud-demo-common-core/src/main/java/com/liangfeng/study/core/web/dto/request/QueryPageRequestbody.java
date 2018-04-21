@@ -1,6 +1,7 @@
 package com.liangfeng.study.core.web.dto.request;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +25,25 @@ public class QueryPageRequestbody extends BaseRequestbody{
     @ApiModelProperty(value = "每页显示数量")
     @JsonProperty("rows")
     private Integer pageSize;
+
+    @ApiModelProperty(value = "排序方式", example = "create_time desc modify_time desc")
+    private String sortColumns;
+
+    @ApiModelProperty(value = "分页开始索引",hidden = true)
+    @JsonIgnore
+    private int begin;
+
+    @ApiModelProperty(value = "结束索引",hidden = true)
+    @JsonIgnore
+    private int end;
+
+    public int getBegin() {
+        return ((this.pageNum - 1) * this.pageSize);
+    }
+
+    public int getEnd() {
+        return this.pageNum * this.pageSize;
+    }
 
     @Override
     public String toString() {

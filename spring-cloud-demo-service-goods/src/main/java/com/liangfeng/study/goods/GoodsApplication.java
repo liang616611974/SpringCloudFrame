@@ -19,9 +19,9 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @date  2017/10/31 9:50
  */
 @ServletComponentScan
-@EnableCircuitBreaker
+//@EnableCircuitBreaker
 @EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
-@EnableEurekaClient
+//@EnableEurekaClient
 @SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE},exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class GoodsApplication {
 

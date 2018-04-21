@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.liangfeng.study.goods.mapper.GoodsMapper">
+
+	<!-- 类映射 -->
+	<resultMap id="RM_Goods" type="com.liangfeng.study.goods.model.auto.pojo.Goods">
+		<result property="id" column="id" jdbcType="BIGINT" />
+		<result property="goodsName" column="goods_name" jdbcType="VARCHAR" />
+		<result property="type" column="type" jdbcType="VARCHAR" />
+		<result property="price" column="price" jdbcType="DECIMAL" />
+		<result property="producerName" column="producer_name" jdbcType="VARCHAR" />
+		<result property="produceDate" column="produce_date" jdbcType="DATE" />
+		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
+		<result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
+		<result property="createUser" column="create_user" jdbcType="BIGINT" />
+		<result property="modifyUser" column="modify_user" jdbcType="BIGINT" />
+	</resultMap>
+
+	<!-- 用于select查询公用的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		id,goods_name,type,price,producer_name,produce_date,create_time,modify_time,create_user,modify_user
+	    ]]>
+	</sql>
+
+	<!-- 用于select查询公用的条件  -->
+	<sql id="where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			<if test="@Ognl@isNotEmpty(id)">
+				AND id,jdbcType=BIGINT = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(goodsName)">
+				AND goods_name,jdbcType=VARCHAR = #{goodsName,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(type)">
+				AND type,jdbcType=VARCHAR = #{type,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(price)">
+				AND price,jdbcType=DECIMAL = #{price,jdbcType=DECIMAL}
+			</if>
+			<if test="@Ognl@isNotEmpty(producerName)">
+				AND producer_name,jdbcType=VARCHAR = #{producerName,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(produceDate)">
+				AND produce_date,jdbcType=DATE = #{produceDate,jdbcType=DATE}
+			</if>
+			<if test="@Ognl@isNotEmpty(createTimeBegin)">
+				AND create_time >= #{createTimeBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(createTimeEnd)">
+				AND create_time,jdbcType=TIMESTAMP &lt;= #{createTimeEnd,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(modifyTimeBegin)">
+				AND modify_time >= #{modifyTimeBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(modifyTimeEnd)">
+				AND modify_time,jdbcType=TIMESTAMP &lt;= #{modifyTimeEnd,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(createUser)">
+				AND create_user,jdbcType=BIGINT = #{createUser,jdbcType=BIGINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(modifyUser)">
+				AND modify_user,jdbcType=BIGINT = #{modifyUser,jdbcType=BIGINT}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 插入-->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			<if test="goodsName != null">
+				goods_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="price != null">
+				price,
+			</if>
+			<if test="producerName != null">
+				producer_name,
+			</if>
+			<if test="produceDate != null">
+				produce_date,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="modifyUser != null">
+				modify_user,
+			</if>
+		</trim>
+
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id},
+			<if test="goodsName != null">
+				#{goodsName,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=DECIMAL},
+			</if>
+			<if test="producerName != null">
+				#{producerName,jdbcType=VARCHAR},
+			</if>
+			<if test="produceDate != null">
+				#{produceDate,jdbcType=DATE},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				#{createUser,jdbcType=BIGINT},
+			</if>
+			<if test="modifyUser != null">
+				#{modifyUser,jdbcType=BIGINT},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update">
+		UPDATE goods
+		<set>
+			<if test="goodsName != null">
+				goods_name = #{goodsName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR} ,
+			</if>
+			<if test="price != null">
+				price = #{price,jdbcType=DECIMAL} ,
+			</if>
+			<if test="producerName != null">
+				producer_name = #{producerName,jdbcType=VARCHAR} ,
+			</if>
+			<if test="produceDate != null">
+				produce_date = #{produceDate,jdbcType=DATE} ,
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=BIGINT} ,
+			</if>
+			<if test="modifyUser != null">
+				modify_user = #{modifyUser,jdbcType=BIGINT} 
+			</if>
+		</set>
+		WHERE
+		id = #{id,jdbcType=BIGINT} 
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+	    <![CDATA[
+	        DELETE FROM goods WHERE
+	        id = #{id} 
+	    ]]>
+	</delete>
+
+
+	<!-- 根据主键获取 -->
+	<select id="get" resultMap="RM_Goods">
+		SELECT
+		<include refid="columns" />
+	    <![CDATA[
+		    FROM goods 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+
+	<!-- 统计 -->
+	<select id="count" resultType="java.lang.Integer">
+		SELECT count(*) FROM goods
+		<include refid="where" />
+	</select>
+	
+
+	<!-- 查询 -->
+	<select id="query" resultMap="RM_Goods">
+		SELECT
+		<include refid="columns" />
+		FROM goods
+		<include refid="where" />
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryPage"  resultMap="RM_Goods">
+		SELECT
+		<include refid="columns" />
+		FROM goods
+		<include refid="where" />
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+		LIMIT #{begin},#{pageSize}
+	</select>
+
+</mapper>
+
