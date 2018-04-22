@@ -29,7 +29,7 @@
             </encoder>
         </appender>
 
-        <logger name="APP_PACKAGE_NAME" level="debug"/>
+        <logger name="${APP_PACKAGE_NAME}" level="DEBUG"/>
 
         <logger name="jdbc.connection" level="OFF" />
         <logger name="jdbc.audit" level="OFF" />

@@ -2,7 +2,10 @@ package com.liangfeng.study.goods.test.service;
 
 
 import com.liangfeng.study.core.component.id.IdGenerator;
+import com.liangfeng.study.core.constant.AppConstant;
 import com.liangfeng.study.core.framework.base.BaseTest;
+import com.liangfeng.study.core.helper.DateHelper;
+import com.liangfeng.study.core.helper.ObjectHelper;
 import com.liangfeng.study.goods.mapper.GoodsMapper;
 import com.liangfeng.study.goods.model.auto.pojo.Goods;
 import com.liangfeng.study.goods.service.GoodsService;
@@ -31,8 +34,8 @@ import java.util.Date;
 @SpringBootTest
 public class GoodsServiceTest extends BaseTest{
 
-    @Autowired
-    IdGenerator idGenerator;
+    // 不需要校验的字段名称数组
+    private static final String[] noneValidFileds = {AppConstant.SESSION_ATTR_NAME_USERID, AppConstant.SESSION_ATTR_NAME_USERROLES};
 
     @Autowired
     GoodsMapper goodsMapper;
@@ -45,23 +48,41 @@ public class GoodsServiceTest extends BaseTest{
         // 1.定义参数
         Date now = new Date();
         GoodsAddOrMdfRequestbody requestbody;
+        Goods goods;
 
         // 2.测试情景
         // 2.1 测试情景一
+        // 构造测试数据
         requestbody = new GoodsAddOrMdfRequestbody();
-        requestbody.setId(idGenerator.generateId());
-        requestbody.setGoodsName("商品名称1");
-        requestbody.setType(new String("1"));
-        requestbody.setPrice(new BigDecimal("1"));
-        requestbody.setProducerName(new String("1"));
-        requestbody.setProduceDate(now);
-        requestbody.setCreateTime(now);
-        requestbody.setModifyTime(now);
-        requestbody.setCreateUser(new Long("1"));
-        requestbody.setModifyUser(new Long("1"));
+        ObjectHelper.initFieldsVal(requestbody,1);
+        // 执行
         service.add(requestbody);
-        Goods goods = goodsMapper.get(requestbody.getId());
-        validObjProps("测试添加商品失败",goods);
+        // 验证结果
+        goods = goodsMapper.get(requestbody.getId());
+        compareObjProps("测试添加商品失败",requestbody,goods,noneValidFileds);
+    }
+
+    @Test
+    public void testModify(){
+        // 1.定义参数
+        Date now = new Date();
+        GoodsAddOrMdfRequestbody requestbody;
+        Goods goods;
+
+        // 2.测试情景
+        // 2.1 测试情景一
+        // 构造测试数据
+        goods = new Goods();
+        ObjectHelper.initFieldsVal(goods,1);
+        goodsMapper.insert(goods);
+        requestbody = new GoodsAddOrMdfRequestbody();
+        ObjectHelper.initFieldsVal(requestbody,2);
+        requestbody.setId(goods.getId());
+        // 运行
+        service.modify(requestbody);
+        // 验证结果
+        goods = goodsMapper.get(requestbody.getId());
+        compareObjProps("测试修改商品失败",requestbody,goods,noneValidFileds);
     }
 
 }

@@ -13,9 +13,9 @@
     </settings>
 
     <!-- 2.别名定义 -->
-    <!--<typeAliases>
-        <package name="cn.healthmall.teamsite.core.model.pojo"/>
-        <package name="cn.healthmall.teamsite.core.model.query"/>
-    </typeAliases>-->
+    <typeAliases>
+        <package name="com.liangfeng.study.goods.web.request"/>
+        <package name="com.liangfeng.study.goods.web.response"/>
+    </typeAliases>
 
 </configuration>

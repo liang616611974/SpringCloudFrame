@@ -14,7 +14,7 @@ import com.liangfeng.study.core.framework.base.BaseEntity;
 * @Title: Goods
 * @Description:
 * @author Liangfeng
-* @date 2018-04-21
+* @date 2018-04-22
 * @version 1.0
  */
 @Data

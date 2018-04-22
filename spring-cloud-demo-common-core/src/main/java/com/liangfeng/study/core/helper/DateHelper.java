@@ -1,5 +1,6 @@
 package com.liangfeng.study.core.helper;
 
+import com.liangfeng.study.core.constant.AppConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -31,11 +32,29 @@ public class DateHelper {
 	private static final int SECOND = 6;
 	
 	//默认的日期格式
-	private static final String DATE_PATTERN = "yyyy-MM-dd";
+	private static final String PATTERN_DATE = AppConstant.PATTERN_DATE;
 	//默认的日期时间格式
-	private static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	private static final String PATTERN_DATETIME = AppConstant.PATTERN_DATETIME;
 	
 	private DateHelper(){}
+
+	/**
+	 * 时间对象格式化成默认日期字符串 "yyyy-MM-dd"
+	 * @param date 时间对象
+	 * @return
+	 */
+	public static String formatDate(Date date){
+		return DateFormatUtils.format(date, PATTERN_DATE);
+	}
+
+	/**
+	 * 时间对象格式化成默认日期时间字符串 "yyyy-MM-dd HH:mm:ss"
+	 * @param date
+	 * @return
+	 */
+	public static String formatDateTime(Date date){
+		return DateFormatUtils.format(date, PATTERN_DATETIME);
+	}
 	
 	/**
 	 * 时间对象格式化成字符串
@@ -49,31 +68,25 @@ public class DateHelper {
 		}
 		return DateFormatUtils.format(date, pattern);
 	}
-	
+
 	/**
-	 * 时间对象格式化成默认日期字符串 "yyyy-MM-dd"
-	 * @param date 时间对象
+	 * 字符串按照默认日期格式"yyyy-MM-dd"解析成时间对象
+	 * @param dateStr 时间字符串
 	 * @return
 	 */
-	public static String formatDate(Date date){
-		if(date==null){
-			return "";
-		}
-		return DateFormatUtils.format(date, DATE_PATTERN);
+	public static Date parseDate(String dateStr){
+		return parse(dateStr,PATTERN_DATE);
 	}
-	
+
 	/**
-	 * 时间对象格式化成默认日期时间字符串 "yyyy-MM-dd HH:mm:ss"
-	 * @param date
+	 * 字符串按照默认日期格式"yyyy-MM-dd HH:mm:dd"解析成时间对象
+	 * @param dateStr 时间字符串
 	 * @return
 	 */
-	public static String formatDateTime(Date date){
-		if(date==null){
-			return "";
-		}
-		return DateFormatUtils.format(date, DATETIME_PATTERN);
+	public static Date parseDateTime(String dateStr){
+		return parse(dateStr,PATTERN_DATETIME);
 	}
-	
+
 	/**
 	 * 字符串解析成时间对象
 	 * @param dateStr 时间字符串
@@ -87,34 +100,7 @@ public class DateHelper {
 		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 		return sdf.parse(dateStr,new ParsePosition(0));
 	}
-	
-	/**
-	 * 字符串按照默认日期格式"yyyy-MM-dd"解析成时间对象
-	 * @param dateStr 时间字符串
-	 * @return
-	 */
-	public static Date parseDate(String dateStr){
-		if(StringUtils.isBlank(dateStr)){
-			return null;
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
-		return sdf.parse(dateStr,new ParsePosition(0));
-	}
-	
-	/**
-	 * 字符串按照默认日期格式"yyyy-MM-dd HH:mm:dd"解析成时间对象
-	 * @param dateStr 时间字符串
-	 * @return
-	 */
-	public static Date parseDateTime(String dateStr){
-		if(StringUtils.isBlank(dateStr)){
-			return null;
-		}
-		SimpleDateFormat sdf = new SimpleDateFormat(DATETIME_PATTERN);
-		return sdf.parse(dateStr,new ParsePosition(0));
-	}
-	
-	
+
 	/**
 	 * 时间追加
 	 * @param date 时间对象
@@ -270,6 +256,16 @@ public class DateHelper {
 		calendar.setTimeInMillis(timeStamp*1000l);
 		return calendar.getTime();
 	}
+
+	/**
+	 * 只获取日期部分
+	 * @param date
+	 * @return
+	 */
+	public static Date getDate(Date date){
+		return parseDate(formatDate(date));
+	}
+
 	public static void main(String[] args) {
 		Date date = DateHelper.parse("2016/10/24 12:12:12" , "yyyy-MM-dd");
 		System.out.println(date);

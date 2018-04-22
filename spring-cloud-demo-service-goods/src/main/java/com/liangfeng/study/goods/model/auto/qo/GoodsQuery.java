@@ -15,7 +15,7 @@ import com.liangfeng.study.core.framework.base.BaseQuery;
 * @Title: GoodsQuery.java
 * @Description:
 * @author Liangfeng
-* @date 2018-04-21
+* @date 2018-04-22
 * @version 1.0
  */
 @Data

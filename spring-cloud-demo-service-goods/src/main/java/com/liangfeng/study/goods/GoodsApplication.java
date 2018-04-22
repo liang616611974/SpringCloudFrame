@@ -11,6 +11,7 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
+
 /**
  * @author Liangfeng
  * @version 1.0
@@ -19,8 +20,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @date  2017/10/31 9:50
  */
 @ServletComponentScan
-//@EnableCircuitBreaker
 @EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
+//@EnableCircuitBreaker
 //@EnableEurekaClient
 @SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE},exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 public class GoodsApplication {

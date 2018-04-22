@@ -26,6 +26,10 @@ public class BaseTest {
     // 不需要校验的字段名称数组
     private static final String[] noneValidFileds = {"serialVersionUID"};
 
+    private static final String VALID_FILED_DESC = "验证字段名称:{}";
+
+    private static final String VALID_FILED_VAL_DESC = "验证字段名称:{},val1={},val2={}";
+
     /**
      * 验证对象属性值
      *
@@ -34,7 +38,7 @@ public class BaseTest {
      */
     public void validObjProps(String errMsg, Object validObj) {
         // 过滤一些无需校验的字段
-        validObjProps(errMsg, validObj, null, noneValidFileds);
+        validObjProps(errMsg, validObj, null, noneValidFileds, true);
     }
 
     /**
@@ -45,17 +49,17 @@ public class BaseTest {
      * @param includes 需要验证的属性
      * @param excludes 不需要验证的属性，
      */
-    public void validObjProps(String errMsg, Object validObj, String[] includes, String[] excludes) {
+    public void validObjProps(String errMsg, Object validObj, String[] includes, String[] excludes, boolean isContainParent) {
         Assert.assertNotNull(errMsg, validObj);
         if (includes != null) {
             for (String filedName : includes) {
-                logger.debug("验证FiledName========={}",filedName);
+                logger.debug(VALID_FILED_DESC, filedName);
                 Assert.assertNotNull(errMsg, ObjectHelper.getFieldValueByName(filedName, validObj));
             }
             return;
         }
         if (excludes != null) {
-            String[] fileNames = ObjectHelper.getFiledName(validObj);
+            String[] fileNames = ObjectHelper.getFiledName(validObj, isContainParent);
             Set<String> excludeSet = new HashSet<>();
             // 加上默认不需要校验的字段
             CollectionUtils.addAll(excludeSet, noneValidFileds);
@@ -64,7 +68,7 @@ public class BaseTest {
                 if (excludeSet.contains(filedName)) {
                     continue;
                 }
-                logger.debug("验证FiledName========={}",filedName);
+                logger.debug(VALID_FILED_DESC, filedName);
                 Assert.assertNotNull(errMsg, ObjectHelper.getFieldValueByName(filedName, validObj));
             }
             return;
@@ -82,38 +86,43 @@ public class BaseTest {
      * @param obj1
      * @param obj2
      */
-    public void compareObjProps(String errMsg, Object obj1,Object obj2) {
+    public void compareObjProps(String errMsg, Object obj1, Object obj2,String[] noneValidFileds) {
         // 过滤一些无需比较的字段
-        compareObjProps(errMsg, obj1,obj2,null,noneValidFileds);
+        compareObjProps(errMsg, obj1, obj2, null, noneValidFileds, true);
     }
 
     /**
      * 比较两个对象的属性值是否相等
      *
-     * @param errMsg 错误消息
-     * @param obj1 对象1
-     * @param obj2 对象2
+     * @param errMsg
+     * @param obj1
+     * @param obj2
+     */
+    public void compareObjProps(String errMsg, Object obj1, Object obj2) {
+        // 过滤一些无需比较的字段
+        compareObjProps(errMsg, obj1, obj2, null, noneValidFileds, true);
+    }
+
+    /**
+     * 比较两个对象的属性值是否相等
+     *
+     * @param errMsg   错误消息
+     * @param obj1     对象1
+     * @param obj2     对象2
      * @param includes 需要比较的属性
      * @param excludes 不需要比较的属性
      */
-    public void compareObjProps(String errMsg, Object obj1, Object obj2, String[] includes, String[] excludes) {
+    public void compareObjProps(String errMsg, Object obj1, Object obj2, String[] includes, String[] excludes, boolean isContainParent) {
         Assert.assertNotNull(errMsg, obj1);
         Assert.assertNotNull(errMsg, obj2);
         if (includes != null) {
             for (String filedName : includes) {
-                Object val1 = ObjectHelper.getFieldValueByName(filedName, obj1);
-                Object val2 = ObjectHelper.getFieldValueByName(filedName, obj2);
-                logger.debug("验证FiledName========={}",filedName);
-                if(val1 instanceof Date){
-                    Assert.assertEquals(errMsg, DateHelper.formatDateTime((Date) val1),DateHelper.formatDateTime((Date) val2));
-                }else{
-                    Assert.assertEquals(errMsg, val1, val2);
-                }
+                compareObjPropsVal(obj1, obj2,filedName, errMsg);
             }
             return;
         }
         if (excludes != null) {
-            String[] fileNames = ObjectHelper.getFiledName(obj1);
+            String[] fileNames = ObjectHelper.getFiledName(obj1, isContainParent);
             Set<String> excludeSet = new HashSet<>();
             // 加上默认不需要校验的字段
             CollectionUtils.addAll(excludeSet, noneValidFileds);
@@ -122,14 +131,7 @@ public class BaseTest {
                 if (excludeSet.contains(filedName)) {
                     continue;
                 }
-                logger.debug("验证FiledName========={}",filedName);
-                Object val1 = ObjectHelper.getFieldValueByName(filedName, obj1);
-                Object val2 = ObjectHelper.getFieldValueByName(filedName, obj2);
-                if(val1 instanceof Date){
-                    Assert.assertEquals(errMsg, DateHelper.formatDateTime((Date) val1),DateHelper.formatDateTime((Date) val2));
-                }else{
-                    Assert.assertEquals(errMsg, val1, val2);
-                }
+                compareObjPropsVal(obj1, obj2,filedName, errMsg);
             }
             return;
         }
@@ -144,5 +146,25 @@ public class BaseTest {
             }
         }*/
     }
+
+    /**
+     * 比较两个对象的字段值
+     * @param obj1
+     * @param obj2
+     * @param filedName
+     * @param errMsg
+     */
+    private void compareObjPropsVal(Object obj1, Object obj2, String filedName, String errMsg) {
+        Object val1 = ObjectHelper.getFieldValueByName(filedName, obj1);
+        Object val2 = ObjectHelper.getFieldValueByName(filedName, obj2);
+        if (val1 instanceof Date) {
+            val1 = DateHelper.formatDateTime((Date) val1);
+            val2 = DateHelper.formatDateTime((Date) val2);
+
+        }
+        logger.debug(VALID_FILED_VAL_DESC, filedName,val1,val2);
+        Assert.assertEquals(errMsg, val1, val2);
+    }
+
 
 }
