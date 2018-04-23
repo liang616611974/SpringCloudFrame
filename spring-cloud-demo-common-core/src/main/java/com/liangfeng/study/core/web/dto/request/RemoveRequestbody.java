@@ -7,6 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class RemoveRequestbody extends BaseRequestbody {
     @NotEmpty
     private List<Long> ids;
 
+    public void add(Long id){
+        if(this.ids==null){
+            ids = new ArrayList<>();
+        }
+        ids.add(id);
+    }
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
