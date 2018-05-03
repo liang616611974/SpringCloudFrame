@@ -20,11 +20,11 @@ public class QueryPageRequestbody extends BaseRequestbody{
 
     @ApiModelProperty(value = "页码")
     @JsonProperty("page")
-    private Integer pageNum;
+    private int pageNum;
 
     @ApiModelProperty(value = "每页显示数量")
     @JsonProperty("rows")
-    private Integer pageSize;
+    private int pageSize;
 
     @ApiModelProperty(value = "排序方式", example = "create_time desc modify_time desc")
     private String sortColumns;

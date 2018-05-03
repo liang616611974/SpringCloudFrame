@@ -32,40 +32,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
 		<where>
 			<if test="@Ognl@isNotEmpty(id)">
-				AND id,jdbcType=BIGINT = #{id,jdbcType=BIGINT}
+				AND id = #{id,jdbcType=BIGINT}
 			</if>
 			<if test="@Ognl@isNotEmpty(goodsName)">
-				AND goods_name,jdbcType=VARCHAR = #{goodsName,jdbcType=VARCHAR}
+				AND goods_name = #{goodsName,jdbcType=VARCHAR}
 			</if>
 			<if test="@Ognl@isNotEmpty(type)">
-				AND type,jdbcType=VARCHAR = #{type,jdbcType=VARCHAR}
+				AND type = #{type,jdbcType=VARCHAR}
 			</if>
 			<if test="@Ognl@isNotEmpty(price)">
-				AND price,jdbcType=DECIMAL = #{price,jdbcType=DECIMAL}
+				AND price = #{price,jdbcType=DECIMAL}
 			</if>
 			<if test="@Ognl@isNotEmpty(producerName)">
-				AND producer_name,jdbcType=VARCHAR = #{producerName,jdbcType=VARCHAR}
+				AND producer_name = #{producerName,jdbcType=VARCHAR}
 			</if>
-			<if test="@Ognl@isNotEmpty(produceDate)">
-				AND produce_date,jdbcType=DATE = #{produceDate,jdbcType=DATE}
+			<if test="@Ognl@isNotEmpty(produceDateBegin)">
+				AND produce_date >= #{produceDateBegin,jdbcType=DATE}
+			</if>
+			<if test="@Ognl@isNotEmpty(produceDateEnd)">
+				AND produce_date &lt;= #{produceDateEnd,jdbcType=DATE}
 			</if>
 			<if test="@Ognl@isNotEmpty(createTimeBegin)">
 				AND create_time >= #{createTimeBegin,jdbcType=TIMESTAMP}
 			</if>
 			<if test="@Ognl@isNotEmpty(createTimeEnd)">
-				AND create_time,jdbcType=TIMESTAMP &lt;= #{createTimeEnd,jdbcType=TIMESTAMP}
+				AND create_time &lt;= #{createTimeEnd,jdbcType=TIMESTAMP}
 			</if>
 			<if test="@Ognl@isNotEmpty(modifyTimeBegin)">
 				AND modify_time >= #{modifyTimeBegin,jdbcType=TIMESTAMP}
 			</if>
 			<if test="@Ognl@isNotEmpty(modifyTimeEnd)">
-				AND modify_time,jdbcType=TIMESTAMP &lt;= #{modifyTimeEnd,jdbcType=TIMESTAMP}
+				AND modify_time &lt;= #{modifyTimeEnd,jdbcType=TIMESTAMP}
 			</if>
 			<if test="@Ognl@isNotEmpty(createUser)">
-				AND create_user,jdbcType=BIGINT = #{createUser,jdbcType=BIGINT}
+				AND create_user = #{createUser,jdbcType=BIGINT}
 			</if>
 			<if test="@Ognl@isNotEmpty(modifyUser)">
-				AND modify_user,jdbcType=BIGINT = #{modifyUser,jdbcType=BIGINT}
+				AND modify_user = #{modifyUser,jdbcType=BIGINT}
 			</if>
 		</where>
 	</sql>

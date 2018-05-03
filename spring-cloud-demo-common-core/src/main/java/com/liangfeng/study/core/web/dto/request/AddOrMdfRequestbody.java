@@ -26,7 +26,6 @@ public class AddOrMdfRequestbody extends BaseRequestbody {
     @ApiModelProperty(value = "创建时间",hidden = true)
     private Date createTime;
 
-
     @ApiModelProperty(value = "修改时间",hidden = true)
     private Date modifyTime;
 

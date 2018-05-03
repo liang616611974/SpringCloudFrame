@@ -1,37 +1,29 @@
 package com.liangfeng.study.core.web.dto.response;
 
 
+import com.liangfeng.study.core.web.dto.request.Request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Liangfeng
  * @version 1.0
- * @Title: PageResponseBody
+ * @Title: AddOrMdfResponsebody
  * @Description:
- * @date  2018/4/11 17:47
+ * @date  2018/5/1 0001 上午 12:35
  */
 @Data
-public class QueryPageResponsebody<T> {
-    /**
-     * 总数
-     */
-    @ApiModelProperty(value = "总数")
-    private int total;
+public class AddResponsebody {
 
-    /**
-     * 数据集合
-     */
-    @ApiModelProperty(value = "数据集合")
-    private List<T> rows;
+    @ApiModelProperty(value = "主键")
+    private Long id;
 
-    public QueryPageResponsebody(){
-        rows = new ArrayList<>();
+    public AddResponsebody(Long id){
+        this.id = id;
     }
 
     @Override

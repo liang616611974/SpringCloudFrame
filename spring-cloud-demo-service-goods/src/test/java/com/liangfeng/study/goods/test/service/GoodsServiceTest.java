@@ -1,19 +1,20 @@
 package com.liangfeng.study.goods.test.service;
 
 
-import com.liangfeng.study.core.component.id.IdGenerator;
 import com.liangfeng.study.core.constant.AppConstant;
 import com.liangfeng.study.core.framework.base.BaseTest;
-import com.liangfeng.study.core.helper.DateHelper;
 import com.liangfeng.study.core.helper.ObjectHelper;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
-import com.liangfeng.study.core.web.dto.request.Request;
+import com.liangfeng.study.core.web.dto.response.AddResponsebody;
 import com.liangfeng.study.goods.mapper.GoodsMapper;
 import com.liangfeng.study.goods.model.auto.pojo.Goods;
+import com.liangfeng.study.goods.model.auto.qo.GoodsQuery;
 import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsQueryRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
+import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,9 +63,10 @@ public class GoodsServiceTest extends BaseTest{
     @Test
     public void testAdd(){
         // 1.定义参数
-        Date now = new Date();
         GoodsAddOrMdfRequestbody requestbody;
+        AddResponsebody responsebody;
         Goods goods;
+        String errMsg = "测试添加商品失败";
 
         // 2.测试情景
         // 2.1 测试情景一
@@ -72,18 +74,19 @@ public class GoodsServiceTest extends BaseTest{
         requestbody = new GoodsAddOrMdfRequestbody();
         ObjectHelper.initFieldsVal(requestbody,1);
         // 执行
-        service.add(requestbody);
+        responsebody = service.add(requestbody);
         // 验证结果
         goods = goodsMapper.get(requestbody.getId());
-        compareObjProps("测试添加商品失败",requestbody,goods,noneValidFileds);
+        compareObjProps(errMsg,requestbody,goods,noneValidFileds);
+        Assert.assertEquals(errMsg,requestbody.getId(),responsebody.getId());
     }
 
     @Test
     public void testModify(){
         // 1.定义参数
-        Date now = new Date();
         GoodsAddOrMdfRequestbody requestbody;
         Goods goods;
+        String errMsg = "测试修改商品失败";
 
         // 2.测试情景
         // 2.1 测试情景一
@@ -98,7 +101,7 @@ public class GoodsServiceTest extends BaseTest{
         service.modify(requestbody);
         // 验证结果
         goods = goodsMapper.get(requestbody.getId());
-        compareObjProps("测试修改商品失败",requestbody,goods,noneValidFileds);
+        compareObjProps(errMsg,requestbody,goods,noneValidFileds);
     }
 
     @Test
@@ -106,6 +109,7 @@ public class GoodsServiceTest extends BaseTest{
         // 1.定义参数
         RemoveRequestbody requestbody;
         Goods goods;
+        String errMsg = "测试删除商品失败";
 
         // 2.测试情景
         // 2.1 测试情景一
@@ -120,15 +124,16 @@ public class GoodsServiceTest extends BaseTest{
         // 运行
         service.remove(requestbody);
         List<Goods> goodss = goodsMapper.query(null);
-        Assert.assertEquals(0, goodss.size());
+        Assert.assertEquals(errMsg,0, goodss.size());
     }
 
     @Test
     public void testGet(){
         // 1.定义参数
         GetRequestbody requestbody;
-        Goods goods;
         GoodsGetResponsebody responsebody;
+        Goods goods;
+        String errMsg = "测试获取商品失败";
 
         // 2.测试情景
         // 2.1 测试情景一
@@ -141,6 +146,64 @@ public class GoodsServiceTest extends BaseTest{
         // 运行
        responsebody = service.get(requestbody);
         // 验证结果
-        compareObjProps("测试修改商品失败",goods,responsebody,noneValidFileds);
+        compareObjProps(errMsg,goods,responsebody,noneValidFileds);
+    }
+
+    @Test
+    public void testQuery(){
+        // 1.定义参数
+        GoodsQueryRequestbody requestbody;
+        GoodsQueryResponsebody responsebody;
+        Goods goods;
+        String errMsg = "测试查询商品失败";
+
+        // 2.测试情景
+        // 2.1 测试情景一
+        // 构造测试数据
+        List<Goods> goodss = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            goods = new Goods();
+            ObjectHelper.initFieldsVal(goods,i);
+            goodsMapper.insert(goods);
+            goodss.add(goods);
+        }
+        requestbody = new GoodsQueryRequestbody();
+        // 运行
+        responsebody = service.query(requestbody);
+        // 验证结果
+        List<GoodsGetResponsebody> getResponsebodies = responsebody.getRows();
+        for (int i = 0; i <3; i++) {
+            compareObjProps(errMsg, goodss.get(i), getResponsebodies.get(i));
+        }
+    }
+
+    @Test
+    public void testQueryPage(){
+        // 1.定义参数
+        GoodsQueryRequestbody requestbody;
+        GoodsQueryResponsebody responsebody;
+        Goods goods;
+        String errMsg = "测试查询商品失败";
+
+        // 2.测试情景
+        // 2.1 测试情景一
+        // 构造测试数据
+        List<Goods> goodss = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            goods = new Goods();
+            ObjectHelper.initFieldsVal(goods,i);
+            goodsMapper.insert(goods);
+            goodss.add(goods);
+        }
+        requestbody = new GoodsQueryRequestbody();
+        requestbody.setPageNum(1);
+        requestbody.setPageSize(1);
+        requestbody.setSortColumns("id desc");
+        // 运行
+        responsebody = service.queryPage(requestbody);
+        // 验证结果
+        Assert.assertEquals(errMsg, 3, responsebody.getTotal());
+        Assert.assertEquals(errMsg,1,responsebody.getRows().size());
+        compareObjProps(errMsg, goodss.get(2), responsebody.getRows().get(0));
     }
 }
