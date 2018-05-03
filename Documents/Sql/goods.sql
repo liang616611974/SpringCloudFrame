@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS goods;
+CREATE TABLE `goods` (
+  `id` BIGINT(20) NOT NULL COMMENT '主键',
+  `goods_name` VARCHAR(50) DEFAULT NULL COMMENT '商品名称',
+  `type` VARCHAR(50) DEFAULT NULL COMMENT '商品类型',
+  `price` DECIMAL(20,2) DEFAULT NULL COMMENT '商品价格',
+  `producer_name` VARCHAR(50) DEFAULT NULL COMMENT '生产商名称',
+  `produce_date` DATE DEFAULT NULL COMMENT '生产日期',
+  `create_time` DATETIME DEFAULT NULL COMMENT '创建时间',
+  `modify_time` DATETIME DEFAULT NULL COMMENT '修改时间',
+  `create_user` BIGINT(20) DEFAULT NULL COMMENT '创建用户主键',
+  `modify_user` BIGINT(20) DEFAULT NULL COMMENT '修改用户主键',
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='商品表'
