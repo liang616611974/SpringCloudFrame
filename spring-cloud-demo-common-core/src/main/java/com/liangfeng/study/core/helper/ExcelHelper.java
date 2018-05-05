@@ -24,6 +24,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.*;
 
@@ -553,13 +554,24 @@ public class ExcelHelper {
                 formatVal = DateHelper.format((Date) val, header.getPattern());
             }
         } else if ("BigDecimal".equals(header.getDataType())) {
-            // 如果是数字
-            if ("%".equals(header.getPattern())) {
-                formatVal = ((BigDecimal) val).multiply(new BigDecimal(100)).toString() + "%";
-            } else if("CURRENCY".equals(header.getPattern()) ){
+            // 如果是BigDecimal
+            if(StringUtils.isBlank(header.getPattern())){
                 formatVal =  NumberFormat.getCurrencyInstance().format(val).replace("￥","");
-            }else {
+            }else if ("%".equals(header.getPattern())) {
+                formatVal = ((BigDecimal) val).multiply(new BigDecimal(100)).toString() + "%";
+            } else {
+                DecimalFormat df = new DecimalFormat(header.getPattern());
+                formatVal = df.format(val);
+            }
+        } else if (isNumeric(String.valueOf(val))) {
+            // 如果是数字
+            if(StringUtils.isBlank(header.getPattern())){
                 formatVal = String.valueOf(val);
+            }else if("CURRENTY".equals(header.getPattern())){
+                formatVal =  NumberFormat.getCurrencyInstance().format(val).replace("￥","");
+            } else {
+                DecimalFormat df = new DecimalFormat(header.getPattern());
+                formatVal = df.format(val);
             }
         } else {
             formatVal = String.valueOf(val);
