@@ -134,9 +134,9 @@ public class ObjectHelper {
                 method = obj.getClass().getMethod(setter,new Class[]{field.getType()});
                 if(field.getType().getSimpleName().equals("String")){
                     method.invoke(obj, strFieldValPrefix + name + strFieldValSuffix);
-                }else if(field.getType().getSimpleName().equals("Integer")){
+                }else if(field.getType().getSimpleName().equals("Integer") || field.getType().getSimpleName().equals("int")){
                     method.invoke(obj, numFieldVal);
-                }else if(field.getType().getSimpleName().equals("Long")){
+                }else if(field.getType().getSimpleName().equals("Long") || field.getType().getSimpleName().equals("long")){
                     method.invoke(obj, new Long(numFieldVal));
                 }else if(field.getType().getSimpleName().equals("BigDecimal")){
                     method.invoke(obj, new BigDecimal(numFieldVal + ".00"));
