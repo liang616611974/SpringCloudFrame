@@ -62,21 +62,34 @@ public class ExcelHelper {
 
 
     /**
-     * 导出文件到浏览器，供下载
+     * 下载单页的Excel文件
      * @param request      http请求对象
      * @param response     http响应对象
      * @param downloadName 下载名称
      * @param datas 表格数据
      * @param clazz 数据的类型
      */
-    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List datas, Class clazz) {
+    public static void exportForDownloadByObj(HttpServletRequest request, HttpServletResponse response, String downloadName,List datas, Class clazz) {
+        exportForDownloadByObj(request, response, downloadName, null, datas, clazz);
+    }
+
+    /**
+     * 下载单页的Excel文件
+     * @param request      http请求对象
+     * @param response     http响应对象
+     * @param downloadName 下载名称
+     * @param extHeaderArrs 附加的表头集合
+     * @param datas 表格数据
+     * @param clazz 数据的类型
+     */
+    public static void exportForDownloadByObj(HttpServletRequest request, HttpServletResponse response, String downloadName,List<ExcelHeader[]> extHeaderArrs, List datas, Class clazz) {
         try {
             // 1.设置Excel工作表名称
             String sheetName = downloadName;
             // 2.设置下载Excel响应头
             setDownloadResponse(request, response, downloadName);
             // 3.导出
-            export(response.getOutputStream(), sheetName, datas, clazz);
+            exportByObj(response.getOutputStream(), sheetName, extHeaderArrs,datas, clazz);
         } catch (Exception e) {
             throw new RuntimeException("Excle文件下载发生异常", e);
         }
@@ -84,39 +97,40 @@ public class ExcelHelper {
 
 
     /**
-     * 导出文件到浏览器，供下载
+     * 下载多个sheet页的Excel文件
      * @param request      http请求对象
      * @param response     http响应对象
      * @param downloadName 下载名称
      * @param sheetNames 表页名集合
+     * @param extHeaderArrsList 附加的表头集合
      * @param datas 多页数据
      * @param clazzs 数据的类型集合
      */
-    public static void exportMultiForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName,String[] sheetNames, List<List> datas, Class[] clazzs) {
+    public static void exportMultiForDownloadByObj(HttpServletRequest request, HttpServletResponse response, String downloadName,String[] sheetNames,List<List<ExcelHeader[]>> extHeaderArrsList, List<List> datas, Class[] clazzs) {
         try {
             // 2.设置下载Excel响应头
             setDownloadResponse(request, response, downloadName);
             // 3.导出
-            exportMulti(response.getOutputStream(), sheetNames, datas, clazzs);
+            exportMultiByObj(response.getOutputStream(), sheetNames,extHeaderArrsList,datas, clazzs);
         } catch (Exception e) {
             throw new RuntimeException("Excle文件下载发生异常", e);
         }
     }
 
     /**
-     * 导出文件到浏览器，供下载
+     * 下载单页的Excel文件
      * @param request      http请求对象
      * @param response     http响应对象
      * @param downloadName 下载名称
      * @param headerArrs   Excel表头集合，允许多行表头
      * @param data         表格数据
      */
-    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) {
-        exportForDownload(request, response, downloadName, headerArrs, data, null);
+    public static void exportForDownloadByMap(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data) {
+        exportForDownloadByMap(request, response, downloadName, headerArrs, data, null);
     }
 
     /**
-     * 导出文件到浏览器，供下载
+     * 下载单页的Excel文件
      * @param request          http请求对象
      * @param response         http响应对象
      * @param downloadName     下载名称
@@ -124,14 +138,14 @@ public class ExcelHelper {
      * @param data             表格数据
      * @param mergeColumnNames 需要合并行的列名集合
      */
-    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
+    public static void exportForDownloadByMap(HttpServletRequest request, HttpServletResponse response, String downloadName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> data, String[] mergeColumnNames) {
         try {
             // 1.设置Excel工作表名称
             String sheetName = downloadName;
             // 2.设置下载Excel响应头
             setDownloadResponse(request, response, downloadName);
             // 3.导出
-            export(response.getOutputStream(), sheetName, headerArrs, data, mergeColumnNames);
+            exportByMap(response.getOutputStream(), sheetName, headerArrs, data, mergeColumnNames);
         } catch (Exception e) {
             throw new RuntimeException("Excle文件下载发生异常", e);
         }
@@ -139,7 +153,7 @@ public class ExcelHelper {
     }
 
     /**
-     * 导出文件到浏览器，供下载
+     * 下载多个sheet页的Excel文件
      * @param request
      * @param response
      * @param downloadName
@@ -148,14 +162,14 @@ public class ExcelHelper {
      * @param datasList
      * @param mergeColumnNameArrs
      */
-    public static void exportMultiForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName, String[] sheetNames, List<List<ExcelHeader[]>> headerArrsList, List<List<Map<String, Object>>> datasList, List<String[]> mergeColumnNameArrs) {
+    public static void exportMultiForDownloadByMap(HttpServletRequest request, HttpServletResponse response, String downloadName, String[] sheetNames, List<List<ExcelHeader[]>> headerArrsList, List<List<Map<String, Object>>> datasList, List<String[]> mergeColumnNameArrs) {
         try {
             // 1.设置Excel工作表名称
             String sheetName = downloadName;
             // 2.设置下载Excel响应头
             setDownloadResponse(request, response, downloadName);
             // 3.导出
-            exportMulti(response.getOutputStream(), sheetNames, headerArrsList, datasList, mergeColumnNameArrs);
+            exportMultiByMap(response.getOutputStream(), sheetNames, headerArrsList, datasList, mergeColumnNameArrs);
         } catch (Exception e) {
             throw new RuntimeException("Excle文件下载发生异常", e);
         }
@@ -164,39 +178,49 @@ public class ExcelHelper {
 
 
     /**
-     * 导出Excel表格文件
+     * 导出单页Excel文件
      *
      * @param os        输出流
      * @param sheetName 表页名
+     * @param extHeaderArrs 附加的表头集合
      * @param datas     数据
      * @param clazz     数据类型
      */
-    public static void export(OutputStream os, String sheetName, List datas, Class clazz) {
+    public static void exportByObj(OutputStream os, String sheetName,List<ExcelHeader[]> extHeaderArrs, List datas, Class clazz) {
         //  1.第一个sheet页
         String[] sheetNames = new String[]{sheetName};
-        // 2.第一页的数据
+        // 2.第一页的附加表头
+        List<List<ExcelHeader[]>> extHeaderArrsList = new ArrayList<>();
+        extHeaderArrsList.add(extHeaderArrs);
+        // 3.第一页的数据
         List<List> datasList = new ArrayList<>();
         datasList.add(datas);
-        // 3.第一页的数据类型
+        // 4.第一页的数据类型
         Class[] clazzs = new Class[]{clazz};
-        // 4.导出
-        exportMulti(os,sheetNames,datasList,clazzs);
+        // 5.导出
+        exportMultiByObj(os,sheetNames,extHeaderArrsList,datasList,clazzs);
     }
 
     /**
      * 导出多个sheet页Excel表格文件
      * @param os 输出流
      * @param sheetNames 表页名集合
+     * @param extHeaderArrsList 附加的表头集合
      * @param datas 多页数据
      * @param clazzs 数据的类型集合
      */
-    public static void exportMulti(OutputStream os, String[] sheetNames, List<List> datas, Class[] clazzs) {
+    public static void exportMultiByObj(OutputStream os, String[] sheetNames,List<List<ExcelHeader[]>> extHeaderArrsList, List<List> datas, Class[] clazzs) {
         List<List<ExcelHeader[]>> headerArrsList = new ArrayList<>();
         List<List<Map<String, Object>>> datasList = new ArrayList<>();
         //List<String[]> mergeColumnNameArrs = new ArrayList<>();
+        // 组装表头，和表数据
         for (int i = 0; i < sheetNames.length; i++) {
             List<ExcelHeader[]> headerArrs = new ArrayList<>();
             List<ExcelHeader> heads = new ArrayList<>();
+            // 1.添加附件表头
+            if (CollectionUtils.isNotEmpty(extHeaderArrsList) && i<extHeaderArrsList.size() && CollectionUtils.isNotEmpty(extHeaderArrsList.get(i))) {
+                headerArrs.addAll(extHeaderArrsList.get(i));
+            }
             Field[] fields = getFields(clazzs[i], true);
             for (Field field : fields) {
                 boolean isHasAnno = field.isAnnotationPresent(ExcelColumn.class);
@@ -220,11 +244,11 @@ public class ExcelHelper {
             headerArrsList.add(headerArrs);
             datasList.add(dataMaps);
         }
-        exportMulti(os, sheetNames, headerArrsList, datasList, null);
+        exportMultiByMap(os, sheetNames, headerArrsList, datasList, null);
     }
 
     /**
-     * 导出Excel表格文件
+     * 导出单页的Excel文件
      *
      * @param os               文件输出流
      * @param sheetName        Excel工作表名称
@@ -232,7 +256,7 @@ public class ExcelHelper {
      * @param datas             Excel表格数据
      * @param mergeColumnNames 需要合并行的列名集合
      */
-    public static void export(OutputStream os, String sheetName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> datas, String[] mergeColumnNames) {
+    public static void exportByMap(OutputStream os, String sheetName, List<ExcelHeader[]> headerArrs, List<Map<String, Object>> datas, String[] mergeColumnNames) {
         // 1.第一个sheet页
         String[] sheetNames = new String[]{sheetName};
         // 2.第一页的表头
@@ -245,7 +269,7 @@ public class ExcelHelper {
         List<String[]> mergeColumnNameArrs = new ArrayList<>();
         mergeColumnNameArrs.add(mergeColumnNames==null?new String[]{}:mergeColumnNames);
         // 5.导出
-        exportMulti(os,sheetNames,headerArrsList,datasList,mergeColumnNameArrs);
+        exportMultiByMap(os,sheetNames,headerArrsList,datasList,mergeColumnNameArrs);
     }
 
 
@@ -257,7 +281,7 @@ public class ExcelHelper {
      * @param datasList
      * @param mergeColumnNameArrs
      */
-    public static void exportMulti(OutputStream os, String[] sheetNames, List<List<ExcelHeader[]>> headerArrsList, List<List<Map<String, Object>>> datasList, List<String[]> mergeColumnNameArrs) {
+    public static void exportMultiByMap(OutputStream os, String[] sheetNames, List<List<ExcelHeader[]>> headerArrsList, List<List<Map<String, Object>>> datasList, List<String[]> mergeColumnNameArrs) {
 
         // 校验数据
         if (os == null || CollectionUtils.isEmpty(headerArrsList)) {

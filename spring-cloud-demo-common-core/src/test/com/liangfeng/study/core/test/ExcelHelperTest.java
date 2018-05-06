@@ -31,6 +31,10 @@ public class ExcelHelperTest extends BaseTest{
     public void testExportByObj() throws Exception{
         FileOutputStream os = new FileOutputStream(new File("F:/Backup Files/测试/testExportByObj.xls"));
         String sheetName = "第一页";
+        List<ExcelHelper.ExcelHeader[]> headerArrs = new ArrayList<>();
+        List<ExcelHelper.ExcelHeader> heads1 = new ArrayList<>();
+        heads1.add(new ExcelHelper.ExcelHeader("测试导出Excel表格","title",500,30,5,1));
+        headerArrs.add(heads1.toArray(new ExcelHelper.ExcelHeader[heads1.size()]));
         List<ExcelObj> objs = new ArrayList<>();
         for (int i = 1; i <10; i++) {
             ExcelObj obj = new ExcelObj();
@@ -38,13 +42,19 @@ public class ExcelHelperTest extends BaseTest{
             obj.setMoney(new BigDecimal(100000000));
             objs.add(obj);
         }
-        ExcelHelper.export(os,sheetName,objs,ExcelObj.class);
+        ExcelHelper.exportByObj(os,sheetName,headerArrs,objs,ExcelObj.class);
     }
 
     @Test
     public void testExportMutiByObj() throws Exception{
         FileOutputStream os = new FileOutputStream(new File("F:/Backup Files/测试/testExportMutiByObj.xls"));
         List<String> sheetNames = new ArrayList<>();
+        List<List<ExcelHeader[]>> headerArrsList = new ArrayList<>();
+        List<ExcelHeader[]> headerArrs = new ArrayList<>();
+        List<ExcelHeader> heads1 = new ArrayList<>();
+        heads1.add(new ExcelHelper.ExcelHeader("测试导出Excel表格","title",500,30,5,1));
+        headerArrs.add(heads1.toArray(new ExcelHelper.ExcelHeader[heads1.size()]));
+        headerArrsList.add(headerArrs);
         List<List> objsList = new ArrayList<>();
         Class[] clazzs = new Class[]{ExcelObj.class,ExcelObj2.class};
         String sheetName1 = "第一页";
@@ -67,7 +77,7 @@ public class ExcelHelperTest extends BaseTest{
         sheetNames.add(sheetName2);
         objsList.add(objs);
         objsList.add(obj2s);
-        ExcelHelper.exportMulti(os,sheetNames.toArray(new String[]{}),objsList,clazzs);
+        ExcelHelper.exportMultiByObj(os,sheetNames.toArray(new String[]{}),headerArrsList,objsList,clazzs);
     }
 
 
@@ -82,7 +92,7 @@ public class ExcelHelperTest extends BaseTest{
         for (int i = 1; i <=1; i++) {
             addSheet(sheetNames, headerArrsList, datasList, mergeColumnNameArrs, i);
         }
-        ExcelHelper.export(os, sheetNames.get(0), headerArrsList.get(0), datasList.get(0), mergeColumnNameArrs.get(0));
+        ExcelHelper.exportByMap(os, sheetNames.get(0), headerArrsList.get(0), datasList.get(0), mergeColumnNameArrs.get(0));
     }
 
     @Test
@@ -97,7 +107,7 @@ public class ExcelHelperTest extends BaseTest{
             addSheet(sheetNames, headerArrsList, datasList, mergeColumnNameArrs, i);
         }
 
-        ExcelHelper.exportMulti(os, sheetNames.toArray(new String[]{}), headerArrsList, datasList, mergeColumnNameArrs);
+        ExcelHelper.exportMultiByMap(os, sheetNames.toArray(new String[]{}), headerArrsList, datasList, mergeColumnNameArrs);
     }
 
     private void addSheet(List<String> sheetNames, List<List<ExcelHelper.ExcelHeader[]>> headerArrsList, List<List<Map<String, Object>>> datasList, List<String[]> mergeColumnNameArrs, int i) {
@@ -157,7 +167,7 @@ public class ExcelHelperTest extends BaseTest{
         private int age;
         @ExcelColumn(name="性别")
         private String sex;
-        @ExcelColumn(name="现金",pattern = "CURRENCY")
+        @ExcelColumn(name="现金")
         private BigDecimal money;
         @ExcelColumn(name="出生日期")
         private Date birthday;
@@ -171,7 +181,7 @@ public class ExcelHelperTest extends BaseTest{
         private int age;
         //@ExcelColumn(name="性别")
         private String sex;
-        @ExcelColumn(name="现金",pattern = "CURRENCY")
+        @ExcelColumn(name="现金")
         private BigDecimal money;
         @ExcelColumn(name="出生日期")
         private Date birthday;

@@ -72,7 +72,7 @@ public class GoodsController {
     @RequestMapping(value = "/goods/export",method = {RequestMethod.GET,RequestMethod.POST})
     public void export(GoodsQueryRequestbody requestbody,String dowloadName,HttpServletRequest request, HttpServletResponse response){
         GoodsQueryResponsebody responsebody = service.query(requestbody);
-        ExcelHelper.exportForDownload(request,response,dowloadName,responsebody.getRows(),GoodsGetResponsebody.class);
+        ExcelHelper.exportForDownloadByObj(request,response,dowloadName,responsebody.getRows(),GoodsGetResponsebody.class);
     }
 
 
