@@ -1,9 +1,9 @@
-drop table if exists sdc_goods;
+drop table if exists scd_goods;
 
 /*==============================================================*/
-/* Table: sdc_goods                                             */
+/* Table: scd_goods                                             */
 /*==============================================================*/
-create table sdc_goods
+create table scd_goods
 (
    id                   bigint(20) not null comment '主键',
    goods_name           varchar(50) not null comment '商品名称',
@@ -12,11 +12,11 @@ create table sdc_goods
    producer             varchar(50) comment '生产商',
    produce_date         date comment '生产日期',
    cre_time             datetime not null comment '创建时间',
-   mdy_time             datetime comment '修改时间',
+   mdf_time             datetime comment '修改时间',
    cre_user             bigint(20) comment '创建用户',
    mdf_user             bigint(20) comment '修改用户',
    primary key (id)
 )
 ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='商品表';
 
-alter table sdc_goods comment '商品表';
+alter table scd_goods comment '商品表';
