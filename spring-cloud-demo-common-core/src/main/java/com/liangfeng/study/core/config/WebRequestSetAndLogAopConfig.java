@@ -78,7 +78,7 @@ public class WebRequestSetAndLogAopConfig {
      */
     private void printAfter(Object result) {
         // 打印结果和消耗时间
-        logger.info("【 result:{} , spendTime: {} milliseconds 】",
+        logger.debug("【 result:{} , spendTime: {} milliseconds 】",
                 result,
                 (System.currentTimeMillis() - startTime.get()));
     }
@@ -108,11 +108,11 @@ public class WebRequestSetAndLogAopConfig {
                 // 如果是新增的方法
                 if(joinPoint.getSignature().getName().startsWith(AppConstant.ADD_METHOD_PREFIX)){
                     requestbody.setId(idGenerator.generateId());
-                    requestbody.setCreateUser(userId);
-                    requestbody.setCreateTime(now);
+                    requestbody.setCreUser(userId);
+                    requestbody.setCreTime(now);
                 }
-                requestbody.setModifyUser(userId);
-                requestbody.setModifyTime(now);
+                requestbody.setMdfUser(userId);
+                requestbody.setMdfTime(now);
             }
         }
     }

@@ -21,6 +21,7 @@
         <module>spring-cloud-demo-service-goods</module>
         <module>spring-cloud-demo-service-order</module>
         <module>spring-cloud-demo-service-user</module>
+        <module>spring-cloud-demo-service-dict</module>
     </modules>
 
     <!-- 工程依赖版本管理 -->

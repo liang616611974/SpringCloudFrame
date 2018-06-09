@@ -15,7 +15,7 @@ import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
  * @version 1.0
  * @Title: GoodsService
  * @Description:
- * @date 2018-05-03
+ * @date 2018-06-09
  */
 public interface GoodsService {
 

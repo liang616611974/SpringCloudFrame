@@ -1,21 +1,20 @@
-
-
 package com.liangfeng.study.goods.model.auto.pojo;
 
+
+import com.liangfeng.study.core.framework.base.BaseEntity;
 
 import java.util.Date;
 import java.math.BigDecimal;
 
 import lombok.Data;
-import com.liangfeng.study.core.framework.base.BaseEntity;
 
 
 /**
-* @Title: Goods
-* @Description:
-* @author Liangfeng
-* @date 2018-04-22
-* @version 1.0
+ * @author Liangfeng
+ * @version 1.0
+ * @Title: Goods
+ * @Description:
+ * @date 2018-06-09
  */
 @Data
 public class Goods extends BaseEntity{
@@ -31,19 +30,19 @@ public class Goods extends BaseEntity{
 	private String goodsName;
 	
 	/** 
-	 * 商品类型 type
+	 * 商品类型 goods_type
 	 */
-	private String type;
+	private String goodsType;
 	
 	/** 
-	 * 商品价格 price
+	 * 价格 price
 	 */
 	private BigDecimal price;
 	
 	/** 
-	 * 生产商名称 producer_name
+	 * 生产商 producer
 	 */
-	private String producerName;
+	private String producer;
 	
 	/** 
 	 * 生产日期 produce_date
@@ -51,24 +50,24 @@ public class Goods extends BaseEntity{
 	private Date produceDate;
 	
 	/** 
-	 * 创建时间 create_time
+	 * 创建时间 cre_time
 	 */
-	private Date createTime;
+	private Date creTime;
 	
 	/** 
-	 * 修改时间 modify_time
+	 * 修改时间 mdf_time
 	 */
-	private Date modifyTime;
+	private Date mdfTime;
 	
 	/** 
-	 * 创建用户主键 create_user
+	 * 创建用户 cre_user
 	 */
-	private Long createUser;
+	private Long creUser;
 	
 	/** 
-	 * 修改用户主键 modify_user
+	 * 修改用户 mdf_user
 	 */
-	private Long modifyUser;
+	private Long mdfUser;
 	
 
 }

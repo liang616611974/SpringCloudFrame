@@ -21,17 +21,17 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 /**
  * @author Liangfeng
  * @version 1.0
- * @Title: OrderController
+ * @Title: GoodsController
  * @Description:
- * @date  2017/10/31 16:34
+ * @date 2018-06-09
  */
 @RestController
 @Api(description = "商品模块接口")
 public class GoodsController {
-
 
     @Autowired
     GoodsService service;
@@ -74,6 +74,6 @@ public class GoodsController {
         GoodsQueryResponsebody responsebody = service.query(requestbody);
         ExcelHelper.exportForDownloadByObj(request,response,dowloadName,responsebody.getRows(),GoodsGetResponsebody.class);
     }
-
-
+   
 }
+

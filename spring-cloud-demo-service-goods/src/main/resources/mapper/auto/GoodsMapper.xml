@@ -10,20 +10,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap id="RM_Goods" type="com.liangfeng.study.goods.model.auto.pojo.Goods">
 		<result property="id" column="id" jdbcType="BIGINT" />
 		<result property="goodsName" column="goods_name" jdbcType="VARCHAR" />
-		<result property="type" column="type" jdbcType="VARCHAR" />
+		<result property="goodsType" column="goods_type" jdbcType="VARCHAR" />
 		<result property="price" column="price" jdbcType="DECIMAL" />
-		<result property="producerName" column="producer_name" jdbcType="VARCHAR" />
+		<result property="producer" column="producer" jdbcType="VARCHAR" />
 		<result property="produceDate" column="produce_date" jdbcType="DATE" />
-		<result property="createTime" column="create_time" jdbcType="TIMESTAMP" />
-		<result property="modifyTime" column="modify_time" jdbcType="TIMESTAMP" />
-		<result property="createUser" column="create_user" jdbcType="BIGINT" />
-		<result property="modifyUser" column="modify_user" jdbcType="BIGINT" />
+		<result property="creTime" column="cre_time" jdbcType="TIMESTAMP" />
+		<result property="mdfTime" column="mdf_time" jdbcType="TIMESTAMP" />
+		<result property="creUser" column="cre_user" jdbcType="BIGINT" />
+		<result property="mdfUser" column="mdf_user" jdbcType="BIGINT" />
 	</resultMap>
 
 	<!-- 用于select查询公用的列 -->
 	<sql id="columns">
 	    <![CDATA[
-		id,goods_name,type,price,producer_name,produce_date,create_time,modify_time,create_user,modify_user
+		id,goods_name,goods_type,price,producer,produce_date,cre_time,mdf_time,cre_user,mdf_user
 	    ]]>
 	</sql>
 
@@ -37,14 +37,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="@Ognl@isNotEmpty(goodsName)">
 				AND goods_name = #{goodsName,jdbcType=VARCHAR}
 			</if>
-			<if test="@Ognl@isNotEmpty(type)">
-				AND type = #{type,jdbcType=VARCHAR}
+			<if test="@Ognl@isNotEmpty(goodsType)">
+				AND goods_type = #{goodsType,jdbcType=VARCHAR}
 			</if>
 			<if test="@Ognl@isNotEmpty(price)">
 				AND price = #{price,jdbcType=DECIMAL}
 			</if>
-			<if test="@Ognl@isNotEmpty(producerName)">
-				AND producer_name = #{producerName,jdbcType=VARCHAR}
+			<if test="@Ognl@isNotEmpty(producer)">
+				AND producer = #{producer,jdbcType=VARCHAR}
 			</if>
 			<if test="@Ognl@isNotEmpty(produceDateBegin)">
 				AND produce_date >= #{produceDateBegin,jdbcType=DATE}
@@ -52,58 +52,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="@Ognl@isNotEmpty(produceDateEnd)">
 				AND produce_date &lt;= #{produceDateEnd,jdbcType=DATE}
 			</if>
-			<if test="@Ognl@isNotEmpty(createTimeBegin)">
-				AND create_time >= #{createTimeBegin,jdbcType=TIMESTAMP}
+			<if test="@Ognl@isNotEmpty(creTimeBegin)">
+				AND cre_time >= #{creTimeBegin,jdbcType=TIMESTAMP}
 			</if>
-			<if test="@Ognl@isNotEmpty(createTimeEnd)">
-				AND create_time &lt;= #{createTimeEnd,jdbcType=TIMESTAMP}
+			<if test="@Ognl@isNotEmpty(creTimeEnd)">
+				AND cre_time &lt;= #{creTimeEnd,jdbcType=TIMESTAMP}
 			</if>
-			<if test="@Ognl@isNotEmpty(modifyTimeBegin)">
-				AND modify_time >= #{modifyTimeBegin,jdbcType=TIMESTAMP}
+			<if test="@Ognl@isNotEmpty(mdfTimeBegin)">
+				AND mdf_time >= #{mdfTimeBegin,jdbcType=TIMESTAMP}
 			</if>
-			<if test="@Ognl@isNotEmpty(modifyTimeEnd)">
-				AND modify_time &lt;= #{modifyTimeEnd,jdbcType=TIMESTAMP}
+			<if test="@Ognl@isNotEmpty(mdfTimeEnd)">
+				AND mdf_time &lt;= #{mdfTimeEnd,jdbcType=TIMESTAMP}
 			</if>
-			<if test="@Ognl@isNotEmpty(createUser)">
-				AND create_user = #{createUser,jdbcType=BIGINT}
+			<if test="@Ognl@isNotEmpty(creUser)">
+				AND cre_user = #{creUser,jdbcType=BIGINT}
 			</if>
-			<if test="@Ognl@isNotEmpty(modifyUser)">
-				AND modify_user = #{modifyUser,jdbcType=BIGINT}
+			<if test="@Ognl@isNotEmpty(mdfUser)">
+				AND mdf_user = #{mdfUser,jdbcType=BIGINT}
 			</if>
 		</where>
 	</sql>
 	
 	<!-- 插入-->
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
-		INSERT INTO goods
+		INSERT INTO scd_goods
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			id,
 			<if test="goodsName != null">
 				goods_name,
 			</if>
-			<if test="type != null">
-				type,
+			<if test="goodsType != null">
+				goods_type,
 			</if>
 			<if test="price != null">
 				price,
 			</if>
-			<if test="producerName != null">
-				producer_name,
+			<if test="producer != null">
+				producer,
 			</if>
 			<if test="produceDate != null">
 				produce_date,
 			</if>
-			<if test="createTime != null">
-				create_time,
+			<if test="creTime != null">
+				cre_time,
 			</if>
-			<if test="modifyTime != null">
-				modify_time,
+			<if test="mdfTime != null">
+				mdf_time,
 			</if>
-			<if test="createUser != null">
-				create_user,
+			<if test="creUser != null">
+				cre_user,
 			</if>
-			<if test="modifyUser != null">
-				modify_user,
+			<if test="mdfUser != null">
+				mdf_user,
 			</if>
 		</trim>
 
@@ -112,63 +112,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="goodsName != null">
 				#{goodsName,jdbcType=VARCHAR},
 			</if>
-			<if test="type != null">
-				#{type,jdbcType=VARCHAR},
+			<if test="goodsType != null">
+				#{goodsType,jdbcType=VARCHAR},
 			</if>
 			<if test="price != null">
 				#{price,jdbcType=DECIMAL},
 			</if>
-			<if test="producerName != null">
-				#{producerName,jdbcType=VARCHAR},
+			<if test="producer != null">
+				#{producer,jdbcType=VARCHAR},
 			</if>
 			<if test="produceDate != null">
 				#{produceDate,jdbcType=DATE},
 			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
+			<if test="creTime != null">
+				#{creTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="modifyTime != null">
-				#{modifyTime,jdbcType=TIMESTAMP},
+			<if test="mdfTime != null">
+				#{mdfTime,jdbcType=TIMESTAMP},
 			</if>
-			<if test="createUser != null">
-				#{createUser,jdbcType=BIGINT},
+			<if test="creUser != null">
+				#{creUser,jdbcType=BIGINT},
 			</if>
-			<if test="modifyUser != null">
-				#{modifyUser,jdbcType=BIGINT},
+			<if test="mdfUser != null">
+				#{mdfUser,jdbcType=BIGINT},
 			</if>
 		</trim>
 	</insert>
 
 	<!-- 修改 -->
 	<update id="update">
-		UPDATE goods
+		UPDATE scd_goods
 		<set>
 			<if test="goodsName != null">
 				goods_name = #{goodsName,jdbcType=VARCHAR} ,
 			</if>
-			<if test="type != null">
-				type = #{type,jdbcType=VARCHAR} ,
+			<if test="goodsType != null">
+				goods_type = #{goodsType,jdbcType=VARCHAR} ,
 			</if>
 			<if test="price != null">
 				price = #{price,jdbcType=DECIMAL} ,
 			</if>
-			<if test="producerName != null">
-				producer_name = #{producerName,jdbcType=VARCHAR} ,
+			<if test="producer != null">
+				producer = #{producer,jdbcType=VARCHAR} ,
 			</if>
 			<if test="produceDate != null">
 				produce_date = #{produceDate,jdbcType=DATE} ,
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP} ,
+			<if test="creTime != null">
+				cre_time = #{creTime,jdbcType=TIMESTAMP} ,
 			</if>
-			<if test="modifyTime != null">
-				modify_time = #{modifyTime,jdbcType=TIMESTAMP} ,
+			<if test="mdfTime != null">
+				mdf_time = #{mdfTime,jdbcType=TIMESTAMP} ,
 			</if>
-			<if test="createUser != null">
-				create_user = #{createUser,jdbcType=BIGINT} ,
+			<if test="creUser != null">
+				cre_user = #{creUser,jdbcType=BIGINT} ,
 			</if>
-			<if test="modifyUser != null">
-				modify_user = #{modifyUser,jdbcType=BIGINT} 
+			<if test="mdfUser != null">
+				mdf_user = #{mdfUser,jdbcType=BIGINT} 
 			</if>
 		</set>
 		WHERE
@@ -178,7 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 删除 -->
 	<delete id="delete">
 	    <![CDATA[
-	        DELETE FROM goods WHERE
+	        DELETE FROM scd_goods WHERE
 	        id = #{id} 
 	    ]]>
 	</delete>
@@ -189,7 +189,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT
 		<include refid="columns" />
 	    <![CDATA[
-		    FROM goods 
+		    FROM scd_goods 
 	        WHERE 
 		        id = #{id} 
 	    ]]>
@@ -197,7 +197,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 统计 -->
 	<select id="count" resultType="java.lang.Integer">
-		SELECT count(*) FROM goods
+		SELECT count(*) FROM scd_goods
 		<include refid="where" />
 	</select>
 	
@@ -206,7 +206,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="query" resultMap="RM_Goods">
 		SELECT
 		<include refid="columns" />
-		FROM goods
+		FROM scd_goods
 		<include refid="where" />
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}
@@ -217,7 +217,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="queryPage"  resultMap="RM_Goods">
 		SELECT
 		<include refid="columns" />
-		FROM goods
+		FROM scd_goods
 		<include refid="where" />
 		<if test="sortColumns != null">
 			ORDER BY ${sortColumns}

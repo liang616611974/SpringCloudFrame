@@ -24,16 +24,16 @@ public class AddOrMdfRequestbody extends BaseRequestbody {
     private Long id;
 
     @ApiModelProperty(value = "创建时间",hidden = true)
-    private Date createTime;
+    private Date creTime;
 
     @ApiModelProperty(value = "修改时间",hidden = true)
-    private Date modifyTime;
+    private Date mdfTime;
 
     @ApiModelProperty(value = "创建用户主键",hidden = true)
-    private Long createUser;
+    private Long creUser;
 
     @ApiModelProperty(value = "修改用户主键",hidden = true)
-    private Long modifyUser;
+    private Long mdfUser;
 
     @Override
     public String toString() {

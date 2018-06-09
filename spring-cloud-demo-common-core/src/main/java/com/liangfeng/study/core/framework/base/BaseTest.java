@@ -160,7 +160,6 @@ public class BaseTest {
         if (val1 instanceof Date) {
             val1 = DateHelper.formatDateTime((Date) val1);
             val2 = DateHelper.formatDateTime((Date) val2);
-
         }
         logger.debug(VALID_FILED_VAL_DESC, filedName,val1,val2);
         Assert.assertEquals(errMsg, val1, val2);

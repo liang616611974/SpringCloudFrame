@@ -1,6 +1,9 @@
 package com.liangfeng.study.goods.web.request;
 
 
+import com.liangfeng.study.core.web.dto.request.AddOrMdfRequestbody;
+import com.liangfeng.study.core.constant.AppConstant;
+
 import java.util.Date;
 import java.math.BigDecimal;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,16 +11,14 @@ import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liangfeng.study.core.web.dto.request.AddOrMdfRequestbody;
-import com.liangfeng.study.core.constant.AppConstant;
 
 
 /**
-* @Title: Goods
-* @Description:
-* @author Liangfeng
-* @date 2018-04-30
-* @version 1.0
+ * @author Liangfeng
+ * @version 1.0
+ * @Title: GoodsAddOrMdfRequestbody
+ * @Description:
+ * @date 2018-06-09
  */
 @Data
 public class GoodsAddOrMdfRequestbody extends AddOrMdfRequestbody{
@@ -26,13 +27,13 @@ public class GoodsAddOrMdfRequestbody extends AddOrMdfRequestbody{
     private String goodsName;
 
     @ApiModelProperty(value = "商品类型",example = "商品类型")
-    private String type;
+    private String goodsType;
 
-    @ApiModelProperty(value = "商品价格",example = "")
+    @ApiModelProperty(value = "价格",example = "")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "生产商名称",example = "生产商名称")
-    private String producerName;
+    @ApiModelProperty(value = "生产商",example = "生产商")
+    private String producer;
 
     @ApiModelProperty(value = "生产日期",example = "2018-01-01")
     @JsonFormat(pattern = AppConstant.PATTERN_DATE,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
@@ -40,6 +41,7 @@ public class GoodsAddOrMdfRequestbody extends AddOrMdfRequestbody{
 
     @Override
     public String toString() {return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);}
+
 
 }
 

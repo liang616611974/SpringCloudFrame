@@ -1,22 +1,20 @@
-
-
 package com.liangfeng.study.goods.model.auto.qo;
 
+
+import com.liangfeng.study.core.framework.base.BaseQuery;
 
 import java.util.Date;
 import java.math.BigDecimal;
 
 import lombok.Data;
-import com.liangfeng.study.core.framework.base.BaseQuery;
-
 
 
 /**
-* @Title: GoodsQuery.java
-* @Description:
-* @author Liangfeng
-* @date 2018-04-22
-* @version 1.0
+ * @author Liangfeng
+ * @version 1.0
+ * @Title: GoodsQuery
+ * @Description:
+ * @date 2018-06-09
  */
 @Data
 public class GoodsQuery extends BaseQuery {
@@ -33,19 +31,19 @@ public class GoodsQuery extends BaseQuery {
 	private String goodsName;
 
 	/**
-     * 商品类型 type
+     * 商品类型 goods_type
      */
-	private String type;
+	private String goodsType;
 
 	/**
-     * 商品价格 price
+     * 价格 price
      */
 	private BigDecimal price;
 
 	/**
-     * 生产商名称 producer_name
+     * 生产商 producer
      */
-	private String producerName;
+	private String producer;
 
 	/**
      * 生产日期开始 produce_date
@@ -57,32 +55,32 @@ public class GoodsQuery extends BaseQuery {
 	private Date produceDateEnd;
 
 	/**
-     * 创建时间开始 create_time
+     * 创建时间开始 cre_time
      */
-	private Date createTimeBegin;
+	private Date creTimeBegin;
 	/**
-     * 创建时间结束 create_time
+     * 创建时间结束 cre_time
      */
-	private Date createTimeEnd;
+	private Date creTimeEnd;
 
 	/**
-     * 修改时间开始 modify_time
+     * 修改时间开始 mdf_time
      */
-	private Date modifyTimeBegin;
+	private Date mdfTimeBegin;
 	/**
-     * 修改时间结束 modify_time
+     * 修改时间结束 mdf_time
      */
-	private Date modifyTimeEnd;
+	private Date mdfTimeEnd;
 
 	/**
-     * 创建用户主键 create_user
+     * 创建用户 cre_user
      */
-	private Long createUser;
+	private Long creUser;
 
 	/**
-     * 修改用户主键 modify_user
+     * 修改用户 mdf_user
      */
-	private Long modifyUser;
+	private Long mdfUser;
 
 }
 
