@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper   
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 不使用namespace的话sql搜索定位会比较方便 -->
+<mapper namespace="com.liangfeng.study.dict.mapper.DictMapper">
+
+	<!-- 类映射 -->
+	<resultMap id="RM_Dict" type="com.liangfeng.study.dict.model.auto.pojo.Dict">
+		<result property="id" column="id" jdbcType="BIGINT" />
+		<result property="groupCode" column="group_code" jdbcType="VARCHAR" />
+		<result property="dictCode" column="dict_code" jdbcType="VARCHAR" />
+		<result property="sysCode" column="sys_code" jdbcType="VARCHAR" />
+		<result property="groupDesc" column="group_desc" jdbcType="VARCHAR" />
+		<result property="dictDesc" column="dict_desc" jdbcType="VARCHAR" />
+		<result property="dictOrder" column="dict_order" jdbcType="TINYINT" />
+		<result property="isUse" column="is_use" jdbcType="BIT" />
+		<result property="creUser" column="cre_user" jdbcType="BIGINT" />
+		<result property="creTime" column="cre_time" jdbcType="TIMESTAMP" />
+		<result property="mdfUser" column="mdf_user" jdbcType="BIGINT" />
+		<result property="mdfTime" column="mdf_time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<!-- 用于select查询公用的列 -->
+	<sql id="columns">
+	    <![CDATA[
+		id,group_code,dict_code,sys_code,group_desc,dict_desc,dict_order,is_use,cre_user,cre_time,mdf_user,mdf_time
+	    ]]>
+	</sql>
+
+	<!-- 用于select查询公用的条件  -->
+	<sql id="where">
+		<!-- ognl访问静态方法的表达式 为@class@method(args),以下为调用rapid中的Ognl.isNotEmpty()方法,还有其它方法如isNotBlank()可以使用，具体请查看Ognl类 -->
+		<where>
+			<if test="@Ognl@isNotEmpty(id)">
+				AND id = #{id,jdbcType=BIGINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(groupCode)">
+				AND group_code = #{groupCode,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(dictCode)">
+				AND dict_code = #{dictCode,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(sysCode)">
+				AND sys_code = #{sysCode,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(groupDesc)">
+				AND group_desc = #{groupDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(dictDesc)">
+				AND dict_desc = #{dictDesc,jdbcType=VARCHAR}
+			</if>
+			<if test="@Ognl@isNotEmpty(dictOrder)">
+				AND dict_order = #{dictOrder,jdbcType=TINYINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(isUse)">
+				AND is_use = #{isUse,jdbcType=BIT}
+			</if>
+			<if test="@Ognl@isNotEmpty(creUser)">
+				AND cre_user = #{creUser,jdbcType=BIGINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(creTimeBegin)">
+				AND cre_time >= #{creTimeBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(creTimeEnd)">
+				AND cre_time &lt;= #{creTimeEnd,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(mdfUser)">
+				AND mdf_user = #{mdfUser,jdbcType=BIGINT}
+			</if>
+			<if test="@Ognl@isNotEmpty(mdfTimeBegin)">
+				AND mdf_time >= #{mdfTimeBegin,jdbcType=TIMESTAMP}
+			</if>
+			<if test="@Ognl@isNotEmpty(mdfTimeEnd)">
+				AND mdf_time &lt;= #{mdfTimeEnd,jdbcType=TIMESTAMP}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 插入-->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO scd_dict
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			id,
+			<if test="groupCode != null">
+				group_code,
+			</if>
+			<if test="dictCode != null">
+				dict_code,
+			</if>
+			<if test="sysCode != null">
+				sys_code,
+			</if>
+			<if test="groupDesc != null">
+				group_desc,
+			</if>
+			<if test="dictDesc != null">
+				dict_desc,
+			</if>
+			<if test="dictOrder != null">
+				dict_order,
+			</if>
+			<if test="isUse != null">
+				is_use,
+			</if>
+			<if test="creUser != null">
+				cre_user,
+			</if>
+			<if test="creTime != null">
+				cre_time,
+			</if>
+			<if test="mdfUser != null">
+				mdf_user,
+			</if>
+			<if test="mdfTime != null">
+				mdf_time,
+			</if>
+		</trim>
+
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			#{id},
+			<if test="groupCode != null">
+				#{groupCode,jdbcType=VARCHAR},
+			</if>
+			<if test="dictCode != null">
+				#{dictCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sysCode != null">
+				#{sysCode,jdbcType=VARCHAR},
+			</if>
+			<if test="groupDesc != null">
+				#{groupDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="dictDesc != null">
+				#{dictDesc,jdbcType=VARCHAR},
+			</if>
+			<if test="dictOrder != null">
+				#{dictOrder,jdbcType=TINYINT},
+			</if>
+			<if test="isUse != null">
+				#{isUse,jdbcType=BIT},
+			</if>
+			<if test="creUser != null">
+				#{creUser,jdbcType=BIGINT},
+			</if>
+			<if test="creTime != null">
+				#{creTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="mdfUser != null">
+				#{mdfUser,jdbcType=BIGINT},
+			</if>
+			<if test="mdfTime != null">
+				#{mdfTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update">
+		UPDATE scd_dict
+		<set>
+			<if test="groupCode != null">
+				group_code = #{groupCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="dictCode != null">
+				dict_code = #{dictCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="sysCode != null">
+				sys_code = #{sysCode,jdbcType=VARCHAR} ,
+			</if>
+			<if test="groupDesc != null">
+				group_desc = #{groupDesc,jdbcType=VARCHAR} ,
+			</if>
+			<if test="dictDesc != null">
+				dict_desc = #{dictDesc,jdbcType=VARCHAR} ,
+			</if>
+			<if test="dictOrder != null">
+				dict_order = #{dictOrder,jdbcType=TINYINT} ,
+			</if>
+			<if test="isUse != null">
+				is_use = #{isUse,jdbcType=BIT} ,
+			</if>
+			<if test="creUser != null">
+				cre_user = #{creUser,jdbcType=BIGINT} ,
+			</if>
+			<if test="creTime != null">
+				cre_time = #{creTime,jdbcType=TIMESTAMP} ,
+			</if>
+			<if test="mdfUser != null">
+				mdf_user = #{mdfUser,jdbcType=BIGINT} ,
+			</if>
+			<if test="mdfTime != null">
+				mdf_time = #{mdfTime,jdbcType=TIMESTAMP} 
+			</if>
+		</set>
+		WHERE
+		id = #{id,jdbcType=BIGINT} 
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete">
+	    <![CDATA[
+	        DELETE FROM scd_dict WHERE
+	        id = #{id} 
+	    ]]>
+	</delete>
+
+
+	<!-- 根据主键获取 -->
+	<select id="get" resultMap="RM_Dict">
+		SELECT
+		<include refid="columns" />
+	    <![CDATA[
+		    FROM scd_dict 
+	        WHERE 
+		        id = #{id} 
+	    ]]>
+	</select>
+
+	<!-- 统计 -->
+	<select id="count" resultType="java.lang.Integer">
+		SELECT count(*) FROM scd_dict
+		<include refid="where" />
+	</select>
+	
+
+	<!-- 查询 -->
+	<select id="query" resultMap="RM_Dict">
+		SELECT
+		<include refid="columns" />
+		FROM scd_dict
+		<include refid="where" />
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="queryPage"  resultMap="RM_Dict">
+		SELECT
+		<include refid="columns" />
+		FROM scd_dict
+		<include refid="where" />
+		<if test="sortColumns != null">
+			ORDER BY ${sortColumns}
+		</if>
+		LIMIT #{begin},#{pageSize}
+	</select>
+
+</mapper>
+
