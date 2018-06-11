@@ -18,21 +18,36 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @Data
 public class QueryPageRequestbody extends BaseRequestbody{
 
+    /**
+     * 页码
+     */
     @ApiModelProperty(value = "页码")
     @JsonProperty("page")
     private int pageNum;
 
+    /**
+     * 每页显示数量
+     */
     @ApiModelProperty(value = "每页显示数量")
     @JsonProperty("rows")
     private int pageSize;
 
+    /**
+     * 排序方式,例如：create_time desc modify_time desc
+     */
     @ApiModelProperty(value = "排序方式", example = "create_time desc modify_time desc")
     private String sortColumns;
 
+    /**
+     * 分页开始索引
+     */
     @ApiModelProperty(value = "分页开始索引",hidden = true)
     @JsonIgnore
     private int begin;
 
+    /**
+     * 结束索引
+     */
     @ApiModelProperty(value = "结束索引",hidden = true)
     @JsonIgnore
     private int end;

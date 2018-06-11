@@ -13,12 +13,17 @@ import com.liangfeng.study.dict.web.request.DictAddOrMdfRequestbody;
 import com.liangfeng.study.dict.web.response.DictGetResponsebody;
 import com.liangfeng.study.dict.web.response.DictQueryResponsebody;
 
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -32,6 +37,8 @@ import java.util.List;
 @Service
 public class DictServiceImpl implements DictService {
 
+    private static final Map<String, Map<String, List<DictGetResponsebody>>> dictMaps = new HashMap<>();
+
     @Autowired
     DictMapper dictMapper;
 
@@ -41,7 +48,7 @@ public class DictServiceImpl implements DictService {
         // 1.定义参数
         Dict dict = new Dict();
         // 2.复制属性值
-        BeanUtils.copyProperties(requestbody,dict);
+        BeanUtils.copyProperties(requestbody, dict);
         // 3.插入数据
         dictMapper.insert(dict);
         // 4.返回主键
@@ -54,7 +61,7 @@ public class DictServiceImpl implements DictService {
         // 1.定义参数
         Dict dict = new Dict();
         // 2.复制属性值
-        BeanUtils.copyProperties(requestbody,dict);
+        BeanUtils.copyProperties(requestbody, dict);
         // 3.修改数据
         dictMapper.update(dict);
     }
@@ -75,7 +82,7 @@ public class DictServiceImpl implements DictService {
         // 2.查询对象
         Dict dict = dictMapper.get(requestbody.getId());
         // 3.复制属性
-        BeanUtils.copyProperties(dict,responseBody);
+        BeanUtils.copyProperties(dict, responseBody);
         // 4.返回数据
         return responseBody;
     }
@@ -85,7 +92,7 @@ public class DictServiceImpl implements DictService {
         // 1.定义参数
         DictQueryResponsebody responseBody = new DictQueryResponsebody();
         DictQuery dictQuery = new DictQuery();
-        BeanUtils.copyProperties(requestbody,dictQuery);
+        BeanUtils.copyProperties(requestbody, dictQuery);
 
         // 2.查询
         requestbody.setSortColumns("id desc");
@@ -104,7 +111,7 @@ public class DictServiceImpl implements DictService {
         // 1.定义参数
         DictQueryResponsebody responseBody = new DictQueryResponsebody();
         DictQuery dictQuery = new DictQuery();
-        BeanUtils.copyProperties(requestbody,dictQuery);
+        BeanUtils.copyProperties(requestbody, dictQuery);
         int total = 0;
 
         // 2.查询总数
@@ -113,7 +120,7 @@ public class DictServiceImpl implements DictService {
 
         // 3.分页查询集合
         // 3.1 如何没有数据则直接返回。
-        if(responseBody.getTotal()==0){
+        if (responseBody.getTotal() == 0) {
             return responseBody;
         }
 
@@ -127,6 +134,37 @@ public class DictServiceImpl implements DictService {
             getResponseBodies.add(getResponseBody);
         }
         return responseBody;
+    }
+
+    @Override
+    public Map<String, List<DictGetResponsebody>> queryForWebCache(DictQueryRequestbody requestbody) {
+        // 1.定义参数
+        Map<String, List<DictGetResponsebody>> dictMap = new HashMap<>();
+
+        // 2.如果已经读取过,返回缓存数据
+        if(null != dictMaps.get(requestbody.getSysCode())){
+            return dictMaps.get(requestbody.getSysCode());
+        }
+
+        // 3.查询
+        DictQuery dictQuery = new DictQuery();
+        BeanUtils.copyProperties(requestbody, dictQuery);
+        requestbody.setSortColumns("group_id order desc");
+        List<Dict> dicts = dictMapper.query(dictQuery);
+        for (Dict dict : dicts) {
+            String groupCode = dict.getGroupCode();
+            List<DictGetResponsebody> dictBodys = dictMap.get(groupCode);
+            DictGetResponsebody getResponseBody = new DictGetResponsebody();
+            BeanUtils.copyProperties(dict, getResponseBody);
+            if (dictBodys == null) {
+                dictBodys = new ArrayList<>();
+                dictBodys.add(getResponseBody);
+                dictMap.put(groupCode, dictBodys);
+                continue;
+            }
+            dictBodys.add(getResponseBody);
+        }
+        return dictMap;
     }
 }
 

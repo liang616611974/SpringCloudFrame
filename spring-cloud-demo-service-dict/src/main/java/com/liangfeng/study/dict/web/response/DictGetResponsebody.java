@@ -3,6 +3,7 @@ package com.liangfeng.study.dict.web.response;
 
 import com.liangfeng.study.core.constant.AppConstant;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +21,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @date 2018-06-09
  */
 @Data
-public class DictGetResponsebody {
+public class DictGetResponsebody implements Serializable{
+
+    private static final long serialVersionUID = 6852976118111741430L;
 
     @ApiModelProperty(value = "主键",example = "")
     private Long id;
