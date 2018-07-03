@@ -18,30 +18,51 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @version 1.0
  * @Title: DictAddOrMdfRequestbody
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-03
  */
 @Data
 public class DictAddOrMdfRequestbody extends AddOrMdfRequestbody{
 	
-    @ApiModelProperty(value = "字典组编号",example = "字典组编号")
+    /**
+     * 字典组编号 group_code
+     */
+    @ApiModelProperty(value = "字典组编号", example = "字典组编号")
     private String groupCode;
 
-    @ApiModelProperty(value = "字典编号",example = "字典编号")
+    /**
+     * 字典编号 dict_code
+     */
+    @ApiModelProperty(value = "字典编号", example = "字典编号")
     private String dictCode;
 
-    @ApiModelProperty(value = "系统编码",example = "系统编码")
+    /**
+     * 系统编码 sys_code
+     */
+    @ApiModelProperty(value = "系统编码", example = "系统编码")
     private String sysCode;
 
-    @ApiModelProperty(value = "字典组描述",example = "字典组描述")
+    /**
+     * 字典组描述 group_desc
+     */
+    @ApiModelProperty(value = "字典组描述", example = "字典组描述")
     private String groupDesc;
 
-    @ApiModelProperty(value = "字典描述",example = "字典描述")
+    /**
+     * 字典描述 dict_desc
+     */
+    @ApiModelProperty(value = "字典描述", example = "字典描述")
     private String dictDesc;
 
-    @ApiModelProperty(value = "顺序",example = "")
+    /**
+     * 顺序 dict_order
+     */
+    @ApiModelProperty(value = "顺序", example = "1")
     private Byte dictOrder;
 
-    @ApiModelProperty(value = "是否使用",example = "")
+    /**
+     * 是否使用 is_use
+     */
+    @ApiModelProperty(value = "是否使用", example = "true")
     private Boolean isUse;
 
     @Override

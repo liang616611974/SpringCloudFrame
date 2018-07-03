@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Liangfeng
@@ -211,5 +212,33 @@ public class DictServiceTest extends BaseTest{
         Assert.assertEquals(errMsg, 1, responsebody.getRows().size());
         compareObjProps(errMsg, dicts.get(2), responsebody.getRows().get(0));
     }
+
+
+    @Test
+    public void testQueryForWebCache() {
+        // 1.定义参数
+        DictQueryRequestbody requestbody;
+        Map<String,List<DictGetResponsebody>> dicMap;
+        String sysCode = "0000";
+        Dict dict;
+        String errMsg = "测试返回给前端页面做数据缓存失败";
+
+        // 2.测试情景
+        // 2.1 测试情景一
+        // 构造测试数据
+        for (int i = 1; i <= 3; i++) {
+            dict = new Dict();
+            ObjectHelper.initFieldsVal(dict, i);
+            dict.setSysCode("0000");
+            dictMapper.insert(dict);
+        }
+        requestbody = new DictQueryRequestbody();
+        requestbody.setSysCode(sysCode);
+        // 运行
+        dicMap = service.queryForWebCache(requestbody);
+        // 验证结果
+        Assert.assertEquals(errMsg,dicMap.size(),3);
+    }
+
 
 }

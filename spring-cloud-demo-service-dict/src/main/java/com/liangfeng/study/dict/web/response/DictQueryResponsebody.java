@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @version 1.0
  * @Title: DictQueryResponsebody
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-03
  */
 @Data
 public class DictQueryResponsebody extends QueryPageResponsebody<DictGetResponsebody>{

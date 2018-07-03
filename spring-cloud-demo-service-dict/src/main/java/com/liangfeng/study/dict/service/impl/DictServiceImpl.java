@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,8 +149,9 @@ public class DictServiceImpl implements DictService {
 
         // 3.查询
         DictQuery dictQuery = new DictQuery();
+        requestbody.setSortColumns("group_code,dict_order desc");
         BeanUtils.copyProperties(requestbody, dictQuery);
-        requestbody.setSortColumns("group_id order desc");
+        dictQuery.setIsUse(true);
         List<Dict> dicts = dictMapper.query(dictQuery);
         for (Dict dict : dicts) {
             String groupCode = dict.getGroupCode();
@@ -166,5 +168,6 @@ public class DictServiceImpl implements DictService {
         }
         return dictMap;
     }
+
 }
 

@@ -6,8 +6,6 @@ import com.liangfeng.study.core.constant.AppConstant;
 
 import java.util.Date;
 import java.math.BigDecimal;
-
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -20,56 +18,96 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @version 1.0
  * @Title: DictQueryRequestbody
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-03
  */
 @Data
 public class DictQueryRequestbody extends QueryPageRequestbody{
-
-    @ApiModelProperty(value = "字典组编号",example = "字典组编号")
-    private String groupCode;
-
-    @ApiModelProperty(value = "字典编号",example = "字典编号")
-    private String dictCode;
-
-    @ApiModelProperty(value = "系统编码",example = "系统编码")
-    private String sysCode;
-
-    @ApiModelProperty(value = "是否使用",example = "")
-    private Boolean isUse;
-
-
-   /*
-    @ApiModelProperty(value = "主键",example = "")
+	
+    /**
+     * 主键 id
+     */
+    @ApiModelProperty(value = "主键", example = "1")
     private Long id;
 
-    @ApiModelProperty(value = "字典组描述",example = "字典组描述")
+    /**
+     * 字典组编号 group_code
+     */
+    @ApiModelProperty(value = "字典组编号", example = "字典组编号")
+    private String groupCode;
+
+    /**
+     * 字典编号 dict_code
+     */
+    @ApiModelProperty(value = "字典编号", example = "字典编号")
+    private String dictCode;
+
+    /**
+     * 系统编码 sys_code
+     */
+    @ApiModelProperty(value = "系统编码", example = "系统编码")
+    private String sysCode;
+
+    /**
+     * 字典组描述 group_desc
+     *//*
+    @ApiModelProperty(value = "字典组描述", example = "字典组描述")
     private String groupDesc;
 
-    @ApiModelProperty(value = "字典描述",example = "字典描述")
+    *//**
+     * 字典描述 dict_desc
+     *//*
+    @ApiModelProperty(value = "字典描述", example = "字典描述")
     private String dictDesc;
 
-    @ApiModelProperty(value = "顺序",example = "")
+    *//**
+     * 顺序 dict_order
+     *//*
+    @ApiModelProperty(value = "顺序", example = "1")
     private Byte dictOrder;
 
-   @ApiModelProperty(value = "创建用户",example = "")
+    *//**
+     * 是否使用 is_use
+     *//*
+    @ApiModelProperty(value = "是否使用", example = "true")
+    private Boolean isUse;
+
+    *//**
+     * 创建用户 cre_user
+     *//*
+    @ApiModelProperty(value = "创建用户", example = "1")
     private Long creUser;
 
-    @ApiModelProperty(value = "创建时间开始",example = "2018-01-01 00:00:00")
+    *//**
+     * 创建时间开始 cre_time
+     *//*
+    @ApiModelProperty(value = "创建时间开始", example = "2018-01-01 00:00:00")
     @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
     private Date creTimeBegin;
 
-    @ApiModelProperty(value = "创建时间结束",example = "2018-01-01 00:00:00")
+    *//**
+     * 创建时间结束 cre_time
+     *//*
+    @ApiModelProperty(value = "创建时间结束", example = "2018-01-01 00:00:00")
     @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
     private Date creTimeEnd;
 
-    @ApiModelProperty(value = "修改用户",example = "")
+    *//**
+     * 修改用户 mdf_user
+     *//*
+    @ApiModelProperty(value = "修改用户", example = "1")
     private Long mdfUser;
 
-    @ApiModelProperty(value = "修改时间开始",example = "2018-01-01 00:00:00")
+    *//**
+     * 修改时间开始 mdf_time
+     *//*
+    @ApiModelProperty(value = "修改时间开始", example = "2018-01-01 00:00:00")
     @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
     private Date mdfTimeBegin;
 
-    @ApiModelProperty(value = "修改时间结束",example = "2018-01-01 00:00:00")
+    *//**
+     * 修改时间结束 mdf_time
+     *//*
+    @ApiModelProperty(value = "修改时间结束", example = "2018-01-01 00:00:00")
     @JsonFormat(pattern = AppConstant.PATTERN_DATETIME,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
     private Date mdfTimeEnd;*/
 

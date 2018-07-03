@@ -19,7 +19,7 @@ import java.util.Date;
 @Data
 public class AddOrMdfRequestbody extends BaseRequestbody {
 
-    @ApiModelProperty(value = "主键")
+    @ApiModelProperty(value = "主键",hidden = true)
     @NotNull(groups = {Request.Modify.class,Request.Get.class})
     private Long id;
 

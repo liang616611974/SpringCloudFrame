@@ -1,6 +1,7 @@
 package com.liangfeng.study.dict.web.controller;
 
 
+import com.liangfeng.study.core.exception.ParamException;
 import com.liangfeng.study.core.helper.ExcelHelper;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -27,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @Title: DictController
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-02
  */
 @RestController
 @Api(description = "字典模块接口")
@@ -51,20 +54,20 @@ public class DictController {
 
     @ApiOperation(value = "删除字典")
     @PostMapping("/dict/remove")
-    public Response remove(@Validated({Request.Remove.class}) @RequestBody RemoveRequestbody requestbody) {
+    public Response remove(@Validated @RequestBody RemoveRequestbody requestbody) {
         service.remove(requestbody);
         return Response.success();
     }
 
     @ApiOperation(value = "获取字典详细信息")
     @PostMapping("/dict/get")
-    public Response<DictGetResponsebody> get(@Validated(Request.Get.class) @RequestBody GetRequestbody requestbody) {
+    public Response<DictGetResponsebody> get(@Validated @RequestBody GetRequestbody requestbody) {
         return Response.success(service.get(requestbody));
     }
 
     @ApiOperation(value = "分页查询字典")
     @PostMapping("/dict/queryPage")
-    public Response<DictQueryResponsebody> queryPage(@Validated(Request.Get.class) @RequestBody DictQueryRequestbody requestbody) {
+    public Response<DictQueryResponsebody> queryPage(@Validated @RequestBody DictQueryRequestbody requestbody) {
         return Response.success(service.queryPage(requestbody));
     }
 
@@ -74,6 +77,11 @@ public class DictController {
         DictQueryResponsebody responsebody = service.query(requestbody);
         ExcelHelper.exportForDownloadByObj(request,response,dowloadName,responsebody.getRows(),DictGetResponsebody.class);
     }
-   
+
+    @ApiOperation(value = "查询字典作前端缓存")
+    @PostMapping("/dict/webCache")
+    public Response<Map<String, List<DictGetResponsebody>>> queryForWebCache(@Validated @RequestBody DictQueryRequestbody requestbody){
+        return Response.success(service.queryForWebCache(requestbody));
+    }
 }
 

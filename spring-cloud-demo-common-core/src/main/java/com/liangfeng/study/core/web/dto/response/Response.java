@@ -165,7 +165,7 @@ public class Response<T> {
         /**
          * 服务器异常
          */
-        SERVER_ERR(400);
+        SERVER_ERR(500);
 
         private final int value;
 

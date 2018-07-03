@@ -5,18 +5,18 @@ drop table if exists scd_goods;
 /*==============================================================*/
 create table scd_goods
 (
-   id                   bigint(20) not null comment 'Ö÷¼ü',
-   goods_name           varchar(50) not null comment 'ÉÌÆ·Ãû³Æ',
-   goods_type           varchar(35) not null comment 'ÉÌÆ·ÀàĞÍ',
-   price                decimal(20,2) not null comment '¼Û¸ñ',
-   producer             varchar(50) comment 'Éú²úÉÌ',
-   produce_date         date comment 'Éú²úÈÕÆÚ',
-   cre_time             datetime not null comment '´´½¨Ê±¼ä',
-   mdf_time             datetime comment 'ĞŞ¸ÄÊ±¼ä',
-   cre_user             bigint(20) comment '´´½¨ÓÃ»§',
-   mdf_user             bigint(20) comment 'ĞŞ¸ÄÓÃ»§',
+   id                   bigint(20) not null comment 'ä¸»é”®',
+   goods_name           varchar(50) not null comment 'å•†å“åç§°',
+   goods_type           varchar(35) not null comment 'å•†å“ç±»å‹',
+   price                decimal(20,2) not null comment 'ä»·æ ¼',
+   producer             varchar(50) comment 'ç”Ÿäº§å•†',
+   produce_date         date comment 'ç”Ÿäº§æ—¥æœŸ',
+   cre_time             datetime not null comment 'åˆ›å»ºæ—¶é—´',
+   mdf_time             datetime comment 'ä¿®æ”¹æ—¶é—´',
+   cre_user             bigint(20) comment 'åˆ›å»ºç”¨æˆ·',
+   mdf_user             bigint(20) comment 'ä¿®æ”¹ç”¨æˆ·',
    primary key (id)
 )
-ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='ÉÌÆ·±í';
+ENGINE=INNODB DEFAULT CHARSET=utf8 COMMENT='å•†å“è¡¨';
 
-alter table scd_goods comment 'ÉÌÆ·±í';
+alter table scd_goods comment 'å•†å“è¡¨';

@@ -33,9 +33,9 @@ public class QueryPageRequestbody extends BaseRequestbody{
     private int pageSize;
 
     /**
-     * 排序方式,例如：create_time desc modify_time desc
+     * 排序方式,例如：cre_time desc,mdf_time desc
      */
-    @ApiModelProperty(value = "排序方式", example = "create_time desc modify_time desc")
+    @ApiModelProperty(value = "排序方式", example = "cre_time desc,mdf_time desc")
     private String sortColumns;
 
     /**

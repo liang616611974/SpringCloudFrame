@@ -1,33 +1,34 @@
-drop index idx_group_code on scd_dict;
+-- drop index uk_sys_group_code on scd_dict;
 
-drop table if exists scd_dict;
+DROP TABLE IF EXISTS scd_dict;
 
 /*==============================================================*/
 /* Table: scd_dict                                              */
 /*==============================================================*/
-create table scd_dict
+CREATE TABLE scd_dict
 (
-   id                   bigint(20) not null comment 'Ö÷¼ü',
-   group_code           varchar(35) not null comment '×Öµä×é±àºÅ',
-   dict_code            varchar(35) not null comment '×Öµä±àºÅ',
-   sys_code             varchar(4) not null comment 'ÏµÍ³±àÂë',
-   group_desc           varchar(50) not null comment '×Öµä×éÃèÊö',
-   dict_desc            varchar(50) not null comment '×ÖµäÃèÊö',
-   dict_order           tinyint(2) not null comment 'Ë³Ğò',
-   is_use               tinyint(1) not null comment 'ÊÇ·ñÊ¹ÓÃ',
-   cre_user             bigint(20) not null comment '´´½¨ÓÃ»§',
-   cre_time             datetime not null comment '´´½¨Ê±¼ä',
-   mdf_user             bigint(20) comment 'ĞŞ¸ÄÓÃ»§',
-   mdf_time             datetime not null comment 'ĞŞ¸ÄÊ±¼ä',
-   primary key (id)
+   id                   BIGINT(20) NOT NULL COMMENT 'ä¸»é”®',
+   group_code           VARCHAR(35) NOT NULL COMMENT 'å­—å…¸ç»„ç¼–å·',
+   dict_code            VARCHAR(35) NOT NULL COMMENT 'å­—å…¸ç¼–å·',
+   sys_code             VARCHAR(4) NOT NULL COMMENT 'ç³»ç»Ÿç¼–ç ',
+   group_desc           VARCHAR(50) NOT NULL COMMENT 'å­—å…¸ç»„æè¿°',
+   dict_desc            VARCHAR(50) NOT NULL COMMENT 'å­—å…¸æè¿°',
+   dict_order           TINYINT(2) NOT NULL COMMENT 'é¡ºåº',
+   is_use               TINYINT(1) NOT NULL COMMENT 'æ˜¯å¦ä½¿ç”¨',
+   cre_user             BIGINT(20) NOT NULL COMMENT 'åˆ›å»ºç”¨æˆ·',
+   cre_time             DATETIME NOT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+   mdf_user             BIGINT(20) COMMENT 'ä¿®æ”¹ç”¨æˆ·',
+   mdf_time             DATETIME NOT NULL COMMENT 'ä¿®æ”¹æ—¶é—´',
+   PRIMARY KEY (id)
 );
 
-alter table scd_dict comment '×Öµä±í';
+ALTER TABLE scd_dict COMMENT 'å­—å…¸è¡¨';
 
 /*==============================================================*/
-/* Index: idx_group_code                                        */
+/* Index: uk_sys_group_code                                     */
 /*==============================================================*/
-create index idx_group_code on scd_dict
+CREATE UNIQUE INDEX uk_sys_group_code ON scd_dict
 (
+   sys_code,
    group_code
 );

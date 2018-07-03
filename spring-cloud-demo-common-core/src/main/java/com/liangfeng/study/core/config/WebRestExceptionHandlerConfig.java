@@ -5,17 +5,22 @@ import com.liangfeng.study.core.exception.ParamException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 /**
  * @Title WebRestExceptionHandlerConfig.java
- * @Description 系统异常处理，针对不同一样返回不同Rest结果
+ * @Description 系统异常全局处理，针对不同一样返回不同Rest结果
  * @version 1.0
  * @author Liangfeng
  * @date 2017/10/27 17:34
@@ -35,7 +40,7 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({ParamException.class})
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Object processException(ParamException exception) {
         logger.error("系统自定义异常处理-ParamException", exception);
         return Response.paramErr(exception.getMessage());
@@ -48,7 +53,7 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Object processException(RuntimeException exception) {
         logger.error("系统自定义异常处理-RuntimeException", exception);
         return getErrResponse(exception);
@@ -61,7 +66,7 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({Exception.class})
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Object processException(Exception exception) {
         logger.error("系统自定义异常处理-exception", exception);
         return getErrResponse(exception);
