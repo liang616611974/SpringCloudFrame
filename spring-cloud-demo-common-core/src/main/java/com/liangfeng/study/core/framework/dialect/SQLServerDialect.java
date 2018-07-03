@@ -39,8 +39,7 @@ public class SQLServerDialect extends Dialect{
 				.insert( getAfterSelectInsertPoint( querySelect ), " top " + limit )
 				.toString();
 	}
-	
-	// TODO add Dialect.supportsVariableLimit() for sqlserver 
+
 //	public boolean supportsVariableLimit() {
 //		return false;
 //	}

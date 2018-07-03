@@ -58,7 +58,6 @@ public class RoncooCustomRule extends AbstractLoadBalancerRule {
 
 	@Override
 	public void initWithNiwsConfig(IClientConfig clientConfig) {
-		// TODO Auto-generated method stub
 	}
 
 }

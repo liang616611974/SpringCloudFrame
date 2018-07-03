@@ -38,6 +38,7 @@ import java.util.Map;
 @Service
 public class DictServiceImpl implements DictService {
 
+    // TODO: 2018/7/3 优化：字典集合可以保存在redis内存数据库
     private static final Map<String, Map<String, List<DictGetResponsebody>>> dictMaps = new HashMap<>();
 
     @Autowired
@@ -149,7 +150,7 @@ public class DictServiceImpl implements DictService {
 
         // 3.查询
         DictQuery dictQuery = new DictQuery();
-        requestbody.setSortColumns("group_code,dict_order desc");
+        requestbody.setSortColumns("group_code,dict_order");
         BeanUtils.copyProperties(requestbody, dictQuery);
         dictQuery.setIsUse(true);
         List<Dict> dicts = dictMapper.query(dictQuery);
@@ -166,6 +167,7 @@ public class DictServiceImpl implements DictService {
             }
             dictBodys.add(getResponseBody);
         }
+        dictMaps.put(requestbody.getSysCode(), dictMap);
         return dictMap;
     }
 
