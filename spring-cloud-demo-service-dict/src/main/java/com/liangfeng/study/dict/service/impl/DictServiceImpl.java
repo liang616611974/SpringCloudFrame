@@ -127,7 +127,7 @@ public class DictServiceImpl implements DictService {
         }
 
         // 3.2 有数据
-        requestbody.setSortColumns("id desc");
+        //requestbody.setSortColumns("id desc");
         List<Dict> dicts = dictMapper.queryPage(dictQuery);
         List<DictGetResponsebody> getResponseBodies = responseBody.getRows();
         for (Dict dict : dicts) {

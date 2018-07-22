@@ -21,14 +21,14 @@ public class QueryPageRequestbody extends BaseRequestbody{
     /**
      * 页码
      */
-    @ApiModelProperty(value = "页码")
+    @ApiModelProperty(value = "页码",allowableValues = "1,2,3,4",example = "1")
     @JsonProperty("page")
     private int pageNum;
 
     /**
      * 每页显示数量
      */
-    @ApiModelProperty(value = "每页显示数量")
+    @ApiModelProperty(value = "每页显示数量",allowableValues = "10",example = "10")
     @JsonProperty("rows")
     private int pageSize;
 

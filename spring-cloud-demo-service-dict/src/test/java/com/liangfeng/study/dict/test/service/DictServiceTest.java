@@ -39,10 +39,12 @@ import java.util.Map;
 @Rollback
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class DictServiceTest extends BaseTest{
+public class DictServiceTest extends BaseTest {
 
     // 不需要校验的字段名称数组
     private static final String[] noneValidFileds = {AppConstant.SESSION_ATTR_NAME_USERID, AppConstant.SESSION_ATTR_NAME_USERROLES};
+
+    private static final String SYS_CODE = "SCD";
 
     @Autowired
     DictMapper dictMapper;
@@ -72,7 +74,7 @@ public class DictServiceTest extends BaseTest{
         // 构造测试数据
         requestbody = new DictAddOrMdfRequestbody();
         ObjectHelper.initFieldsVal(requestbody, 1);
-        requestbody.setSysCode("0000");
+        requestbody.setSysCode(SYS_CODE);
         // 执行
         responsebody = service.add(requestbody);
         // 验证结果
@@ -98,7 +100,7 @@ public class DictServiceTest extends BaseTest{
         requestbody = new DictAddOrMdfRequestbody();
         ObjectHelper.initFieldsVal(requestbody, 2);
         requestbody.setId(dict.getId());
-        requestbody.setSysCode("0000");
+        requestbody.setSysCode(SYS_CODE);
         // 运行
         service.modify(requestbody);
         // 验证结果
@@ -120,7 +122,7 @@ public class DictServiceTest extends BaseTest{
         for (int i = 1; i <= 3; i++) {
             dict = new Dict();
             ObjectHelper.initFieldsVal(dict, i);
-            dict.setSysCode("0000");
+            dict.setSysCode(SYS_CODE);
             dictMapper.insert(dict);
             requestbody.add(dict.getId());
         }
@@ -143,7 +145,7 @@ public class DictServiceTest extends BaseTest{
         // 构造测试数据
         dict = new Dict();
         ObjectHelper.initFieldsVal(dict, 1);
-        dict.setSysCode("0000");
+        dict.setSysCode(SYS_CODE);
         dictMapper.insert(dict);
         requestbody = new GetRequestbody();
         requestbody.setId(dict.getId());
@@ -168,7 +170,7 @@ public class DictServiceTest extends BaseTest{
         for (int i = 1; i <= 3; i++) {
             dict = new Dict();
             ObjectHelper.initFieldsVal(dict, i);
-            dict.setSysCode("0000");
+            dict.setSysCode(SYS_CODE);
             dictMapper.insert(dict);
             dicts.add(dict);
         }
@@ -197,7 +199,7 @@ public class DictServiceTest extends BaseTest{
         for (int i = 1; i <= 3; i++) {
             dict = new Dict();
             ObjectHelper.initFieldsVal(dict, i);
-            dict.setSysCode("0000");
+            dict.setSysCode(SYS_CODE);
             dictMapper.insert(dict);
             dicts.add(dict);
         }
@@ -218,8 +220,8 @@ public class DictServiceTest extends BaseTest{
     public void testQueryForWebCache() {
         // 1.定义参数
         DictQueryRequestbody requestbody;
-        Map<String,List<DictGetResponsebody>> dicMap;
-        String sysCode = "0000";
+        Map<String, List<DictGetResponsebody>> dicMap;
+        String sysCode = SYS_CODE;
         Dict dict;
         String errMsg = "测试返回给前端页面做数据缓存失败";
 
@@ -229,7 +231,7 @@ public class DictServiceTest extends BaseTest{
         for (int i = 1; i <= 3; i++) {
             dict = new Dict();
             ObjectHelper.initFieldsVal(dict, i);
-            dict.setSysCode("0000");
+            dict.setSysCode(SYS_CODE);
             dictMapper.insert(dict);
         }
         requestbody = new DictQueryRequestbody();
@@ -237,7 +239,7 @@ public class DictServiceTest extends BaseTest{
         // 运行
         dicMap = service.queryForWebCache(requestbody);
         // 验证结果
-        Assert.assertEquals(errMsg,dicMap.size(),3);
+        Assert.assertEquals(errMsg, dicMap.size(), 3);
     }
 
 

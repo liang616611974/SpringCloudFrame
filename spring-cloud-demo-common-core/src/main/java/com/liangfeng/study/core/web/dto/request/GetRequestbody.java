@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class GetRequestbody extends BaseRequestbody {
 
-    @ApiModelProperty(value = "主键")
+    @ApiModelProperty(value = "主键",required = true)
     @NotNull
     private Long id;
 

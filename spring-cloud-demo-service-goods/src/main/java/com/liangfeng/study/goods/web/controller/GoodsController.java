@@ -64,8 +64,8 @@ public class GoodsController {
 
     @ApiOperation(value = "分页查询商品")
     @PostMapping("/goods/queryPage")
-    public Response<GoodsQueryResponsebody> queryPage(@Validated(Request.Get.class) @RequestBody GoodsQueryRequestbody requestbody) {
-        return Response.success(service.queryPage(requestbody));
+    public Response<GoodsQueryResponsebody> queryPage(@Validated @RequestBody GoodsQueryRequestbody requestbody) {
+            return Response.success(service.queryPage(requestbody));
     }
 
     @ApiOperation(value = "导出商品")

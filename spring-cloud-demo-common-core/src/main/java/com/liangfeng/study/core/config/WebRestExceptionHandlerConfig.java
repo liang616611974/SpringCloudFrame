@@ -53,7 +53,7 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({RuntimeException.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public Object processException(RuntimeException exception) {
         logger.error("系统自定义异常处理-RuntimeException", exception);
         return getErrResponse(exception);
