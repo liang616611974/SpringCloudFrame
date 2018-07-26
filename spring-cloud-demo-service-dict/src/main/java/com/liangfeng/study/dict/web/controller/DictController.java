@@ -73,9 +73,9 @@ public class DictController {
 
     @ApiOperation(value = "导出字典")
     @RequestMapping(value = "/dict/export",method = {RequestMethod.GET,RequestMethod.POST})
-    public void export(DictQueryRequestbody requestbody,String dowloadName,HttpServletRequest request, HttpServletResponse response){
+    public void export(DictQueryRequestbody requestbody,String downloadName,HttpServletRequest request, HttpServletResponse response){
         DictQueryResponsebody responsebody = service.query(requestbody);
-        ExcelHelper.exportForDownloadByObj(request,response,dowloadName,responsebody.getRows(),DictGetResponsebody.class);
+        ExcelHelper.exportForDownloadByObj(request,response,downloadName,responsebody.getRows(),DictGetResponsebody.class);
     }
 
     @ApiOperation(value = "查询字典作前端缓存")
