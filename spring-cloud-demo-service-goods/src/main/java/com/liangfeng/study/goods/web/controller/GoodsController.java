@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @Title: GoodsController
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @RestController
 @Api(description = "商品模块接口")
@@ -51,21 +51,21 @@ public class GoodsController {
 
     @ApiOperation(value = "删除商品")
     @PostMapping("/goods/remove")
-    public Response remove(@Validated({Request.Remove.class}) @RequestBody RemoveRequestbody requestbody) {
+    public Response remove(@Validated @RequestBody RemoveRequestbody requestbody) {
         service.remove(requestbody);
         return Response.success();
     }
 
     @ApiOperation(value = "获取商品详细信息")
     @PostMapping("/goods/get")
-    public Response<GoodsGetResponsebody> get(@Validated(Request.Get.class) @RequestBody GetRequestbody requestbody) {
+    public Response<GoodsGetResponsebody> get(@Validated @RequestBody GetRequestbody requestbody) {
         return Response.success(service.get(requestbody));
     }
 
     @ApiOperation(value = "分页查询商品")
     @PostMapping("/goods/queryPage")
     public Response<GoodsQueryResponsebody> queryPage(@Validated @RequestBody GoodsQueryRequestbody requestbody) {
-            return Response.success(service.queryPage(requestbody));
+        return Response.success(service.queryPage(requestbody));
     }
 
     @ApiOperation(value = "导出商品")

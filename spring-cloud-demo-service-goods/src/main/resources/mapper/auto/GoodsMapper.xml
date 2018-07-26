@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="price" column="price" jdbcType="DECIMAL" />
 		<result property="producer" column="producer" jdbcType="VARCHAR" />
 		<result property="produceDate" column="produce_date" jdbcType="DATE" />
+		<result property="imgUrl" column="img_url" jdbcType="VARCHAR" />
 		<result property="creTime" column="cre_time" jdbcType="TIMESTAMP" />
 		<result property="mdfTime" column="mdf_time" jdbcType="TIMESTAMP" />
 		<result property="creUser" column="cre_user" jdbcType="BIGINT" />
@@ -23,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 用于select查询公用的列 -->
 	<sql id="columns">
 	    <![CDATA[
-		id,goods_name,goods_type,price,producer,produce_date,cre_time,mdf_time,cre_user,mdf_user
+		id,goods_name,goods_type,price,producer,produce_date,img_url,cre_time,mdf_time,cre_user,mdf_user
 	    ]]>
 	</sql>
 
@@ -51,6 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="@Ognl@isNotEmpty(produceDateEnd)">
 				AND produce_date &lt;= #{produceDateEnd,jdbcType=DATE}
+			</if>
+			<if test="@Ognl@isNotEmpty(imgUrl)">
+				AND img_url = #{imgUrl,jdbcType=VARCHAR}
 			</if>
 			<if test="@Ognl@isNotEmpty(creTimeBegin)">
 				AND cre_time >= #{creTimeBegin,jdbcType=TIMESTAMP}
@@ -93,6 +97,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="produceDate != null">
 				produce_date,
 			</if>
+			<if test="imgUrl != null">
+				img_url,
+			</if>
 			<if test="creTime != null">
 				cre_time,
 			</if>
@@ -123,6 +130,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="produceDate != null">
 				#{produceDate,jdbcType=DATE},
+			</if>
+			<if test="imgUrl != null">
+				#{imgUrl,jdbcType=VARCHAR},
 			</if>
 			<if test="creTime != null">
 				#{creTime,jdbcType=TIMESTAMP},
@@ -157,6 +167,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="produceDate != null">
 				produce_date = #{produceDate,jdbcType=DATE} ,
+			</if>
+			<if test="imgUrl != null">
+				img_url = #{imgUrl,jdbcType=VARCHAR} ,
 			</if>
 			<if test="creTime != null">
 				cre_time = #{creTime,jdbcType=TIMESTAMP} ,

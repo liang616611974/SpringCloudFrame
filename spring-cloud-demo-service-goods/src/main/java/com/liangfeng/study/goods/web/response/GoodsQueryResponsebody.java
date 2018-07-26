@@ -3,7 +3,6 @@ package com.liangfeng.study.goods.web.response;
 
 import com.liangfeng.study.core.constant.AppConstant;
 import com.liangfeng.study.core.web.dto.response.QueryPageResponsebody;
-
 import java.util.Date;
 import java.math.BigDecimal;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @version 1.0
  * @Title: GoodsQueryResponsebody
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Data
 public class GoodsQueryResponsebody extends QueryPageResponsebody<GoodsGetResponsebody>{

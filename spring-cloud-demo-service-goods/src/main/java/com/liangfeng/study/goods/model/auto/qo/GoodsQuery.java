@@ -14,7 +14,7 @@ import lombok.Data;
  * @version 1.0
  * @Title: GoodsQuery
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Data
 public class GoodsQuery extends BaseQuery {
@@ -53,6 +53,11 @@ public class GoodsQuery extends BaseQuery {
      * 生产日期结束 produce_date
      */
 	private Date produceDateEnd;
+
+	/**
+     * 图片 img_url
+     */
+	private String imgUrl;
 
 	/**
      * 创建时间开始 cre_time

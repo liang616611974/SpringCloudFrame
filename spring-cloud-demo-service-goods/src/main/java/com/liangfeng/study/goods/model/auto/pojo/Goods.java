@@ -14,7 +14,7 @@ import lombok.Data;
  * @version 1.0
  * @Title: Goods
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Data
 public class Goods extends BaseEntity{
@@ -48,6 +48,11 @@ public class Goods extends BaseEntity{
 	 * 生产日期 produce_date
 	 */
 	private Date produceDate;
+	
+	/** 
+	 * 图片 img_url
+	 */
+	private String imgUrl;
 	
 	/** 
 	 * 创建时间 cre_time

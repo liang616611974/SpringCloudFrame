@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0
  * @Title: GoodsServiceImpl
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 @Service

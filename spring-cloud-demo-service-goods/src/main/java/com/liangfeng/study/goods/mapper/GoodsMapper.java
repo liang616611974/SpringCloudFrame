@@ -13,7 +13,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @version 1.0
  * @Title: GoodsMapper
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods,GoodsQuery,Long> {

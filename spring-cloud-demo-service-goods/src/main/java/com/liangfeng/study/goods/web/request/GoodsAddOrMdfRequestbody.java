@@ -18,26 +18,47 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @version 1.0
  * @Title: GoodsAddOrMdfRequestbody
  * @Description:
- * @date 2018-06-09
+ * @date 2018-07-26
  */
 @Data
 public class GoodsAddOrMdfRequestbody extends AddOrMdfRequestbody{
 	
-    @ApiModelProperty(value = "商品名称",example = "商品名称")
+    /**
+     * 商品名称 goods_name
+     */
+    @ApiModelProperty(value = "商品名称", example = "商品名称")
     private String goodsName;
 
-    @ApiModelProperty(value = "商品类型",example = "商品类型")
+    /**
+     * 商品类型 goods_type
+     */
+    @ApiModelProperty(value = "商品类型", example = "商品类型")
     private String goodsType;
 
-    @ApiModelProperty(value = "价格",example = "")
+    /**
+     * 价格 price
+     */
+    @ApiModelProperty(value = "价格", example = "1")
     private BigDecimal price;
 
-    @ApiModelProperty(value = "生产商",example = "生产商")
+    /**
+     * 生产商 producer
+     */
+    @ApiModelProperty(value = "生产商", example = "生产商")
     private String producer;
 
-    @ApiModelProperty(value = "生产日期",example = "2018-01-01")
+    /**
+     * 生产日期 produce_date
+     */
+    @ApiModelProperty(value = "生产日期", example = "2018-01-01")
     @JsonFormat(pattern = AppConstant.PATTERN_DATE,locale = AppConstant.LOCALE,timezone = AppConstant.TIMEZONE)
     private Date produceDate;
+
+    /**
+     * 图片 img_url
+     */
+    @ApiModelProperty(value = "图片", example = "图片")
+    private String imgUrl;
 
     @Override
     public String toString() {return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);}
