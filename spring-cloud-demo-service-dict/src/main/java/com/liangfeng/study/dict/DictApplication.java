@@ -22,7 +22,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @ServletComponentScan
 @EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
 @EnableCircuitBreaker
-@EnableEurekaClient
+//@EnableEurekaClient
 @SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})
 public class DictApplication {
 

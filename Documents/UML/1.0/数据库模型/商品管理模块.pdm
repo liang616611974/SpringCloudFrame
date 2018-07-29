@@ -1703,8 +1703,9 @@ Table.Comment 0</a:SymbolContent>
 <a:Code>img_url</a:Code>
 <a:CreationDate>1532618039</a:CreationDate>
 <a:Creator>Administrator</a:Creator>
-<a:ModificationDate>1532618107</a:ModificationDate>
+<a:ModificationDate>1532619072</a:ModificationDate>
 <a:Modifier>Administrator</a:Modifier>
+<a:Comment>图片</a:Comment>
 <a:DataType>varchar(100)</a:DataType>
 <a:Length>100</a:Length>
 </o:Column>
