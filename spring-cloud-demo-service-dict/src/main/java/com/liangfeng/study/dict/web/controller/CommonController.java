@@ -40,7 +40,7 @@ public class CommonController {
             return Response.paramErr("单张图片大小不能超过 1MB");
         }
         String extName = FilenameUtils.getExtension(img.getOriginalFilename());
-        if (StringUtils.containsAny(ALLOW_IMG_TYPE, extName)) {
+        if (StringUtils.containsNone(ALLOW_IMG_TYPE, extName)) {
             return Response.paramErr("图片格式错误");
         }
 
