@@ -10,9 +10,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.MultipartConfigElement;
+import java.io.File;
 
 /**
  * @author Liangfeng
@@ -38,9 +42,9 @@ public class AppCommonConfig {
      */
     @Bean
     public IdGenerator idGenerator() {
-        logger.info("AppConfig系统应用配置:{}",appConfig);
+        logger.info("AppConfig系统应用配置:{}", appConfig);
         boolean enable = Boolean.valueOf(appConfig.getIdGeneratorEnable());
-        if(!enable){
+        if (!enable) {
             return null;
         }
         // 声明变量
@@ -49,23 +53,36 @@ public class AppCommonConfig {
         if (StringUtils.isNoneBlank(appConfig.getIdGeneratorType()) && SNOWFLAKE_ID_GENERATOR_TYPE.equals(appConfig.getIdGeneratorType().toLowerCase())) {
             idGeneratorType = SNOWFLAKE_ID_GENERATOR_TYPE;
         }
-        logger.info("=======================注册 {}IdGenerator 开始=========================",idGeneratorType);
+        logger.info("=======================注册 {}IdGenerator 开始=========================", idGeneratorType);
         try {
             // 使用snowflake主键生成策略
             if (StringUtils.isNoneBlank(appConfig.getIdGeneratorType()) && SNOWFLAKE_ID_GENERATOR_TYPE.equals(appConfig.getIdGeneratorType().toLowerCase())) {
                 idGenerator = new SnowflakeIdGenerator(Integer.valueOf(appConfig.getSnowflakeWorkerId()), Integer.valueOf(appConfig.getSnowflakeDatacenterId()));
-            }else {
+            } else {
                 // 否则使用uuid主键生成策略
                 idGenerator = new UUIDGenerator();
             }
         } catch (Exception e) {
-            logger.error("注册{}IdGenerator 发生异常", idGeneratorType,e);
+            logger.error("注册{}IdGenerator 发生异常", idGeneratorType, e);
             throw new RuntimeException("注册" + idGeneratorType + "IdGenerator发生异常", e);
         }
-        logger.info("=======================注册 {}IdGenerator 结束=========================",idGeneratorType);
+        logger.info("=======================注册 {}IdGenerator 结束=========================", idGeneratorType);
         return idGenerator;
     }
 
+    @Bean
+    MultipartConfigElement multipartConfigElement() {
+        logger.info("=======================设置App临时上传目录 {} 开始=========================", appConfig.uploadTemp);
+        File uploadTemp = new File(appConfig.uploadTemp);
+        if(!uploadTemp.exists()){
+            uploadTemp.mkdirs();
+        }
+        MultipartConfigFactory factory = new MultipartConfigFactory();
+        factory.setLocation(appConfig.uploadTemp);
+        MultipartConfigElement element = factory.createMultipartConfig();
+        logger.info("=======================设置App临时上传目录 {} 结束=========================", appConfig.uploadTemp);
+        return element;
+    }
 
     @Component
     @Data
@@ -101,5 +118,10 @@ public class AppCommonConfig {
         @Value("${app.api.printExceptionStackTrace}")
         private String printExceptionStackTrace;
 
+        /**
+         * App 临时上传目录，防止tomcat自创建的临时目录被系统清除。
+         */
+        @Value("${app.upload.temp}")
+        private String uploadTemp;
     }
 }

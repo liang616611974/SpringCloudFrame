@@ -166,7 +166,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
      */
 
     public DataSource createDataSource(String url,String username,String password,String driverClassName) {
-        logger.info("===============创建 {} 数据源 开始===========", url);
+        logger.info("===============创建数据源 {} 开始===========", url);
         // 1.校验配置参数完整性
         if (StringUtils.isBlank(url) ||
                 StringUtils.isBlank(username) ||
@@ -215,7 +215,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
             logger.error("{} 创建数据连接池发生异常", url, e);
             throw new ApplicationContextException(url + " 创建数据连接池发生异常",e);
         }
-        logger.info("===============创建 {} 数据源 结束===========", url);
+        logger.info("===============创建数据源 {} 结束===========", url);
         return dataSource;
     }
 
