@@ -32,7 +32,7 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         logger.info("=========MyFilter 经过==============================");
-        WebUtils.setSessionAttribute((HttpServletRequest)request, AppConstant.SESSION_ATTR_NAME_USERID,new Long("666"));
+        WebUtils.setSessionAttribute((HttpServletRequest)request, AppConstant.SESSION_ATTR_NAME_USERID,new Long("666666"));
         WebUtils.setSessionAttribute((HttpServletRequest)request, AppConstant.SESSION_ATTR_NAME_USERROLES, Arrays.asList(new Long(1111),new Long(2222)));
         filterChain.doFilter(request,response);
     }
