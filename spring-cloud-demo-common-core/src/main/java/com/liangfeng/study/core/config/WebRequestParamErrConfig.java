@@ -36,7 +36,7 @@ public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 		// 是否打印异常的堆栈信息
 		boolean isPrintStackTrace = Boolean.valueOf(appConfig.getPrintExceptionStackTrace());
 		logger.error("请求参数解析失败:{}",isPrintStackTrace + ex.getMessage());
-		return new ResponseEntity<Object>(Response.paramErr(isPrintStackTrace?ex.getMessage():"请求参数解析失败"), headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(Response.paramErr(isPrintStackTrace?ex.getMessage():"请求参数解析失败"), headers, HttpStatus.OK);
 	}
 
 	@Override
