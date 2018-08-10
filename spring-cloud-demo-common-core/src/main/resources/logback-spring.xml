@@ -3,13 +3,12 @@
 
     <!-- 项目名称 -->
     <springProperty scope="context" name="PRJ_NAME" source="app.projectName"/>
-    <!--<property name="PRJ_NAME" value="spring-cloud-demo"/>-->
+
     <!-- 应用名称 -->
     <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
-    <!--<property name="APP_NAME" value="app-goods"/>-->
+
     <!-- 应用包路径 -->
     <springProperty scope="context" name="APP_PACKAGE_NAME" source="app.basePackage"/>
-    <!--<property name="APP_PACKAGE_NAME" value="com.liangfeng.study"/>-->
 
     <!-- 文件输出格式 -->
     <!-- <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />-->

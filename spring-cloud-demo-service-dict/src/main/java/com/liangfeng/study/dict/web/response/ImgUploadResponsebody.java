@@ -2,6 +2,8 @@ package com.liangfeng.study.dict.web.response;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * @Title: ImgUploadRespBody.java
@@ -18,4 +20,7 @@ public class ImgUploadResponsebody {
 
     @ApiModelProperty(value = "url", example = "1")
     private String url;
+
+    @Override
+    public String toString() {return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);}
 }
