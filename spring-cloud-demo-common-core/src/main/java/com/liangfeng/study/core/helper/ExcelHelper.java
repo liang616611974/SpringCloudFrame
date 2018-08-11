@@ -1,6 +1,5 @@
 package com.liangfeng.study.core.helper;
 
-import com.liangfeng.study.core.constant.AppConstant;
 import com.liangfeng.study.core.constant.WebConstant;
 import jxl.Workbook;
 import jxl.format.Alignment;
@@ -40,19 +39,19 @@ public class ExcelHelper {
     /**
      * 系统字符编码
      */
-    private static final String APP_ENCODING = AppConstant.ENCODING; //"UTF-8"
+    private static final String APP_ENCODING = "UTF-8"; //"UTF-8"
     /**
      * 浏览器信息请求头
      */
-    private static final String BROWSER_INFO_HEADER = WebConstant.RequestHeader.BROWSER_INFO;//"USER-AGENT";
+    private static final String BROWSER_INFO_HEADER = "USER-AGENT";//"USER-AGENT";
     /**
      * 文件下载请求头
      */
-    private static final String FILE_DOWNLOAD_HEADER = WebConstant.RequestHeader.FILE_DOWNLOAD;//"Content-Disposition";
+    private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";//"Content-Disposition";
     /**
      * EXCEL ContentType
      */
-    private static final String EXCEL_CONTENT_TYPE = WebConstant.ResponseContentType.EXCEL; //"application/vnd.ms-excel";
+    private static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel"; //"application/vnd.ms-excel";
 
     /**
      * 私有化

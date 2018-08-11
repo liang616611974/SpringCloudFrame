@@ -1,6 +1,5 @@
 package com.liangfeng.study.core.helper;
 
-import com.liangfeng.study.core.constant.AppConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -32,9 +31,9 @@ public class DateHelper {
 	private static final int SECOND = 6;
 	
 	//默认的日期格式
-	private static final String PATTERN_DATE = AppConstant.PATTERN_DATE;
+	private static final String PATTERN_DATE = "yyyy-MM-dd";
 	//默认的日期时间格式
-	private static final String PATTERN_DATETIME = AppConstant.PATTERN_DATETIME;
+	private static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
 	
 	private DateHelper(){}
 
