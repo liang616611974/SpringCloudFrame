@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 项目名称 -->
-    <springProperty scope="context" name="PRJ_NAME" source="app.projectName"/>
+    <!-- 日志输出路径 -->
+    <springProperty scope="context" name="APP_LOG_PATH" source="app.log.path"/>
 
     <!-- 应用名称 -->
     <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
@@ -15,10 +15,8 @@
     <property name="CONSOLE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5level) [%yellow(%21thread)] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %green(%-50c{50}) [%blue(%4L)] : %msg%n"/>
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
-    <!-- test文件路径 -->
-    <property name="TEST_FILE_PATH" value="/logs/${PRJ_NAME}/"/>
-    <!-- pro文件路径 -->
-    <property name="PROD_FILE_PATH" value="/logs/${PRJ_NAME}/"/>
+    <!-- 文件输出路径 -->
+    <property name="FILE_PATH" value="${APP_LOG_PATH}/${APP_NAME}/"/>
 
     <!-- 开发环境 -->
     <springProfile name="dev">
@@ -46,10 +44,10 @@
         <!-- 每天产生一个文件 -->
         <appender name="TEST-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
-            <file>${TEST_FILE_PATH}/${APP_NAME}.log</file>
+            <file>${FILE_PATH}/${APP_NAME}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- 文件名称 -->
-                <fileNamePattern>${TEST_FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+                <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
                 <!-- 文件最大保存历史数量 -->
                 <MaxHistory>30</MaxHistory>
                 <!-- 文件超过50M则分割 -->
@@ -72,10 +70,10 @@
     <springProfile name="prod">
         <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
-            <file>${PROD_FILE_PATH}/${APP_NAME}.log</file>
+            <file>${FILE_PATH}/${APP_NAME}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
                 <!-- 文件名称 -->
-                <fileNamePattern>${PROD_FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+                <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
                 <!-- 文件最大保存历史数量 -->
                 <MaxHistory>30</MaxHistory>
                 <!-- 文件超过50M则分割 -->

@@ -15,6 +15,7 @@ import java.util.Map;
 
 public class WordHelper {
 
+    private static final String ENCODING = "GBK";
 
     /**
      * 私有化构造函数
@@ -34,7 +35,7 @@ public class WordHelper {
      * @throws Exception
      */
 
-    public static void createDocForTemplate(File templateDir, String templateName, Map<String, Object> paramMap, OutputStream os){
+    public static void createWordDoc(File templateDir, String templateName, Map<String, Object> paramMap, OutputStream os){
         Configuration cfg = null;
         Writer writer = null;
         try {
@@ -42,13 +43,13 @@ public class WordHelper {
            cfg = new Configuration(Configuration.VERSION_2_3_23);
            //2.设置模板所在目录
            cfg.setDirectoryForTemplateLoading(templateDir);
-           cfg.setDefaultEncoding("UTF-8");
+           cfg.setDefaultEncoding(ENCODING);
            //4.设置模板异常
            cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
            //5.获取或创建一个模板
            Template template = cfg.getTemplate(templateName);
            //6.写到对应的输出流
-           writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+           writer = new BufferedWriter(new OutputStreamWriter(os, ENCODING));
            template.process(paramMap, writer);
             writer.flush();
             writer.close();
