@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class WordHelperTest {
 
-    String templatePath = Class.class.getClass().getResource("/wordTemplate").getPath().replace("%20", " ");// 模版所在的目录
+    private String templatePath = Class.class.getClass().getResource("/wordTemplate").getPath().replace("%20", " ");// 模版所在的目录
 
     @Test
     public void textCreateWordByHtml() throws Exception {

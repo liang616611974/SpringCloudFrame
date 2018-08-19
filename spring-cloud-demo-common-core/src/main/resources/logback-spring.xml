@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <!-- 日志输出路径 -->
-    <springProperty scope="context" name="APP_LOG_PATH" source="app.log.path"/>
-
     <!-- 应用名称 -->
     <springProperty scope="context" name="APP_NAME" source="spring.application.name"/>
 
     <!-- 应用包路径 -->
     <springProperty scope="context" name="APP_PACKAGE_NAME" source="app.basePackage"/>
+
+    <!-- 日志输出路径 -->
+    <springProperty scope="context" name="APP_LOG_PATH" source="app.log.path"/>
+
+    <!-- 日志等级 -->
+    <springProperty scope="context" name="APP_LOG_LEVEL" source="app.log.level"/>
+
+    <!-- 日志打印器 -->
+    <springProperty scope="context" name="APP_LOG_APPENDER" source="app.log.appender"/>
 
     <!-- 文件输出格式 -->
     <!-- <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />-->
@@ -16,78 +22,61 @@
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- 文件输出路径 -->
-    <property name="FILE_PATH" value="${APP_LOG_PATH}/${APP_NAME}/"/>
+    <property name="FILE_PATH" value="${APP_LOG_PATH}"/>
+
+    <!-- 控制台打印器 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 文件打印器-->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 每天产生一个文件 -->
+        <!-- 文件路径 -->
+        <file>${FILE_PATH}/${APP_NAME}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 文件名称 -->
+            <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <!-- 文件最大保存历史数量 -->
+            <MaxHistory>30</MaxHistory>
+            <!-- 文件超过50M则分割 -->
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>${FILE_PATTERN}</pattern>
+        </layout>
+    </appender>
 
     <!-- 开发环境 -->
     <springProfile name="dev">
-        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>${CONSOLE_PATTERN}</pattern>
-            </encoder>
-        </appender>
-
         <logger name="${APP_PACKAGE_NAME}" level="DEBUG"/>
-
         <logger name="jdbc.connection" level="OFF" />
         <logger name="jdbc.audit" level="OFF" />
         <logger name="jdbc.resultset" level="OFF" />
         <logger name="jdbc.sqlonly" level="OFF" />
         <logger name="jdbc.sqltiming" level="INFO" />
 
-        <root level="info">
-            <appender-ref ref="CONSOLE"/>
+        <root level="${APP_LOG_LEVEL}">
+            <appender-ref ref="${APP_LOG_APPENDER}"/>
         </root>
     </springProfile>
 
     <!-- 测试环境 -->
     <springProfile name="test">
-        <!-- 每天产生一个文件 -->
-        <appender name="TEST-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <!-- 文件路径 -->
-            <file>${FILE_PATH}/${APP_NAME}.log</file>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <!-- 文件名称 -->
-                <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
-                <!-- 文件最大保存历史数量 -->
-                <MaxHistory>30</MaxHistory>
-                <!-- 文件超过50M则分割 -->
-                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                    <maxFileSize>50MB</maxFileSize>
-                </timeBasedFileNamingAndTriggeringPolicy>
-            </rollingPolicy>
-
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>${FILE_PATTERN}</pattern>
-            </layout>
-        </appender>
-
-        <root level="info">
-            <appender-ref ref="TEST-FILE"/>
+        <root level="${APP_LOG_LEVEL}">
+            <appender-ref ref="${APP_LOG_APPENDER}"/>
         </root>
     </springProfile>
 
     <!-- 生产环境 -->
     <springProfile name="prod">
-        <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <!-- 文件路径 -->
-            <file>${FILE_PATH}/${APP_NAME}.log</file>
-            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <!-- 文件名称 -->
-                <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
-                <!-- 文件最大保存历史数量 -->
-                <MaxHistory>30</MaxHistory>
-                <!-- 文件超过50M则分割 -->
-                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                    <maxFileSize>50MB</maxFileSize>
-                </timeBasedFileNamingAndTriggeringPolicy>
-            </rollingPolicy>
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>${FILE_PATTERN}</pattern>
-            </layout>
-        </appender>
-
-        <root level="info">
-            <appender-ref ref="PROD_FILE"/>
+        <root level="${APP_LOG_LEVEL}">
+            <appender-ref ref="${APP_LOG_APPENDER}"/>
         </root>
     </springProfile>
+
 </configuration>
