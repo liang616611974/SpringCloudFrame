@@ -1,8 +1,7 @@
 package com.liangfeng.study.core.helper;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.List;
@@ -16,9 +15,8 @@ import java.util.zip.ZipOutputStream;
  * @Description:
  * @date  2018/4/14 0014 下午 11:07
  */
+@Slf4j
 public class ZipHelper {
-
-    private static final Logger logger = LoggerFactory.getLogger(ZipHelper.class);
 
     private static final int BUFFER_SIZE = 2 * 1024;
 
@@ -57,7 +55,7 @@ public class ZipHelper {
             File sourceFile = new File(srcDirPath);
             compress(sourceFile,zos,sourceFile.getName(),KeepDirStructure);
             long end = System.currentTimeMillis();
-            logger.info("压缩完成，耗时：{} ms",(end - start));
+            log.info("压缩完成，耗时：{} ms",(end - start));
         } catch (Exception e) {
             throw new RuntimeException("压缩文件发生异常",e);
         }finally{
@@ -94,7 +92,7 @@ public class ZipHelper {
                 in.close();
             }
             long end = System.currentTimeMillis();
-            logger.info("压缩完成，耗时：{} ms",(end - start));
+            log.info("压缩完成，耗时：{} ms",(end - start));
         } catch (Exception e) {
             throw new RuntimeException("压缩文件发生异常",e);
         }finally{

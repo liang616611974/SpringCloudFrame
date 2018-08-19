@@ -9,6 +9,7 @@ import jxl.format.VerticalAlignment;
 import jxl.write.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -641,6 +642,7 @@ public class ExcelHelper {
     }
 
     @Data
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class ExcelHeader implements Comparable<ExcelHeader> {
         /**
@@ -685,9 +687,6 @@ public class ExcelHelper {
          * 合并行数
          */
         private int rowSpan = 1;
-
-        public ExcelHeader() {
-        }
 
         public ExcelHeader(String name, String value, int height, int width) {
             this.name = name;

@@ -6,7 +6,10 @@ import org.apache.poi.poifs.filesystem.DirectoryEntry;
 import org.apache.poi.poifs.filesystem.DocumentEntry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.junit.Test;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.util.FileSystemUtils;
 
+import java.awt.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,64 +23,30 @@ import java.util.Map;
  */
 public class WordHelperTest {
 
+    String templatePath = Class.class.getClass().getResource("/wordTemplate").getPath().replace("%20", " ");// 模版所在的目录
+
     @Test
-    public void test() throws Exception{
+    public void textCreateWordByHtml() throws Exception {
         // 1.定义参数
-        String templatePath = Class.class.getClass().getResource("/wordTemplate").getPath().replace("%20"," ");
-        System.out.println(templatePath);
-        File templateDir = new File(templatePath );// 模版所在的目录
-        String templateName = "resume.doc";
+        String templateName = "document.html"; // 模版文件
+        String outPath = "D:/Development Files/Document/Word"; // 输出文件目录
+        OutputStream out = new FileOutputStream(new File(outPath + "/简历.doc"));
+        WordHelper.createWordByHtml(templatePath, templateName, getParamMap(), out);
+        //生成文件后，打开所在的文件夹
+        Desktop.getDesktop().open(new File(outPath));
+    }
+
+    /**
+     * 构造测试数据
+     * @return
+     */
+    private Map<String, Object> getParamMap() {
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("username", "梁峰");
+        paramMap.put("username", "梁峰（13418006543）");
         paramMap.put("position", "JAVA工程师");
         paramMap.put("sex", "男");
         paramMap.put("birthday", "1991年09月");
-        OutputStream out = new FileOutputStream(new File("D:\\Development Files\\Document\\Word\\resume.doc"));
-        WordHelper.createWordDoc(templateDir, templateName, paramMap, out);
-    }
-
-    @Test
-    public void writeWordFile() throws Exception{
-       // boolean w = false;
-        String path = "D:\\Development Files\\Document\\Word\\";
-
-        try {
-            if (!"".equals(path)) {
-
-                // 检查目录是否存在
-                File fileDir = new File(path);
-                if (fileDir.exists()) {
-
-                    // 生成临时文件名称
-                    String fileName = "a.doc";
-                    String content = "<html>" +
-                            "<head>你好</head>" +
-                            "<body>" +
-                            "<table>" +
-                            "<tr>" +
-                            "<td>信息1</td>" +
-                            "<td>信息2</td>" +
-                            "<td>t3</td>" +
-                            "<tr>" +
-                            "</table>" +
-                            "</body>" +
-                            "</html>";
-
-                    byte b[] = content.getBytes("GBK");
-                    ByteArrayInputStream bais = new ByteArrayInputStream(b);
-                    POIFSFileSystem poifs = new POIFSFileSystem();
-                    DirectoryEntry directory = poifs.getRoot();
-                    DocumentEntry documentEntry = directory.createDocument("WordDocument", bais);
-                    FileOutputStream ostream = new FileOutputStream(path+ fileName);
-                    poifs.writeFilesystem(ostream);
-                    bais.close();
-                    ostream.close();
-
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-       // return w;
+        // todo 补全完整的参数集合
+        return paramMap;
     }
 }
