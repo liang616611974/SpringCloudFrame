@@ -5,9 +5,8 @@ import com.liangfeng.study.core.dto.ImageBO;
 import com.liangfeng.study.core.helper.DateHelper;
 import com.liangfeng.study.dict.service.CommonService;
 import com.liangfeng.study.dict.web.response.ImgUploadResponsebody;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +23,8 @@ import java.util.Date;
  * @date  2018/7/28 0028 下午 3:18
  */
 @Service
+@Slf4j
 public class CommonServiceImpl implements CommonService{
-
-    private static final Logger logger = LoggerFactory.getLogger(CommonServiceImpl.class);
 
     @Value(value = "${app.img.savePath}")
     private String imgSavePath;
@@ -57,14 +55,14 @@ public class CommonServiceImpl implements CommonService{
             outputStream = new FileOutputStream(file);
             IOUtils.copy(imgBO.getInputStream(),outputStream);
         }catch (Exception e){
-            logger.error("保存图片发生异常",e);
+            log.error("保存图片发生异常",e);
             throw new RuntimeException("保存图片发生异常", e);
         }
 
         // 3.返回结果
         //respBody.setId();
         respBody.setUrl(imgUrlPath + savePath);
-        logger.debug("图片Url:{}",respBody.getUrl());
+        log.debug("图片Url:{}",respBody.getUrl());
         return respBody;
     }
 }

@@ -13,8 +13,8 @@
     <!-- 日志等级 -->
     <springProperty scope="context" name="APP_LOG_LEVEL" source="app.log.level"/>
 
-    <!-- 日志打印器 -->
-    <springProperty scope="context" name="APP_LOG_APPENDER" source="app.log.appender"/>
+    <!-- 日志打印器，此配置无效不知道原因 -->
+   <!-- <springProperty scope="context" name="APP_LOG_APPENDER" source="app.log.appender"/>-->
 
     <!-- 文件输出格式 -->
     <!-- <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />-->
@@ -22,7 +22,7 @@
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- 文件输出路径 -->
-    <property name="FILE_PATH" value="${APP_LOG_PATH}"/>
+    <property name="FILE_PATH" value="${APP_LOG_PATH}/${APP_NAME}"/>
 
     <!-- 控制台打印器 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -61,21 +61,21 @@
         <logger name="jdbc.sqltiming" level="INFO" />
 
         <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="${APP_LOG_APPENDER}"/>
+            <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
     <!-- 测试环境 -->
     <springProfile name="test">
         <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="${APP_LOG_APPENDER}"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 
     <!-- 生产环境 -->
     <springProfile name="prod">
         <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="${APP_LOG_APPENDER}"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 
