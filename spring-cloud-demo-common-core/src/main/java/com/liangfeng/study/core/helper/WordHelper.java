@@ -1,15 +1,15 @@
 
 package com.liangfeng.study.core.helper;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.poifs.filesystem.DirectoryEntry;
 import org.apache.poi.poifs.filesystem.DocumentEntry;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.net.URLEncoder;
 import java.util.Map;
 
 
@@ -23,14 +23,52 @@ import java.util.Map;
 @Slf4j
 public class WordHelper {
 
-    private static final String ENCODING_UTF = "UTF-8";
+    /**
+     * 系统字符编码
+     */
+    private static final String ENCODING = "UTF-8";
 
     private static final String DOC_TYPE_WORD = "WordDocument";
+
+    /**
+     * 浏览器信息请求头
+     */
+    private static final String BROWSER_INFO_HEADER = "USER-AGENT";
+    /**
+     * 文件下载请求头
+     */
+    private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";
+    /**
+     * EXCEL ContentType
+     */
+    private static final String CONTENT_TYPE_WORD = "application/msword";
 
     /**
      * 私有化构造函数
      */
     private WordHelper() {
+    }
+
+    /**
+     * word 文件下载
+     * @param request
+     * @param response
+     * @param downloadName
+     * @param templateDir
+     * @param templateName
+     * @param paramMap
+     */
+    public static void exportForDownload(HttpServletRequest request, HttpServletResponse response, String downloadName,String templateDir, String templateName, Map<String, Object> paramMap) {
+        try{
+            // 1.设置下载Excel响应头
+            setDownloadResponse(request, response, downloadName);
+            // 2.导出
+            createWordByHtml(templateDir,templateName,paramMap,response.getOutputStream());
+        }catch (Exception e) {
+            log.error("Word文件下载发生异常",e);
+            throw new RuntimeException("Word文件下载发生异常", e);
+        }
+
     }
 
 
@@ -47,7 +85,7 @@ public class WordHelper {
         POIFSFileSystem poifs = null;
         DirectoryEntry directory = null;
         try{
-            bais = new ByteArrayInputStream(content.getBytes(ENCODING_UTF));
+            bais = new ByteArrayInputStream(content.getBytes(ENCODING));
             poifs = new POIFSFileSystem();
             directory = poifs.getRoot();
             DocumentEntry documentEntry = directory.createDocument(DOC_TYPE_WORD, bais);
@@ -64,6 +102,35 @@ public class WordHelper {
             }
         }
     }
+
+    /**
+     * 设置下载响应头
+     *
+     * @param request      http请求对象
+     * @param response     http响应对象
+     * @param downloadName 下载名称
+     * @throws Exception
+     */
+    private static void setDownloadResponse(HttpServletRequest request, HttpServletResponse response, String downloadName) throws Exception {
+        // 1..判断浏览器
+        String userAgent = request.getHeader(BROWSER_INFO_HEADER);
+        /*
+         * 设置不同浏览器中  下载文件的文件名编码
+         * IE11浏览器的user-agent使用MSIE容易识别为firefox  导致出错
+         */
+        if (!userAgent.contains("MSIE") && !userAgent.contains("Trident")) {
+            downloadName = new String(downloadName.getBytes(ENCODING), "iso-8859-1");
+        } else {
+            downloadName = URLEncoder.encode(downloadName, ENCODING);
+        }
+
+        // 2.设置response
+        response.reset();
+        request.setCharacterEncoding(ENCODING);
+        response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + ".doc");// 表示以附件形式可下载
+        response.setContentType(CONTENT_TYPE_WORD + "; charset=" + ENCODING);// 设置下载格式为EXCEL
+    }
+
 
 }
 

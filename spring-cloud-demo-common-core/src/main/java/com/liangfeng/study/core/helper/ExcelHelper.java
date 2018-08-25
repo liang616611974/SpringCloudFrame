@@ -1,6 +1,5 @@
 package com.liangfeng.study.core.helper;
 
-import com.liangfeng.study.core.constant.WebConstant;
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Colour;
@@ -40,7 +39,7 @@ public class ExcelHelper {
     /**
      * 系统字符编码
      */
-    private static final String APP_ENCODING = "UTF-8"; //"UTF-8"
+    private static final String ENCODING = "UTF-8"; //"UTF-8"
     /**
      * 浏览器信息请求头
      */
@@ -52,7 +51,7 @@ public class ExcelHelper {
     /**
      * EXCEL ContentType
      */
-    private static final String EXCEL_CONTENT_TYPE = "application/vnd.ms-excel"; //"application/vnd.ms-excel";
+    private static final String CONTENT_TYPE_EXCEL = "application/vnd.ms-excel"; //"application/vnd.ms-excel";
 
     /**
      * 私有化
@@ -546,16 +545,16 @@ public class ExcelHelper {
          * IE11浏览器的user-agent使用MSIE容易识别为firefox  导致出错
          */
         if (!userAgent.contains("MSIE") && !userAgent.contains("Trident")) {
-            downloadName = new String(downloadName.getBytes(APP_ENCODING), "iso-8859-1");
+            downloadName = new String(downloadName.getBytes(ENCODING), "iso-8859-1");
         } else {
-            downloadName = URLEncoder.encode(downloadName, APP_ENCODING);
+            downloadName = URLEncoder.encode(downloadName, ENCODING);
         }
 
         // 2.设置response
         response.reset();
-        request.setCharacterEncoding(APP_ENCODING);
+        request.setCharacterEncoding(ENCODING);
         response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + ".xls");// 表示以附件形式可下载
-        response.setContentType(EXCEL_CONTENT_TYPE + "; charset=" + APP_ENCODING);// 设置下载格式为EXCEL
+        response.setContentType(CONTENT_TYPE_EXCEL + "; charset=" + ENCODING);// 设置下载格式为EXCEL
     }
 
     /**
