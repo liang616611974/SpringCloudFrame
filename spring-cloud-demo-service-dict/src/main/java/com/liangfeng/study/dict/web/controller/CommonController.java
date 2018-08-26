@@ -25,8 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class CommonController {
 
-    private static final Logger logger = LoggerFactory.getLogger(CommonController.class);
-
     private static final String ALLOW_IMG_TYPE = "png,jpg";
 
     @Autowired

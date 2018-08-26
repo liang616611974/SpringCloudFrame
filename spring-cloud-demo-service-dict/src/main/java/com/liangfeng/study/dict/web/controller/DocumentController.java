@@ -1,16 +1,21 @@
-package com.liangfeng.study.core.test;
+package com.liangfeng.study.dict.web.controller;
 
 
+import com.liangfeng.study.core.constant.AppConstant;
+import com.liangfeng.study.core.helper.ExcelHelper;
+import com.liangfeng.study.core.helper.PDFHelper;
 import com.liangfeng.study.core.helper.WordHelper;
-import org.apache.poi.poifs.filesystem.DirectoryEntry;
-import org.apache.poi.poifs.filesystem.DocumentEntry;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.junit.Test;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.util.FileSystemUtils;
+import com.liangfeng.study.dict.web.request.DictQueryRequestbody;
+import com.liangfeng.study.dict.web.response.DictGetResponsebody;
+import com.liangfeng.study.dict.web.response.DictQueryResponsebody;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.*;
-import java.io.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,23 +24,34 @@ import java.util.Map;
 /**
  * @author Liangfeng
  * @version 1.0
- * @Title: WordHelperTest
+ * @Title: DocumentController
  * @Description:
- * @date  2018/8/12 0012 下午 10:03
+ * @date  2018/8/26 0026 下午 10:05
  */
-public class WordHelperTest {
+@Api(description = "文档模块接口")
+@RestController
+public class DocumentController {
 
-    private String templatePath = Class.class.getClass().getResource("/template").getPath().replace("%20", " ");// 模版所在的目录
+    /**
+     * 模版所在路径
+     */
+    private static final String templatePath = Class.class.getClass().getResource(AppConstant.TEMPLATE_DIR).getPath().replace("%20", " ");// 模版所在的目录
 
-    @Test
-    public void textCreateWordByHtml() throws Exception {
-        // 1.定义参数
-        String templateName = "resume.html"; // 模版文件
-        String outPath = "D:/Development Files/Document/Word"; // 输出文件目录
-        OutputStream out = new FileOutputStream(new File(outPath + "/简历.doc"));
-        WordHelper.createWordByHtml(templatePath, templateName, getParamMap(), out);
-        //生成文件后，打开所在的文件夹
-        Desktop.getDesktop().open(new File(outPath));
+    /**
+     * 模版名称
+     */
+    private static final String templateName = "resume.html";
+
+    @ApiOperation(value = "下载word文档")
+    @RequestMapping(value = "/dict/doc/word",method = {RequestMethod.GET,RequestMethod.POST})
+    public void exportWord(String downloadName, HttpServletRequest request, HttpServletResponse response){
+        WordHelper.exportForDownload(request, response, downloadName, templatePath, templateName, getParamMap());
+    }
+
+    @ApiOperation(value = "下载word文档")
+    @RequestMapping(value = "/dict/doc/pdf",method = {RequestMethod.GET,RequestMethod.POST})
+    public void exportPDF(String downloadName, HttpServletRequest request, HttpServletResponse response){
+        PDFHelper.exportForDownload(request, response, downloadName, templatePath, templateName, getParamMap());
     }
 
     /**
@@ -95,4 +111,6 @@ public class WordHelperTest {
         paramMap.put("works", works);
         return paramMap;
     }
+
+
 }

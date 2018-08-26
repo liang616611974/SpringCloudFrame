@@ -27,7 +27,7 @@ public class WordHelper {
      * 系统字符编码
      */
     private static final String ENCODING = "UTF-8";
-
+    private static final String ENCODING_ISO = "iso-8859-1";
     private static final String DOC_TYPE_WORD = "WordDocument";
 
     /**
@@ -39,9 +39,14 @@ public class WordHelper {
      */
     private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";
     /**
-     * EXCEL ContentType
+     * Word ContentType
      */
     private static final String CONTENT_TYPE_WORD = "application/msword";
+
+    /**
+     * 文件后缀
+     */
+    private static final String SUFFIX_WORD = ".doc";
 
     /**
      * 私有化构造函数
@@ -80,7 +85,9 @@ public class WordHelper {
      * @param os
      */
     public static void createWordByHtml(String templateDir, String templateName, Map<String, Object> paramMap,OutputStream os){
+        // 1.获取html模版渲染后的内容
         String content = FreemarkerHelper.load4String(templateDir, templateName, paramMap);
+        // 2.创建word文档
         ByteArrayInputStream bais = null;
         POIFSFileSystem poifs = null;
         DirectoryEntry directory = null;
@@ -119,7 +126,7 @@ public class WordHelper {
          * IE11浏览器的user-agent使用MSIE容易识别为firefox  导致出错
          */
         if (!userAgent.contains("MSIE") && !userAgent.contains("Trident")) {
-            downloadName = new String(downloadName.getBytes(ENCODING), "iso-8859-1");
+            downloadName = new String(downloadName.getBytes(ENCODING), ENCODING_ISO);
         } else {
             downloadName = URLEncoder.encode(downloadName, ENCODING);
         }
@@ -127,7 +134,7 @@ public class WordHelper {
         // 2.设置response
         response.reset();
         request.setCharacterEncoding(ENCODING);
-        response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + ".doc");// 表示以附件形式可下载
+        response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + SUFFIX_WORD);// 表示以附件形式可下载
         response.setContentType(CONTENT_TYPE_WORD + "; charset=" + ENCODING);// 设置下载格式为EXCEL
     }
 

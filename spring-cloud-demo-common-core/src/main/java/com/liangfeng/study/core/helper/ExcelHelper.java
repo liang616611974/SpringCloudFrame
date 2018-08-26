@@ -40,6 +40,7 @@ public class ExcelHelper {
      * 系统字符编码
      */
     private static final String ENCODING = "UTF-8"; //"UTF-8"
+    private static final String ENCODING_ISO = "iso-8859-1";
     /**
      * 浏览器信息请求头
      */
@@ -52,6 +53,10 @@ public class ExcelHelper {
      * EXCEL ContentType
      */
     private static final String CONTENT_TYPE_EXCEL = "application/vnd.ms-excel"; //"application/vnd.ms-excel";
+    /**
+     * 文件后缀
+     */
+    private static final String SUFFIX_EXCEL = ".xls";
 
     /**
      * 私有化
@@ -545,7 +550,7 @@ public class ExcelHelper {
          * IE11浏览器的user-agent使用MSIE容易识别为firefox  导致出错
          */
         if (!userAgent.contains("MSIE") && !userAgent.contains("Trident")) {
-            downloadName = new String(downloadName.getBytes(ENCODING), "iso-8859-1");
+            downloadName = new String(downloadName.getBytes(ENCODING), ENCODING_ISO);
         } else {
             downloadName = URLEncoder.encode(downloadName, ENCODING);
         }
@@ -553,7 +558,7 @@ public class ExcelHelper {
         // 2.设置response
         response.reset();
         request.setCharacterEncoding(ENCODING);
-        response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + ".xls");// 表示以附件形式可下载
+        response.setHeader(FILE_DOWNLOAD_HEADER, "attachment;filename=" + downloadName + SUFFIX_EXCEL);// 表示以附件形式可下载
         response.setContentType(CONTENT_TYPE_EXCEL + "; charset=" + ENCODING);// 设置下载格式为EXCEL
     }
 

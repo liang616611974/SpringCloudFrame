@@ -1,0 +1,143 @@
+<style>
+/** 文档表格样式开始 **/
+.table-center {
+/*position: relative;
+width: 800px;
+height: auto;
+left: 50%;
+margin-left: -400px;
+margin-top: 20px;
+margin-bottom: 20px;*/
+}
+
+.table-center table {
+width: 100%;
+height: 100%;
+border-collapse: collapse;
+/*border: 1px solid #dddddd;*/
+border: 1px solid black;
+text-align: center;
+}
+
+.table-center tr,.table-center td {
+/* border: 1px solid #dddddd;*/
+border: 1px solid black;
+}
+
+.table-center td {
+padding: 10px 0px;
+}
+
+.table-center .title td {
+font-size : 14px;
+font-weight: bold;
+background: #dddddd;
+text-align: left;
+padding-left: 10px;
+}
+
+
+.table-center .title-nobg td {
+font-size : 14px;
+font-weight: bold;
+}
+
+.table-center .td-list {
+text-align: left;
+}
+
+.table-center .td-list ul{
+padding: 0px;
+margin-left: 30px;
+list-style-type : square;
+}
+
+.table-center .td-list li {
+margin-bottom: 10px;
+}
+
+.table-center .td-list-sort ul{
+text-align: left;
+list-style-type : decimal;
+}
+
+.table-center .td-list-sort li {
+margin-bottom: 10px;
+}
+
+.table-center .td-list p{
+margin : 10px 0 10px 13px;
+}
+
+.table-center .p-s-3 p span:nth-child(1){
+display : inline-block;
+width: 25%;
+}
+
+.table-center .p-s-3 p span:nth-child(2){
+display : inline-block;
+width: 40%;
+}
+
+.table-center .p-s-4 p span{
+display : inline-block;
+width: 20%;
+}
+</style>
+<div id="docuemntDiv" class="page">
+    <div class="table-center">
+        <table>
+            <caption>
+                <h1>个人简历</h1>
+            </caption>
+            <tr class="title-nobg">
+                <td>${i.username}</td> <td>${i.post}</td>
+            </tr>
+            <tr class="title">
+               <td colspan="2"> 个人信息 </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="td-list">
+                    <ul>
+                        <li>性别：${i.sex}</li>
+                        <li>出生年月：${i.birthday}</li>
+                        <li>工作年限：${i.workAge}</li>
+                        <li>学历：${i.education}</li>
+                        <li>邮箱：${i.email}</li>
+                        <li>居住地：${i.address}</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr class="title">
+                <td colspan="2"> 技能特长 </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="td-list">
+                    <#list skills as sk>
+                    <p>${sk_index + 1}. ${sk}</p>
+                    </#list>
+                </td>
+            </tr>
+            <tr class="title">
+                <td colspan="2"> 教育背景 </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="td-list p-s-4">
+                    <#list educations as e>
+                    <p> <span>${e.period}</span>　<span>${e.school}</span>　<span>${e.major}</span>　<span>${e.education}</span> </p>
+                    </#list>
+                </td>
+            </tr>
+            <tr class="title">
+                <td colspan="2"> 工作经验 </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="td-list p-s-3">
+                    <#list works as w>
+                    <p><span>${w.period}</span>　<span>${w.company}</span>　<span>${w.post}</span></p>
+                    </#list>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

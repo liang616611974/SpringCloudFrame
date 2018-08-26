@@ -45,5 +45,6 @@ public class AppConstant {
 	/** 应用数据库配置前缀 */
 	public static final String DATASOURCE_CONFIG_PREFIX = "spring.datasource";
 
-
+	/** 模版文件所在目录路径 */
+	public static final String TEMPLATE_DIR = "/template";
 }
