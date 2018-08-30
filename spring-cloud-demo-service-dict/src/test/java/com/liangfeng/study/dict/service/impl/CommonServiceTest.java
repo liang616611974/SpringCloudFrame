@@ -39,7 +39,7 @@ public class CommonServiceTest {
         // 构造测试数据
         imageBO = new ImageBO();
         responsebody = new ImgUploadResponsebody();
-        file = new File("C:\\Users\\Administrator\\Desktop\\syc.jpg");
+        file = new File("C:/Users/Administrator/Desktop/syc.jpg");
         inputStream = new FileInputStream(file);
         FileChannel fc = inputStream.getChannel();
         imageBO.setSuffix("jpg");
