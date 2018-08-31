@@ -44,6 +44,18 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+        <!--<profile>
+            <id>dev1</id>
+            <properties>
+                <profileActive>dev1</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev2</id>
+            <properties>
+                <profileActive>dev2</profileActive>
+            </properties>
+        </profile>-->
         <profile>
             <id>test</id>
             <properties>

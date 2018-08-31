@@ -11,8 +11,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @author Liangfeng
@@ -28,7 +32,10 @@ public class CommonController {
     private static final String ALLOW_IMG_TYPE = "png,jpg";
 
     @Autowired
-    CommonService commonService;
+    private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private CommonService commonService;
 
     @ApiOperation(value = "上传图片")
    /* @ApiImplicitParams({
@@ -61,5 +68,10 @@ public class CommonController {
         imageBO.setOriginalFilename(img.getOriginalFilename());
         ImgUploadResponsebody respBody = commonService.uploadImg(imageBO);
         return Response.success(respBody);
+    }
+
+    @GetMapping("/dict/instance")
+    public List<ServiceInstance> showInfo() {
+        return discoveryClient.getInstances("spring-cloud-dict");
     }
 }
