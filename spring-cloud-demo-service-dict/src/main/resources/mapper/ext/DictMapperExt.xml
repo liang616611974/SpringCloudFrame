@@ -1,10 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>  
-<!DOCTYPE mapper   
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- 不使用namespace的话sql搜索定位会比较方便 -->
 <mapper namespace="com.liangfeng.study.dict.mapper.DictMapper">
+
+    <!-- 获取字典集合 -->
+    <select id="queryBySysCodeAndGroupCodes" resultMap="RM_Dict">
+        SELECT dict_code,dict_desc FROM scd_dict d WHERE d.`sys_code`=#{sysCode}
+        AND group_code IN
+        <foreach collection="groupCodes" item="groupCode" index="index"
+                 open="(" close=")" separator=",">
+            #{groupCode}
+        </foreach>
+    </select>
+
 
 </mapper>
 

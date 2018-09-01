@@ -48,6 +48,6 @@ public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 			sb.append(",");
 		}
 		logger.info("请求参数验证失败:{}",sb.toString());
-		return new ResponseEntity<Object>(Response.paramErr(sb.toString()), headers, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Object>(Response.paramErr(sb.toString()), headers, HttpStatus.OK);
 	}
 }

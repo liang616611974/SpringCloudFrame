@@ -19,6 +19,12 @@
     <!-- 项目依赖的jar包 -->
     <dependencies>
 
+        <!-- Ribbon 负债均衡组件-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-ribbon</artifactId>
+        </dependency>
+
         <!-- spring-boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -60,7 +66,7 @@
             <artifactId>mybatis-spring</artifactId>
             <version>1.2.0</version>
         </dependency>
--->
+        -->
         <!-- HttpClient 模拟http请求工具 -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>

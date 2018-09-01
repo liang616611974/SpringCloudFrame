@@ -40,7 +40,8 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({ParamException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    //@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.OK)
     public Object processException(ParamException exception) {
         logger.error("系统自定义异常处理-ParamException", exception);
         return Response.paramErr(exception.getMessage());
@@ -53,6 +54,7 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({RuntimeException.class})
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseStatus(HttpStatus.OK)
     public Object processException(RuntimeException exception) {
         logger.error("系统自定义异常处理-RuntimeException", exception);
@@ -66,7 +68,8 @@ public class WebRestExceptionHandlerConfig {
      * @return
      */
     @ExceptionHandler({Exception.class})
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     public Object processException(Exception exception) {
         logger.error("系统自定义异常处理-exception", exception);
         return getErrResponse(exception);

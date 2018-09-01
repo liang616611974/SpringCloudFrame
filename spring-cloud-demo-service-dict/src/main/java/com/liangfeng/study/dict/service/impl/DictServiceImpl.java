@@ -1,6 +1,9 @@
 package com.liangfeng.study.dict.service.impl;
 
 
+import com.liangfeng.study.api.dto.request.DictApiQueryRequestbody;
+import com.liangfeng.study.api.dto.response.DictApiQueryResponsebody;
+import com.liangfeng.study.core.web.dto.response.Response;
 import com.liangfeng.study.dict.model.auto.pojo.Dict;
 import com.liangfeng.study.dict.model.auto.qo.DictQuery;
 import com.liangfeng.study.dict.mapper.DictMapper;
@@ -169,6 +172,19 @@ public class DictServiceImpl implements DictService {
         }
         dictMaps.put(requestbody.getSysCode(), dictMap);
         return dictMap;
+    }
+
+    @Override
+    public Response<DictApiQueryResponsebody> getDictMap(DictApiQueryRequestbody requestbody) {
+        // 1.定义参数
+        DictApiQueryResponsebody responsebody = new DictApiQueryResponsebody();
+        Map<String, String> dictMap = new HashMap<>();
+        List<Dict> dicts = dictMapper.queryBySysCodeAndGroupCodes(requestbody);
+        for (Dict dict : dicts) {
+            dictMap.put(dict.getDictCode(), dict.getDictDesc());
+        }
+        responsebody.setDictMap(dictMap);
+        return Response.success(responsebody);
     }
 
 }

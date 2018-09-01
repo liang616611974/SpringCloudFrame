@@ -1,11 +1,10 @@
 package com.liangfeng.study.dict.service;
 
 
+import com.liangfeng.study.api.service.DictFeignService;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
 import com.liangfeng.study.core.web.dto.response.AddResponsebody;
-import com.liangfeng.study.dict.model.auto.pojo.Dict;
-import com.liangfeng.study.dict.model.auto.qo.DictQuery;
 import com.liangfeng.study.dict.web.request.DictQueryRequestbody;
 import com.liangfeng.study.dict.web.request.DictAddOrMdfRequestbody;
 import com.liangfeng.study.dict.web.response.DictGetResponsebody;
@@ -22,7 +21,7 @@ import java.util.Map;
  * @Description:
  * @date 2018-06-09
  */
-public interface DictService {
+public interface DictService extends DictFeignService {
 
     /**
      * 添加字典

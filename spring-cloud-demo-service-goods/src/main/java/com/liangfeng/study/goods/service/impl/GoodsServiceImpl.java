@@ -1,24 +1,30 @@
 package com.liangfeng.study.goods.service.impl;
 
 
-import com.liangfeng.study.goods.model.auto.pojo.Goods;
-import com.liangfeng.study.goods.model.auto.qo.GoodsQuery;
-import com.liangfeng.study.goods.mapper.GoodsMapper;
-import com.liangfeng.study.goods.service.GoodsService;
+import com.liangfeng.study.api.dto.request.DictApiQueryRequestbody;
+import com.liangfeng.study.api.dto.response.DictApiQueryResponsebody;
+import com.liangfeng.study.api.service.DictFeignService;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
 import com.liangfeng.study.core.web.dto.response.AddResponsebody;
-import com.liangfeng.study.goods.web.request.GoodsQueryRequestbody;
+import com.liangfeng.study.core.web.dto.response.Response;
+import com.liangfeng.study.goods.mapper.GoodsMapper;
+import com.liangfeng.study.goods.model.auto.pojo.Goods;
+import com.liangfeng.study.goods.model.auto.qo.GoodsQuery;
+import com.liangfeng.study.goods.service.GoodsService;
 import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
+import com.liangfeng.study.goods.web.request.GoodsQueryRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
 import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -34,6 +40,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     GoodsMapper goodsMapper;
+
+    @Autowired
+    DictFeignService dictApiService;
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -91,9 +100,19 @@ public class GoodsServiceImpl implements GoodsService {
         requestbody.setSortColumns("id desc");
         List<Goods> goodss = goodsMapper.query(goodsQuery);
         List<GoodsGetResponsebody> getResponseBodies = responseBody.getRows();
+        // 查询字典
+        Map<String,String> dictMap = new HashMap<>();
+        DictApiQueryRequestbody dictApiQueryRequestbody = new DictApiQueryRequestbody();
+        dictApiQueryRequestbody.setSysCode("SCD");
+        dictApiQueryRequestbody.setGroupCodes(new String[]{"GOODS_FIRST_TYPE"});
+        Response<DictApiQueryResponsebody> response = dictApiService.getDictMap(dictApiQueryRequestbody);
+        if (response.isSuccess()) {
+            dictMap = response.getResponseBody().getDictMap();
+        }
         for (Goods goods : goodss) {
             GoodsGetResponsebody getResponseBody = new GoodsGetResponsebody();
             BeanUtils.copyProperties(goods, getResponseBody);
+            getResponseBody.setGoodsType(dictMap.get(getResponseBody.getGoodsType()));
             getResponseBodies.add(getResponseBody);
         }
         return responseBody;
