@@ -15,7 +15,7 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
  * @Description:
  * @date  2017/10/25 10:37
  */
-@EnableHystrixDashboard
+@EnableHystrixDashboard // 生产上可以将HystrixDashboard注册到Eureka Server上，方便管理。
 @EnableEurekaServer
 @SpringBootApplication
 public class EurekaApplication {
