@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@Profile({"dev", "test"})
+@Profile({"dev","dev2","test"})
 public class WebApiSwaggerConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(WebApiSwaggerConfig.class);

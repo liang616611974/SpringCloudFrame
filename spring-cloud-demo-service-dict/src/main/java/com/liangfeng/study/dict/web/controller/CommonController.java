@@ -95,6 +95,19 @@ public class CommonController {
         return result.getBody();
     }
 
+    @GetMapping("/dict/test")
+    public String test() {
+        log.info("测试负载均衡111");
+        return "测试负载均衡111";
+    }
+
+    @GetMapping("/dict/ribbon-test")
+    public String testByRestTemplate() throws Exception{
+        String result = restTemplate.getForObject("http://spring-cloud-dict/dict/test",String.class);
+        return result;
+    }
+
+
     @GetMapping("/dict/log-instance")
     public Response logDictInstance() {
         ServiceInstance serviceInstance = this.loadBalancerClient.choose("spring-cloud-dict");

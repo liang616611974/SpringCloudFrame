@@ -2,12 +2,8 @@ package com.liangfeng.study.dict.web.controller;
 
 
 import com.liangfeng.study.core.constant.AppConstant;
-import com.liangfeng.study.core.helper.ExcelHelper;
-import com.liangfeng.study.core.helper.PDFHelper;
+import com.liangfeng.study.core.helper.PdfHelper;
 import com.liangfeng.study.core.helper.WordHelper;
-import com.liangfeng.study.dict.web.request.DictQueryRequestbody;
-import com.liangfeng.study.dict.web.response.DictGetResponsebody;
-import com.liangfeng.study.dict.web.response.DictQueryResponsebody;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +47,7 @@ public class DocumentController {
     @ApiOperation(value = "下载word文档")
     @RequestMapping(value = "/dict/doc/pdf",method = {RequestMethod.GET,RequestMethod.POST})
     public void exportPDF(String downloadName, HttpServletRequest request, HttpServletResponse response){
-        PDFHelper.exportForDownload(request, response, downloadName, templatePath, templateName, getParamMap());
+        PdfHelper.exportForDownload(request, response, downloadName, templatePath, templateName, getParamMap());
     }
 
     /**

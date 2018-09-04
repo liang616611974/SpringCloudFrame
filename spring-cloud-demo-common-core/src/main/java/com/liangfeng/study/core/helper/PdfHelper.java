@@ -31,7 +31,7 @@ import java.util.Map;
  *  
  */
 @Slf4j
-public class PDFHelper {
+public class PdfHelper {
 
     /**
      * 系统字符编码
@@ -60,7 +60,7 @@ public class PDFHelper {
     /**
      * 私有化构造函数
      */
-    private PDFHelper() {
+    private PdfHelper() {
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.jar.JarFile;
  * @author jiangzeyin
  * @version 1.0
  * @Title: PackageHelper
- * @Description:
+ * @Description: java 类包操作类，可以获取包下所有类名功能等等
  * @date  2018/8/30 15:16
  */
 @Slf4j
