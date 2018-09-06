@@ -28,7 +28,8 @@ public class DictFeignController {
 
     @ApiOperation(value = "获取字典集合")
     @PostMapping("/dict/api/getDictMap")
-    public Response<DictApiQueryResponsebody> getDictMap(@RequestBody DictApiQueryRequestbody requestbody) {
+    public Response<DictApiQueryResponsebody> getDictMap(@RequestBody DictApiQueryRequestbody requestbody) throws Exception {
+        Thread.sleep(3000l);
         return service.getDictMap(requestbody);
     }
 }
