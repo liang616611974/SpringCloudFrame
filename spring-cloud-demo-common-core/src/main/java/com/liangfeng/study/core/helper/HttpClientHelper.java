@@ -42,6 +42,8 @@ public class HttpClientHelper {
 
     private static final String CHARSET_UTF8 = "UTF-8";
 
+    private static final String CONTENT_TYPE_UTF8 = "application/json";
+
     private static final int REQUEST_TIME_OUT = 30000;
 
     private HttpClientHelper() {
@@ -66,8 +68,10 @@ public class HttpClientHelper {
             }
 
             //2.创建请求参数实体
-            String encoderJson = URLEncoder.encode(param, CHARSET_UTF8);
-            HttpEntity requestEntity = new StringEntity(encoderJson, CHARSET_UTF8);
+            //String encoderJson = URLEncoder.encode(param, CHARSET_UTF8);
+            StringEntity  requestEntity = new StringEntity(param, CHARSET_UTF8);
+            requestEntity.setContentEncoding(CHARSET_UTF8);
+            requestEntity.setContentType(CONTENT_TYPE_UTF8);
 
             //3.获取结果
             result = request(url,headers,requestEntity);

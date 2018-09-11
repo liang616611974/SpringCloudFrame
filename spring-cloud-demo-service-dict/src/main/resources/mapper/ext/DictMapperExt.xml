@@ -7,7 +7,8 @@
 <mapper namespace="com.liangfeng.study.dict.mapper.DictMapper">
 
     <!-- 获取字典集合 -->
-    <select id="queryBySysCodeAndGroupCodes" resultMap="RM_Dict">
+    <select id="queryBySysCodeAndGroupCodes" resultMap="RM_Dict"
+            resultType="com.liangfeng.study.dict.model.auto.pojo.Dict">
         SELECT dict_code,dict_desc FROM scd_dict d WHERE d.`sys_code`=#{sysCode}
         AND group_code IN
         <foreach collection="groupCodes" item="groupCode" index="index"
