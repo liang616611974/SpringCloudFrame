@@ -1,11 +1,8 @@
 package com.liangfeng.study.user;
 
 
-import com.liangfeng.study.core.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 /**
  * @author Liangfeng
@@ -14,9 +11,10 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @Description:
  * @date  2017/10/26 16:38
  */
-@EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
-@EnableEurekaClient
-@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})
+/*@EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
+@EnableEurekaClient*/
+//@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})
+@SpringBootApplication
 public class UserApplication {
 
     public static void main(String[] args) {
