@@ -2,6 +2,7 @@ package com.liangfeng.study.user.web.controller;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,17 +15,21 @@ import javax.validation.Valid;
  * @Description:
  * @date  2018/9/14 13:57
  */
+@RefreshScope
 @RestController
 public class ConfigClientController {
 
     @Value("${profile}")
     private String profile;
 
-   // @Value("${commonP1}")
+    //@Value("${commonP1}")
     private String commonP1;
 
     @Value("${common-a-p1}")
     private String commonAP1;
+
+    @Value("${active-file}")
+    private String activeFile;
 
     @GetMapping("/profile")
     public String hello() {
@@ -40,6 +45,12 @@ public class ConfigClientController {
     public String commonP1() {
         return this.commonP1;
     }
+
+    @GetMapping("/active-file")
+    public String activeFile() {
+        return this.activeFile;
+    }
+
 
 
 }

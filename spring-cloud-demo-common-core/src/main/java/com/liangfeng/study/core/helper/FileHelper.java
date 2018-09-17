@@ -1,24 +1,25 @@
 package com.liangfeng.study.core.helper;
 
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 /**
  * @author Liangfeng
  * @version 1.0
  * @Title: FileHelper
- * @Description: 文件操作工具类
+ * @Description:
  * @date  2018/9/11 16:43
  */
 public class FileHelper {
 
-    /**
+   /* *//**
      * 获取文件类型
      * @param filePath
      * @return
-     */
+     *//*
     public static String getFileType(String filePath) {
         String fileType = "";
         try {
@@ -29,21 +30,21 @@ public class FileHelper {
         return fileType;
     }
 
-    /**
+    *//**
      * 获取文件类型
      * @param inputStream
      * @return
-     */
+     *//*
     public static String getFileType(InputStream inputStream) {
         return checkType(inputStreamToHexStr(inputStream));
     }
 
-    /**
+    *//**
      * 根据文件流获取文件头十六进制字符串
      *
      * @param inputStream
      * @return
-     */
+     *//*
     public static String inputStreamToHexStr(InputStream inputStream) {
         byte[] bytes = new byte[4];
         try {
@@ -52,6 +53,21 @@ public class FileHelper {
             throw new RuntimeException("inputStreamToHexStr发生异常",e);
         }
         return bytesToHexStr(bytes);
+    }*/
+
+    /**
+     * 获取文件类型
+     * @param bytes 文件字节数组
+     * @return
+     */
+    public static String getFileType(byte[] bytes) {
+        String fileType = "";
+        try {
+            fileType = checkType(bytesToHexStr(bytes));
+        } catch (Exception e) {
+            throw new RuntimeException("获取文件类型发生异常", e);
+        }
+        return fileType;
     }
 
     /**
@@ -143,7 +159,7 @@ public class FileHelper {
     }
 
     public static void main(String[] args) throws Exception{
-        File file =  new File("F:/Music/Voice/111.jpg");
+        //File fiel =  new File("F:/Music/Voice/111.jpg");
          //File file =  new File("F:/Music/Voice/normal.mp3");// 49443303
        // File file =  new File("F:/Music/Voice/normal.m4a");// 0000001C
         //File file =  new File("F:/Music/Voice/normal.flac"); // 664C6143
@@ -155,10 +171,9 @@ public class FileHelper {
         hexStr = hexStr.toUpperCase();
         System.out.println("HexStr===============" + hexStr);
         System.out.println("FileType===============" + checkType(hexStr));*/
-
-       String fileType = getFileType("F:/Music/Voice/44.m4a");
-
-        System.out.println("FileType===============" + fileType);
+      //FilenameUtils.getExtension("");
+      String fileType = getFileType(FileUtils.readFileToByteArray(new File("F:/Music/Voice/normal.mp3")));
+      System.out.println("FileType===============" + fileType);
 
     }
 

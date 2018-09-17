@@ -27,8 +27,8 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
         </dependency>
-        <!-- 使用RabbitMQ收集数据 -->
-        <!--  <dependency>
+      <!--  &lt;!&ndash; 使用RabbitMQ收集数据 &ndash;&gt;
+          <dependency>
               <groupId>org.springframework.cloud</groupId>
               <artifactId>spring-cloud-starter-hystrix-stream</artifactId>
           </dependency>

@@ -74,7 +74,7 @@ public class AppCommonConfig {
 
     @Bean
     MultipartConfigElement multipartConfigElement() {
-        logger.info("=======================设置App临时上传目录 {} 开始=========================", appConfig.uploadTemp);
+        logger.info("=======================设置App临时上传目录 开始=========================");
         File uploadTemp = new File(appConfig.uploadTemp);
         if(!uploadTemp.exists()){
             uploadTemp.mkdirs();
@@ -82,7 +82,8 @@ public class AppCommonConfig {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation(appConfig.uploadTemp);
         MultipartConfigElement element = factory.createMultipartConfig();
-        logger.info("=======================设置App临时上传目录 {} 结束=========================", appConfig.uploadTemp);
+        logger.info("App临时上传目录:{}",appConfig.uploadTemp);
+        logger.info("=======================设置App临时上传目录 结束=========================");
         return element;
     }
 

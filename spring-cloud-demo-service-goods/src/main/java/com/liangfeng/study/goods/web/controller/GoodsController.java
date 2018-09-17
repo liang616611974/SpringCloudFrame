@@ -12,11 +12,13 @@ import com.liangfeng.study.goods.web.request.GoodsAddOrMdfRequestbody;
 import com.liangfeng.study.goods.web.request.GoodsQueryRequestbody;
 import com.liangfeng.study.goods.web.response.GoodsGetResponsebody;
 import com.liangfeng.study.goods.web.response.GoodsQueryResponsebody;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +37,9 @@ public class GoodsController {
 
     @Autowired
     GoodsService service;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @ApiOperation(value = "创建商品")
     @PostMapping("/goods/add")
@@ -73,6 +78,18 @@ public class GoodsController {
     public void export(GoodsQueryRequestbody requestbody,String downloadName,HttpServletRequest request, HttpServletResponse response){
         GoodsQueryResponsebody responsebody = service.query(requestbody);
         ExcelHelper.exportForDownloadByObj(request,response,downloadName,responsebody.getRows(),GoodsGetResponsebody.class);
+    }
+
+    @HystrixCommand(fallbackMethod = "findByIdFallback")
+    @GetMapping("/user/id")
+    public Object findById(String id) {
+        int i=1/0;
+        String result = restTemplate.getForObject("http://spring-cloud-dict/dict/test",String.class);
+        return result;
+    }
+
+    public String findByIdFallback(String id) {
+        return "测试HystrixCommand";
     }
    
 }
