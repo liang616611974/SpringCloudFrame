@@ -23,7 +23,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @ServletComponentScan
 @EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
 @EnableCircuitBreaker
-//@EnableHystrix
+@EnableHystrix
 @EnableEurekaClient
 //@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE},exclude={DataSourceAutoConfiguration.class,HibernateJpaAutoConfiguration.class})
 @SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})

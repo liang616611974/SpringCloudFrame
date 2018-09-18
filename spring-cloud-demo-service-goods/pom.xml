@@ -43,10 +43,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
         </dependency>
-        <!-- 使用RabbitMQ收集数据 -->
+
+        <!-- 使用RabbitMQ收集数据 注意包名spring-cloud-netflix-hystrix-stream 而不是 spring-cloud-starter-hystrix-stream，不然不会产生数据-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix-stream</artifactId>
+            <artifactId>spring-cloud-netflix-hystrix-stream</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

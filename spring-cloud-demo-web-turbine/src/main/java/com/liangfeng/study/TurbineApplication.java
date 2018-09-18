@@ -14,8 +14,9 @@ import org.springframework.cloud.netflix.turbine.stream.EnableTurbineStream;
  * @date  2017/11/1 17:40
  */
 //@EnableTurbine
+//@EnableHystrixDashboard
 @EnableTurbineStream
-//@EnableEurekaClient
+@EnableEurekaClient
 @SpringBootApplication
 public class TurbineApplication {
 

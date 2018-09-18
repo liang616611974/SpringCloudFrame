@@ -18,20 +18,25 @@
 
     <!-- 项目依赖 -->
     <dependencies>
-       <!-- <dependency>
+        <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!--<dependency>
+        <!-- <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+         </dependency>-->
+
+        <!-- 使用RabbitMQ收集数据 spring-cloud-starter-turbine必须要删掉，和turbine-stream的turbine的版本冲突-->
+       <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-turbine</artifactId>
         </dependency>-->
-        <!-- 使用RabbitMQ收集数据 spring-cloud-starter-turbine必须要删掉，和turbine-stream的turbine的版本冲突-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-turbine-stream</artifactId>
@@ -40,15 +45,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
         </dependency>
-     <!--   <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-turbine-stream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-stream-amqp</artifactId>
-        </dependency>-->
-
 
     </dependencies>
 

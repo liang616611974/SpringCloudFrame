@@ -83,7 +83,15 @@ public class GoodsController {
     @HystrixCommand(fallbackMethod = "findByIdFallback")
     @GetMapping("/user/id")
     public Object findById(String id) {
-        int i=1/0;
+        //int i=1/0;
+        String result = restTemplate.getForObject("http://spring-cloud-dict/dict/test111",String.class);
+        return result;
+    }
+
+    @HystrixCommand(fallbackMethod = "findByIdFallback")
+    @GetMapping("/user/id2")
+    public Object findById2(String id) {
+        //int i=1/0;
         String result = restTemplate.getForObject("http://spring-cloud-dict/dict/test",String.class);
         return result;
     }
