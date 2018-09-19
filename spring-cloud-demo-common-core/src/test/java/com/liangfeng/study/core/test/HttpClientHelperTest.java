@@ -43,6 +43,8 @@ public class HttpClientHelperTest {
 
         // 1.定义参数
         String url = null; // 请求地址
+        Map<String, String> params = new HashMap<>(); // 请求参数
+        Map<String, File[]> files = new HashMap<>(); // 请求文件
         String filePath = "F:/App/gf/ocr/test1.jpg"; // 上传的图片
         String downloadFile = "F:/App/gf/ocr/test1.doc"; // 下载的word文档路径
         String result = null;
@@ -50,8 +52,11 @@ public class HttpClientHelperTest {
         // 2.测试情景
         // 2.1 测试情景一 返回json文本
         // 2.1.1 发送请求
-        url = "http://10.2.145.29:8008/ocr/recognize_document?word=0";
-        result = HttpClientHelper.upload(new File(filePath), url, null);
+        //url = "http://10.2.145.29:8008/ocr/recognize_document?word=0";
+        url = "http://10.2.145.29:8008/ocr/recognize_document";
+        params.put("word", "0");
+        files.put("imgs", new File[]{new File(filePath)});
+        result = HttpClientHelper.upload(url,null,null,files);
 
         // 2.1.2 打印结果
         System.out.println("==============================返回结果===============================");
@@ -61,11 +66,10 @@ public class HttpClientHelperTest {
         // 2.2.测试情景e二 返回word文档
         // 2.2.1 发送请求
         url = "http://10.2.145.29:8008/ocr/recognize_document?word=1";
-        result = HttpClientHelper.upload(new File(filePath), url, null);
-
+        files.put("imgs", new File[]{new File(filePath)});
+        result = HttpClientHelper.upload(url,null,null,files);
         // 2.2.2 保存本地
         FileUtils.copyToFile(InputStreamHelper.stringToInputStream(result),new File(downloadFile));
-
     }
 
 }

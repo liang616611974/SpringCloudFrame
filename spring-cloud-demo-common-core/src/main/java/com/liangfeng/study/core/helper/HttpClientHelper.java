@@ -1,6 +1,7 @@
 package com.liangfeng.study.core.helper;
 
-import org.apache.commons.collections.MapUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -26,7 +27,6 @@ import org.apache.http.util.EntityUtils;
 import javax.net.ssl.SSLContext;
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -116,24 +116,49 @@ public class HttpClientHelper {
 
     /**
      * 发送上传文件请求
-     * @param file 上传的文件,不可以为null
-     * @param url 请求的url，不可以为null
-     * @param headers 请求头，可以为null
+     * @param url 请求URL
+     * @param headers 请求头
+     * @param params 请求参数
+     * @param files 请求文件集合
      * @return
      */
-    public static String upload(File file, String url,Map<String, String> headers) {
+    public static String upload(String url,Map<String, String> headers,Map<String, String> params,Map<String,File[]> files) {
         String result = null;
         try {
             //1.校验参数
             if (StringUtils.isBlank(url)) {
                 throw new Exception("请求参数url不能为空!");
             }
-            if (file == null) {
+            if (files == null) {
                 throw new Exception("上传文件不能为空!");
             }
             // 2.创建请求参数实体
-            FileBody bin = new FileBody(file);
-            HttpEntity requestEntity = MultipartEntityBuilder.create().addPart("bin", bin).build();
+            HttpEntity requestEntity = null;
+            MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create();
+
+            // 2.1 添加请求参数
+            if (MapUtils.isNotEmpty(params)) {
+                for (Map.Entry<String, String> entry : params.entrySet()) {
+                    entityBuilder.addTextBody(entry.getKey(), entry.getValue());
+                }
+            }
+
+            // 2.2 添加请求文件
+            if (MapUtils.isNotEmpty(files)) {
+                for (Map.Entry<String, File[]> entry : files.entrySet()) {
+                    File[] fileArr = entry.getValue();
+                    if (ArrayUtils.isEmpty(fileArr)) {
+                        continue;
+                    }
+                    for (File file : fileArr) {
+                       entityBuilder.addPart(entry.getKey(), new FileBody(file));
+                    }
+                }
+            }
+
+            // 2.3 构建请求实体
+            requestEntity = entityBuilder.build();
+
             // 3.获取结果
             result = request(url, headers, requestEntity);
         } catch (Exception e) {
