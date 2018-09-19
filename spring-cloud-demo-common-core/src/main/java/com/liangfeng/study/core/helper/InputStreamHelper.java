@@ -13,7 +13,6 @@ import java.io.InputStream;
  * @author Liangfeng
  * @date 2018/9/3 14:37
  */
-@Slf4j
 public class InputStreamHelper {
 
     private static final String ENCODING = "ISO-8859-1";
@@ -40,7 +39,7 @@ public class InputStreamHelper {
         try{
             result = new String(inputStreamToByte(in), encoding);
         }catch (Exception e) {
-            log.error("InputStream转换成String发生异常", e);
+            //log.error("InputStream转换成String发生异常", e);
             throw new RuntimeException("InputStream转换成String发生异常",e);
         }
         return result;
@@ -62,7 +61,7 @@ public class InputStreamHelper {
             }
             data = null;
         }catch (Exception e) {
-            log.error("InputStream转换成byte数组发生异常", e);
+            //log.error("InputStream转换成byte数组发生异常", e);
             throw new RuntimeException("InputStream转换成byte数组发生异常",e);
         }
         return outStream.toByteArray();
@@ -77,7 +76,7 @@ public class InputStreamHelper {
         try {
             return new ByteArrayInputStream(in.getBytes(ENCODING));
         } catch (Exception e) {
-            log.error("将String转换成InputStream发生异常", e);
+            //log.error("将String转换成InputStream发生异常", e);
             throw new RuntimeException("将String转换成InputStream发生异常",e);
         }
     }
