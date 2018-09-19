@@ -2,6 +2,7 @@ package com.liangfeng.study.core.helper;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.AuthSchemes;
@@ -40,9 +41,9 @@ import java.util.*;
  */
 public class HttpClientHelper {
 
-    private static final String CHARSET_UTF8 = "UTF-8";
+   /* private static final String CHARSET_UTF8 = "UTF-8";
 
-    private static final String CONTENT_TYPE_UTF8 = "application/json";
+    private static final String CONTENT_TYPE_UTF8 = "application/json";*/
 
     private static final int REQUEST_TIME_OUT = 30000;
 
@@ -68,10 +69,9 @@ public class HttpClientHelper {
             }
 
             //2.创建请求参数实体
-            //String encoderJson = URLEncoder.encode(param, CHARSET_UTF8);
-            StringEntity  requestEntity = new StringEntity(param, CHARSET_UTF8);
-            requestEntity.setContentEncoding(CHARSET_UTF8);
-            requestEntity.setContentType(CONTENT_TYPE_UTF8);
+            StringEntity  requestEntity = new StringEntity(param, ContentType.APPLICATION_JSON);
+            /*requestEntity.setContentEncoding(CHARSET_UTF8);
+            requestEntity.setContentType(CONTENT_TYPE_UTF8);*/
 
             //3.获取结果
             result = request(url,headers,requestEntity);
@@ -105,7 +105,7 @@ public class HttpClientHelper {
                 String value = entry.getValue();
                 nameValuePairs.add(new BasicNameValuePair(key, value));
             }
-            HttpEntity requestEntity = new UrlEncodedFormEntity(nameValuePairs, CHARSET_UTF8);
+            HttpEntity requestEntity = new UrlEncodedFormEntity(nameValuePairs, Consts.UTF_8);
             //3.获取结果
             result = request(url,headers,requestEntity);
         } catch (Exception e) {
