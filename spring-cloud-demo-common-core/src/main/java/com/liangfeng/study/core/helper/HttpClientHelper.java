@@ -45,6 +45,8 @@ public class HttpClientHelper {
 
     private static final String CONTENT_TYPE_UTF8 = "application/json";*/
 
+    private static final String HTTP_SSL = "https";
+
     private static final int REQUEST_TIME_OUT = 30000;
 
     private HttpClientHelper() {
@@ -52,12 +54,13 @@ public class HttpClientHelper {
 
     /**
      * 发送提交Json请求
-     * @param url 请求url，不能为null
+     *
+     * @param url     请求url，不能为null
      * @param headers 请求头，可以为null
-     * @param param 请求参数，可以为null
+     * @param param   请求参数，可以为null
      * @return
      */
-    public static String postJson(String url, Map<String, String> headers,String param){
+    public static String postJson(String url, Map<String, String> headers, String param) {
         String result = null;
         try {
             //1.校验参数
@@ -69,12 +72,12 @@ public class HttpClientHelper {
             }
 
             //2.创建请求参数实体
-            StringEntity  requestEntity = new StringEntity(param, ContentType.APPLICATION_JSON);
+            StringEntity requestEntity = new StringEntity(param, ContentType.APPLICATION_JSON);
             /*requestEntity.setContentEncoding(CHARSET_UTF8);
             requestEntity.setContentType(CONTENT_TYPE_UTF8);*/
 
             //3.获取结果
-            result = request(url,headers,requestEntity);
+            result = request(url, headers, requestEntity);
         } catch (Exception e) {
             throw new RuntimeException("httpclient发送postJson请求 异常", e);
         }
@@ -83,12 +86,13 @@ public class HttpClientHelper {
 
     /**
      * 发送提交表单请求
-     * @param url 请求url，不能为null
+     *
+     * @param url     请求url，不能为null
      * @param headers 请求头，可以为null
-     * @param params 请求参数，可以为null
+     * @param params  请求参数，可以为null
      * @return
      */
-    public static String postForm(String url,Map<String, String> headers, Map<String, String> params) {
+    public static String postForm(String url, Map<String, String> headers, Map<String, String> params) {
         String result = null;
         try {
             //1.校验参数
@@ -107,7 +111,7 @@ public class HttpClientHelper {
             }
             HttpEntity requestEntity = new UrlEncodedFormEntity(nameValuePairs, Consts.UTF_8);
             //3.获取结果
-            result = request(url,headers,requestEntity);
+            result = request(url, headers, requestEntity);
         } catch (Exception e) {
             throw new RuntimeException("httpclient发送postForm请求 异常", e);
         }
@@ -116,13 +120,14 @@ public class HttpClientHelper {
 
     /**
      * 发送上传文件请求
-     * @param url 请求URL
+     *
+     * @param url     请求URL
      * @param headers 请求头
-     * @param params 请求参数
-     * @param files 请求文件集合
+     * @param params  请求参数
+     * @param files   请求文件集合
      * @return
      */
-    public static String upload(String url,Map<String, String> headers,Map<String, String> params,Map<String,File[]> files) {
+    public static String upload(String url, Map<String, String> headers, Map<String, String> params, Map<String, File[]> files) {
         String result = null;
         try {
             //1.校验参数
@@ -151,7 +156,7 @@ public class HttpClientHelper {
                         continue;
                     }
                     for (File file : fileArr) {
-                       entityBuilder.addPart(entry.getKey(), new FileBody(file));
+                        entityBuilder.addPart(entry.getKey(), new FileBody(file));
                     }
                 }
             }
@@ -191,6 +196,7 @@ public class HttpClientHelper {
 
     /**
      * 发送post请求
+     *
      * @param url
      * @param headers
      * @param requestEntity
@@ -203,7 +209,7 @@ public class HttpClientHelper {
         CloseableHttpResponse httpResponse = null;
         try {
             // 2.创建httpClient实例
-            if (url.startsWith("https")) {
+            if (url.startsWith(HTTP_SSL)) {
                 httpClient = createSSLClientDefault();// 连接ssl实例
             } else {
                 httpClient = HttpClients.createDefault();// 默认实例
