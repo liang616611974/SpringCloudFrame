@@ -3,6 +3,8 @@ package com.liangfeng.study.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * @author Liangfeng
@@ -14,6 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /*@EnableFeignClients(basePackages = {AppConstant.BASE_PACKAGE})
 @EnableEurekaClient*/
 //@SpringBootApplication(scanBasePackages = {AppConstant.BASE_PACKAGE})
+
+//@EnableDiscoveryClient // 配置中心支持
+@EnableEurekaClient
 @SpringBootApplication
 public class UserApplication {
 
