@@ -25,7 +25,7 @@ public class ConfigClientController {
     //@Value("${commonP1}")
     private String commonP1;
 
-    @Value("${common-a-p1}")
+    //@Value("${common-a-p1}")
     private String commonAP1;
 
     @Value("${active-file}")

@@ -2,7 +2,9 @@ package com.liangfeng.study.core.web.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,6 +16,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @date 2017/5/9 0009 上午 11:00
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Response<T> {
 
     /**
@@ -42,16 +46,6 @@ public class Response<T> {
     @JsonProperty("data")
     private T responseBody;
 
-    public Response() {
-        super();
-    }
-
-    public Response(int code, String msg, boolean sucess, T responseBody) {
-        this.code = code;
-        this.msg = msg;
-        this.success = sucess;
-        this.responseBody = responseBody;
-    }
 
     /**
      * 返回成功结果
@@ -143,7 +137,7 @@ public class Response<T> {
     }
 
     /**
-     * 响应状态码 200-成功，300-没登陆或登录失效，403-不允许，340-参数错误，400-服务器异常
+     * 响应状态码 200-成功，300-没登陆或登录失效，403-不允许，340-参数错误，500-服务器异常
      */
     public enum ResponseCode {
         /**

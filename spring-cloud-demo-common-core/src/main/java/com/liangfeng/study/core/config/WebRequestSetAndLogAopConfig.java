@@ -79,7 +79,7 @@ public class WebRequestSetAndLogAopConfig {
      */
     private void printAfter(Object result) {
         // 打印结果和消耗时间
-        logger.debug("【 result:{} , spendTime: {} milliseconds 】",
+        logger.info("【 result:{} , spendTime: {} milliseconds 】",
                 result,
                 (System.currentTimeMillis() - startTime.get()));
     }
