@@ -45,7 +45,7 @@
         <profile>
             <id>native</id>
             <properties>
-                <profileActive>native</profileActive>
+                <activeProfile>native</activeProfile>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -54,35 +54,15 @@
         <profile>
             <id>git</id>
             <properties>
-                <profileActive>git</profileActive>
+                <activeProfile>git</activeProfile>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <profileActive>prod</profileActive>
+                <activeProfile>prod</activeProfile>
             </properties>
         </profile>
     </profiles>
-
-    <!-- 项目构建 -->
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

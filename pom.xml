@@ -120,7 +120,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <profileActive>dev</profileActive>
+                <activeProfile>dev</activeProfile>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -129,13 +129,13 @@
         <profile>
             <id>test</id>
             <properties>
-                <profileActive>test</profileActive>
+                <activeProfile>test</activeProfile>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <profileActive>prod</profileActive>
+                <activeProfile>prod</activeProfile>
             </properties>
         </profile>
     </profiles>
@@ -158,6 +158,14 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- 让其他配置文件读取到pom.xml文件配置的属性值 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
     </build>
 

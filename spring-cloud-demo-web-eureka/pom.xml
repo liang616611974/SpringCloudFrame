@@ -40,7 +40,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <profileActive>dev</profileActive>
+                <activeProfile>dev</activeProfile>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -49,25 +49,25 @@
         <!--<profile>
             <id>dev1</id>
             <properties>
-                <profileActive>dev1</profileActive>
+                <activeProfile>dev1</activeProfile>
             </properties>
         </profile>
         <profile>
             <id>dev2</id>
             <properties>
-                <profileActive>dev2</profileActive>
+                <activeProfile>dev2</activeProfile>
             </properties>
         </profile>-->
         <profile>
             <id>test</id>
             <properties>
-                <profileActive>test</profileActive>
+                <activeProfile>test</activeProfile>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
-                <profileActive>prod</profileActive>
+                <activeProfile>prod</activeProfile>
             </properties>
         </profile>
     </profiles>
