@@ -1,11 +1,14 @@
 package com.liangfeng.study.core.config;
 
 
+import com.google.common.base.Charsets;
 import com.liangfeng.study.core.component.id.IdGenerator;
 import com.liangfeng.study.core.component.id.SnowflakeIdGenerator;
 import com.liangfeng.study.core.component.id.UUIDGenerator;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,9 @@ import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -76,13 +82,13 @@ public class AppCommonConfig {
     MultipartConfigElement multipartConfigElement() {
         logger.info("=======================设置App临时上传目录 开始=========================");
         File uploadTemp = new File(appConfig.uploadTemp);
-        if(!uploadTemp.exists()){
+        if (!uploadTemp.exists()) {
             uploadTemp.mkdirs();
         }
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setLocation(appConfig.uploadTemp);
         MultipartConfigElement element = factory.createMultipartConfig();
-        logger.info("App临时上传目录:{}",appConfig.uploadTemp);
+        logger.info("App临时上传目录:{}", appConfig.uploadTemp);
         logger.info("=======================设置App临时上传目录 结束=========================");
         return element;
     }
@@ -90,7 +96,16 @@ public class AppCommonConfig {
     @LoadBalanced
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+
+        //使用HttpClient替换默认实现,可以支持gzip
+        HttpClient httpClient = HttpClientBuilder.create().build();
+        ClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+        RestTemplate restTemplate = new RestTemplate(requestFactory);
+
+        //解决中文乱码
+        restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(Charsets.UTF_8));
+
+        return restTemplate;
     }
 
     @Component

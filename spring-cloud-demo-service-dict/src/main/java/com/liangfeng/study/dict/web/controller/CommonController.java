@@ -86,12 +86,12 @@ public class CommonController {
 
     @GetMapping("/dict/instance")
     public List<ServiceInstance> showInfo() {
-        return discoveryClient.getInstances("spring-cloud-dict");
+        return discoveryClient.getInstances("springcloud-dict");
     }
 
     @GetMapping("/dict/instance-rest")
     public List<ServiceInstance> showInfoByRestTemplate() throws Exception{
-        ResponseEntity<List> result = restTemplate.getForEntity("http://spring-cloud-dict/dict/instance",List.class);
+        ResponseEntity<List> result = restTemplate.getForEntity("http://springcloud-dict/dict/instance",List.class);
         return result.getBody();
     }
 
@@ -103,14 +103,14 @@ public class CommonController {
 
     @GetMapping("/dict/ribbon-test")
     public String testByRestTemplate() throws Exception{
-        String result = restTemplate.getForObject("http://spring-cloud-dict/dict/test",String.class);
+        String result = restTemplate.getForObject("http://springcloud-dict/dict/test",String.class);
         return result;
     }
 
 
     @GetMapping("/dict/log-instance")
     public Response logDictInstance() {
-        ServiceInstance serviceInstance = this.loadBalancerClient.choose("spring-cloud-dict");
+        ServiceInstance serviceInstance = this.loadBalancerClient.choose("springcloud-dict");
         // 打印当前选择哪个节点
         log.info("{}:{}:{}", serviceInstance.getServiceId(), serviceInstance.getHost(), serviceInstance.getPort());
         return Response.success();

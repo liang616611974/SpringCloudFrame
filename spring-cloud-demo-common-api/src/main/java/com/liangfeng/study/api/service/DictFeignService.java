@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description:
  * @date  2018/9/1 0001 下午 4:14
  */
-@FeignClient(value = "spring-cloud-dict", configuration = RcFeignConfig.class, fallback = DictFeignServiceFallback.class)
+@FeignClient(value = "springcloud-dict", configuration = RcFeignConfig.class, fallback = DictFeignServiceFallback.class)
 public interface DictFeignService {
 
     /**

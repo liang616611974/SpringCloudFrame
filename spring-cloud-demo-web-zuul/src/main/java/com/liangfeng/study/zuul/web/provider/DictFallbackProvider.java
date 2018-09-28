@@ -25,8 +25,8 @@ public class DictFallbackProvider implements ZuulFallbackProvider {
     @Override
     public String getRoute() {
         // 注意: 这里是route的名称，不是服务的名称，
-        // 如果这里写成大写SPRING-CLOUD-DICT将无法起到回退作用
-        return "spring-cloud-dict";
+        // 如果这里写成大写SPRINGCLOUD-DICT将无法起到回退作用
+        return "springcloud-dict";
     }
 
     @Override

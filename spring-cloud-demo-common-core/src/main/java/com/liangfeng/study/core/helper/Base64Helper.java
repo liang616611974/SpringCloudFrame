@@ -1,5 +1,7 @@
 package com.liangfeng.study.core.helper;
 
+import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.tomcat.util.security.MD5Encoder;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
@@ -41,4 +43,5 @@ public class Base64Helper {
 		}
 		return b;
 	}
+
 }
