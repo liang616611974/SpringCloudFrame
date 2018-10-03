@@ -27,7 +27,7 @@
         </appender>
 
         <logger name="APP_PACKAGE_NAME" level="debug"/>
-        <logger name="com.netflix" level="debug"/>
+        <!--<logger name="com.netflix" level="debug"/>-->
 
         <root level="info">
             <appender-ref ref="CONSOLE"/>
