@@ -22,7 +22,7 @@ public class QueryPageResponsebody<T> {
      * 总数
      */
     @ApiModelProperty(value = "总数")
-    private int total;
+    private long total;
 
     /**
      * 数据集合

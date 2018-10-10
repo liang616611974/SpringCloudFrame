@@ -236,7 +236,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</select>
 	
-	<!-- 分页查询 -->
+<!--	&lt;!&ndash; 分页查询 &ndash;&gt;
 	<select id="queryPage"  resultMap="RM_Dict">
 		SELECT
 		<include refid="columns" />
@@ -246,7 +246,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY ${sortColumns}
 		</if>
 		LIMIT #{begin},#{pageSize}
-	</select>
+	</select>-->
 
 </mapper>
 

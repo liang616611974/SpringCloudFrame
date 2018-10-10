@@ -1,6 +1,8 @@
 package com.liangfeng.study.dict.service.impl;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.liangfeng.study.api.dto.request.DictApiQueryRequestbody;
 import com.liangfeng.study.api.dto.response.DictApiQueryResponsebody;
 import com.liangfeng.study.core.web.dto.response.Response;
@@ -117,7 +119,7 @@ public class DictServiceImpl implements DictService {
         DictQueryResponsebody responseBody = new DictQueryResponsebody();
         DictQuery dictQuery = new DictQuery();
         BeanUtils.copyProperties(requestbody, dictQuery);
-        int total = 0;
+       /* int total = 0;
 
         // 2.查询总数
         total = dictMapper.count(dictQuery);
@@ -127,11 +129,15 @@ public class DictServiceImpl implements DictService {
         // 3.1 如何没有数据则直接返回。
         if (responseBody.getTotal() == 0) {
             return responseBody;
-        }
+        }*/
 
         // 3.2 有数据
         //requestbody.setSortColumns("id desc");
-        List<Dict> dicts = dictMapper.queryPage(dictQuery);
+        //使用分页插件,核心代码就这一行
+        PageHelper.startPage(requestbody.getPageNum(), requestbody.getPageSize());
+        List<Dict> dicts = dictMapper.query(dictQuery);
+        PageInfo<Dict> pageInfo = new PageInfo<>(dicts);
+        responseBody.setTotal(pageInfo.getTotal());
         List<DictGetResponsebody> getResponseBodies = responseBody.getRows();
         for (Dict dict : dicts) {
             DictGetResponsebody getResponseBody = new DictGetResponsebody();

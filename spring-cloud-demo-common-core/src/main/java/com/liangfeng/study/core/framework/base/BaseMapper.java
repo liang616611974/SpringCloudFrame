@@ -51,12 +51,12 @@ public interface BaseMapper <E extends Serializable,Q extends PageRequest,PK ext
      */
     List<E> query(Q query);
 
-    /**
+   /* *//**
      * 根据查询对象条件分页查询
      * @param query
      * @return
-     */
-    List<E> queryPage(Q query);
+     *//*
+    List<E> queryPage(Q query);*/
 
     /**
      * 根据查询对象条件统计
