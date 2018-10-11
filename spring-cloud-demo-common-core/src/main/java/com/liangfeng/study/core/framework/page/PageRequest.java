@@ -22,7 +22,7 @@ public class PageRequest implements Serializable {
 	 * 页号码,页码从1开始
 	 */
 	private int pageNum;
-	
+
 	/**
 	 * 分页大小
 	 */

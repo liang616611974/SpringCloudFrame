@@ -1,16 +1,26 @@
 package com.liangfeng.study.core.framework.base;
 
-import com.liangfeng.study.core.framework.page.PageRequest;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.io.Serializable;
 
 
-public class BaseQuery extends PageRequest {
+@Data
+@NoArgsConstructor
+public class BaseQuery implements Serializable {
 
-	protected static final int DEFAULT_PAGE_SIZE = 10;
-	protected static final int DEFAULT_PAGE_WIDTH = 10;
-    
-	public BaseQuery() {
-		setPageSize(DEFAULT_PAGE_SIZE);
-		setPageWidth(DEFAULT_PAGE_WIDTH);
+	private static final long serialVersionUID = 1634988769228106224L;
+
+	/**
+	 * 排序的多个列,如: create_time desc id desc
+	 */
+	private String sortColumns;
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
-	  
+
 }

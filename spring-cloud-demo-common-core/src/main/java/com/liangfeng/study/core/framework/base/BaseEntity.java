@@ -1,5 +1,7 @@
 package com.liangfeng.study.core.framework.base;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,6 +12,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 * @date 2016-10-13
 * @version 1.0
  */
+@Data
+@NoArgsConstructor
 public class BaseEntity implements java.io.Serializable {
 
 	private static final long serialVersionUID = -7200095849148417467L;

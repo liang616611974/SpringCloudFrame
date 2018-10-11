@@ -5,26 +5,23 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.liangfeng.study.api.dto.request.DictApiQueryRequestbody;
 import com.liangfeng.study.api.dto.response.DictApiQueryResponsebody;
-import com.liangfeng.study.core.web.dto.response.Response;
-import com.liangfeng.study.dict.model.auto.pojo.Dict;
-import com.liangfeng.study.dict.model.auto.qo.DictQuery;
-import com.liangfeng.study.dict.mapper.DictMapper;
-import com.liangfeng.study.dict.service.DictService;
 import com.liangfeng.study.core.web.dto.request.GetRequestbody;
 import com.liangfeng.study.core.web.dto.request.RemoveRequestbody;
 import com.liangfeng.study.core.web.dto.response.AddResponsebody;
-import com.liangfeng.study.dict.web.request.DictQueryRequestbody;
+import com.liangfeng.study.core.web.dto.response.Response;
+import com.liangfeng.study.dict.mapper.DictMapper;
+import com.liangfeng.study.dict.model.auto.pojo.Dict;
+import com.liangfeng.study.dict.model.auto.qo.DictQuery;
+import com.liangfeng.study.dict.service.DictService;
 import com.liangfeng.study.dict.web.request.DictAddOrMdfRequestbody;
+import com.liangfeng.study.dict.web.request.DictQueryRequestbody;
 import com.liangfeng.study.dict.web.response.DictGetResponsebody;
 import com.liangfeng.study.dict.web.response.DictQueryResponsebody;
-
-import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -118,22 +115,10 @@ public class DictServiceImpl implements DictService {
         // 1.定义参数
         DictQueryResponsebody responseBody = new DictQueryResponsebody();
         DictQuery dictQuery = new DictQuery();
+        requestbody.setSortColumns("id desc");
         BeanUtils.copyProperties(requestbody, dictQuery);
-       /* int total = 0;
 
-        // 2.查询总数
-        total = dictMapper.count(dictQuery);
-        responseBody.setTotal(total);
-
-        // 3.分页查询集合
-        // 3.1 如何没有数据则直接返回。
-        if (responseBody.getTotal() == 0) {
-            return responseBody;
-        }*/
-
-        // 3.2 有数据
-        //requestbody.setSortColumns("id desc");
-        //使用分页插件,核心代码就这一行
+        // 2.使用分页插件分页查询,核心代码就这一行
         PageHelper.startPage(requestbody.getPageNum(), requestbody.getPageSize());
         List<Dict> dicts = dictMapper.query(dictQuery);
         PageInfo<Dict> pageInfo = new PageInfo<>(dicts);

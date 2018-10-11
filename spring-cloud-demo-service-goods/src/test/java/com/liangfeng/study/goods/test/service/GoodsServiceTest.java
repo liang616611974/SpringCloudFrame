@@ -34,7 +34,7 @@ import java.util.List;
  * @Description:
  * @date 2018-07-26
  */
-//@Transactional
+@Transactional
 @Rollback
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -187,7 +187,7 @@ public class GoodsServiceTest extends BaseTest{
         // 2.1 测试情景一
         // 构造测试数据
         List<Goods> goodss = new ArrayList<>();
-        for (int i = 1; i <= 30; i++) {
+        for (int i = 1; i <= 3; i++) {
             goods = new Goods();
             ObjectHelper.initFieldsVal(goods, i);
             goodsMapper.insert(goods);

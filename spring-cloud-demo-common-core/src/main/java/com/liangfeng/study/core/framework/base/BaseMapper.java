@@ -1,8 +1,5 @@
 package com.liangfeng.study.core.framework.base;
 
-import com.liangfeng.study.core.framework.page.Page;
-import com.liangfeng.study.core.framework.page.PageRequest;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -13,7 +10,7 @@ import java.util.List;
  * @Description:
  * @date  2018/4/22 0022 上午 1:55
  */
-public interface BaseMapper <E extends Serializable,Q extends PageRequest,PK extends Serializable>{
+public interface BaseMapper <E extends Serializable,Q extends Serializable,PK extends Serializable>{
 
     /**
      * 插入实体
