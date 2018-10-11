@@ -225,18 +225,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY ${sortColumns}
 		</if>
 	</select>
-	
-	<!-- 分页查询 -->
-	<select id="queryPage"  resultMap="RM_Goods">
-		SELECT
-		<include refid="columns" />
-		FROM scd_goods
-		<include refid="where" />
-		<if test="sortColumns != null">
-			ORDER BY ${sortColumns}
-		</if>
-		LIMIT #{begin},#{pageSize}
-	</select>
 
 </mapper>
 
