@@ -19,10 +19,10 @@
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- 文件输出路径 -->
-    <property name="FILE_PATH" value="${APP_LOG_PATH}/${APP_NAME}/"/>
+    <property name="FILE_PATH" value="${APP_LOG_PATH}/"/>
 
 
-    <!-- 输出到控制台 -->
+   <!-- &lt;!&ndash; 输出到控制台 &ndash;&gt;
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>${CONSOLE_PATTERN}</pattern>
@@ -35,37 +35,12 @@
     <root level="${APP_LOG_LEVEL}">
         <appender-ref ref="CONSOLE"/>
     </root>
-
-
-    <!-- 开发环境 -->
-  <!--  <springProfile name="dev">
-
-        &lt;!&ndash; 输出到控制台 &ndash;&gt;
-        <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder>
-                <pattern>${CONSOLE_PATTERN}</pattern>
-            </encoder>
-        </appender>
-
-        <logger name="${APP_PACKAGE_NAME}" level="DEBUG"/>
-
-        <logger name="jdbc.connection" level="OFF" />
-        <logger name="jdbc.audit" level="OFF" />
-        <logger name="jdbc.resultset" level="OFF" />
-        <logger name="jdbc.sqlonly" level="OFF" />
-        <logger name="jdbc.sqltiming" level="INFO" />
-
-        <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-
-    </springProfile>
 -->
 
-   <!-- &lt;!&ndash; 开发环境 &ndash;&gt;
-    <springProfile name="dev2">
+    <!-- 开发环境 -->
+    <springProfile name="dev">
 
-        &lt;!&ndash; 输出到控制台 &ndash;&gt;
+        <!-- 输出到控制台 -->
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>${CONSOLE_PATTERN}</pattern>
@@ -83,20 +58,21 @@
         <root level="${APP_LOG_LEVEL}">
             <appender-ref ref="CONSOLE"/>
         </root>
+
     </springProfile>
 
-    &lt;!&ndash; 测试环境 &ndash;&gt;
+    <!-- 测试环境 -->
     <springProfile name="test">
-        &lt;!&ndash; 输出到本地文件 &ndash;&gt;
+        <!-- 输出到本地文件 -->
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            &lt;!&ndash; 文件路径 &ndash;&gt;
+            <!-- 文件路径 -->
             <file>${FILE_PATH}/${APP_NAME}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                &lt;!&ndash; 文件名称 &ndash;&gt;
+                <!-- 文件名称 -->
                 <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
-                &lt;!&ndash; 文件最大保存历史数量 &ndash;&gt;
+                <!-- 文件最大保存历史数量 -->
                 <MaxHistory>30</MaxHistory>
-                &lt;!&ndash; 文件超过50M则分割 &ndash;&gt;
+                <!-- 文件超过50M则分割 -->
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                     <maxFileSize>50MB</maxFileSize>
                 </timeBasedFileNamingAndTriggeringPolicy>
@@ -111,18 +87,18 @@
         </root>
     </springProfile>
 
-    &lt;!&ndash; 生产环境 &ndash;&gt;
+    <!-- 生产环境 -->
     <springProfile name="prod">
-        &lt;!&ndash; 输出到本地文件 &ndash;&gt;
+        <!-- 输出到本地文件 -->
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            &lt;!&ndash; 文件路径 &ndash;&gt;
+            <!-- 文件路径 -->
             <file>${FILE_PATH}/${APP_NAME}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                &lt;!&ndash; 文件名称 &ndash;&gt;
+                <!-- 文件名称 -->
                 <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
-                &lt;!&ndash; 文件最大保存历史数量 &ndash;&gt;
+                <!-- 文件最大保存历史数量 -->
                 <MaxHistory>30</MaxHistory>
-                &lt;!&ndash; 文件超过50M则分割 &ndash;&gt;
+                <!-- 文件超过50M则分割 -->
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                     <maxFileSize>50MB</maxFileSize>
                 </timeBasedFileNamingAndTriggeringPolicy>
@@ -135,6 +111,6 @@
         <root level="${APP_LOG_LEVEL}">
             <appender-ref ref="FILE"/>
         </root>
-    </springProfile>-->
+    </springProfile>
 
 </configuration>

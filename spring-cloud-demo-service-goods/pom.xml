@@ -122,4 +122,61 @@
         </dependency>
     </dependencies>
 
+    <!-- 配置文件环境配置 开始 -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <profileActive>dev</profileActive>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <dockerTag>1.0.0</dockerTag>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <profileActive>test</profileActive>
+                <!--<dockerHost>http://10.2.145.156:2375</dockerHost>-->
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <!-- <imageName>springcloud/${project.artifactId}</imageName>
+                 <dockerDir>src/main/docker</dockerDir>-->
+                <dockerTag>1.0.0</dockerTag>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <profileActive>prod</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
+    <!-- 构建应用配置-->
+    <build>
+
+        <plugins>
+
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
 </project>
