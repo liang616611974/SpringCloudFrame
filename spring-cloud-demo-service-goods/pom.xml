@@ -127,7 +127,7 @@
         <profile>
             <id>dev</id>
             <properties>
-                <profileActive>dev</profileActive>
+                <activeProfile>dev</activeProfile>
                 <dockerHost>http://192.168.248.129:2375</dockerHost>
                 <dockerTag>1.0.0</dockerTag>
             </properties>
@@ -138,7 +138,7 @@
         <profile>
             <id>test</id>
             <properties>
-                <profileActive>test</profileActive>
+                <activeProfile>test</activeProfile>
                 <!--<dockerHost>http://10.2.145.156:2375</dockerHost>-->
                 <dockerHost>http://192.168.248.129:2375</dockerHost>
                 <!-- <imageName>springcloud/${project.artifactId}</imageName>
@@ -149,17 +149,14 @@
         <profile>
             <id>prod</id>
             <properties>
-                <profileActive>prod</profileActive>
+                <activeProfile>prod</activeProfile>
             </properties>
         </profile>
     </profiles>
 
-    <!-- 构建应用配置-->
     <build>
-
+        <!-- 引入其他依赖包，打成可执行包 -->
         <plugins>
-
-            <!-- 打包插件 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -171,11 +168,18 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <includeSystemScope>true</includeSystemScope>
                     <executable>true</executable>
                 </configuration>
             </plugin>
         </plugins>
+
+        <!-- 让其他配置文件读取到pom.xml文件配置的属性值 -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 

@@ -123,7 +123,7 @@
     </dependencies>
 
     <!-- 配置文件环境配置 开始 -->
-    <profiles>
+   <!-- <profiles>
         <profile>
             <id>dev</id>
             <properties>
@@ -146,16 +146,17 @@
             </properties>
         </profile>
     </profiles>
-
-    <!-- 构建应用配置-->
+-->
+  <!--  &lt;!&ndash; 构建应用配置&ndash;&gt;
     <build>
 
         <plugins>
 
-            <!-- 打包插件 -->
+            &lt;!&ndash; 打包插件 &ndash;&gt;
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.7.RELEASE</version>
                 <executions>
                     <execution>
                         <goals>
@@ -169,65 +170,65 @@
                 </configuration>
             </plugin>
 
-            <!-- Docker Maven构建 -->
-           <!-- <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <imageName>springcloud/${project.artifactId}</imageName>
-                    <dockerDirectory>src/main/docker</dockerDirectory>&lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;
-                    <dockerHost>${dockerHost}</dockerHost>&lt;!&ndash; 指定 docker主机ip&ndash;&gt;
-                    &lt;!&ndash;将jar包拷贝到 Dockerfile 所在的目录下&ndash;&gt;
-                    <resources>
-                        <resource>
-                            &lt;!&ndash; 这里的根目录是 Dockerfile 所在的目录&ndash;&gt;
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                        &lt;!&ndash; <resource>
+            &lt;!&ndash; Docker Maven构建 &ndash;&gt;
+            &lt;!&ndash; <plugin>
+                 <groupId>com.spotify</groupId>
+                 <artifactId>docker-maven-plugin</artifactId>
+                 <version>1.0.0</version>
+                 <configuration>
+                     <imageName>springcloud/${project.artifactId}</imageName>
+                     <dockerDirectory>src/main/docker</dockerDirectory>&lt;!&ndash; 指定 Dockerfile 路径&ndash;&gt;
+                     <dockerHost>${dockerHost}</dockerHost>&lt;!&ndash; 指定 docker主机ip&ndash;&gt;
+                     &lt;!&ndash;将jar包拷贝到 Dockerfile 所在的目录下&ndash;&gt;
+                     <resources>
+                         <resource>
+                             &lt;!&ndash; 这里的根目录是 Dockerfile 所在的目录&ndash;&gt;
                              <targetPath>/</targetPath>
-                             <directory>${project.basedir}/docker/tool</directory>
-                             &lt;!&ndash;<include>*</include>&ndash;&gt;
-                         </resource>&ndash;&gt;
-                    </resources>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>tag-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>tag</goal>
-                        </goals>
-                        <configuration>
-                            <image>springcloud/${project.artifactId}</image>
-                            <newName>springcloud/${project.artifactId}:${dockerTag}</newName>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>push-image</id>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>push</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${dockerName}:${dockerTag}</imageName>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
--->
+                             <directory>${project.build.directory}</directory>
+                             <include>${project.build.finalName}.jar</include>
+                         </resource>
+                         &lt;!&ndash; <resource>
+                              <targetPath>/</targetPath>
+                              <directory>${project.basedir}/docker/tool</directory>
+                              &lt;!&ndash;<include>*</include>&ndash;&gt;
+                          </resource>&ndash;&gt;
+                     </resources>
+                 </configuration>
+                 <executions>
+                     <execution>
+                         <id>build-image</id>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>build</goal>
+                         </goals>
+                     </execution>
+                     <execution>
+                         <id>tag-image</id>
+                         <phase>package</phase>
+                         <goals>
+                             <goal>tag</goal>
+                         </goals>
+                         <configuration>
+                             <image>springcloud/${project.artifactId}</image>
+                             <newName>springcloud/${project.artifactId}:${dockerTag}</newName>
+                         </configuration>
+                     </execution>
+                     <execution>
+                         <id>push-image</id>
+                         <phase>deploy</phase>
+                         <goals>
+                             <goal>push</goal>
+                         </goals>
+                         <configuration>
+                             <imageName>${dockerName}:${dockerTag}</imageName>
+                         </configuration>
+                     </execution>
+                 </executions>
+             </plugin>
+ &ndash;&gt;
         </plugins>
 
-        <!-- 让其他配置文件读取到pom.xml文件配置的属性值 -->
+        &lt;!&ndash; 让其他配置文件读取到pom.xml文件配置的属性值 &ndash;&gt;
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -235,6 +236,8 @@
             </resource>
         </resources>
 
-    </build>
+    </build>-->
+
+
 
 </project>

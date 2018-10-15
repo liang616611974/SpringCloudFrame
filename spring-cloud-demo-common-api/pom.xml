@@ -12,7 +12,7 @@
 
     <!-- 项目声明 -->
     <artifactId>spring-cloud-demo-common-api</artifactId>
-    <packaging>jar</packaging>
+    <!--<packaging>jar</packaging>-->
     <name>spring-cloud-demo-common-api</name>
     <description>spring-cloud project for Spring Boot</description>
 
@@ -33,6 +33,7 @@
             <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
     </dependencies>
+
 
 
 </project>
