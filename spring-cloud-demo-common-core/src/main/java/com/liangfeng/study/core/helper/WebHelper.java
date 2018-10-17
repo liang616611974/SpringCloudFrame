@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URLEncoder;
 
 /**
  * @Title: WebHelper.java
@@ -23,6 +24,17 @@ public class WebHelper {
 	 * 设置cookie有效期，根据需要自定义
 	 */
 	private final static int COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
+
+	/**
+	 * 浏览器相关设置
+	 */
+	private static final String ENCODING_UTF8 = "UTF-8";
+	private static final String ENCODING_ISO = "iso-8859-1";
+	private static final String BROWSER_INFO_HEADER = "USER-AGENT";//"USER-AGENT";
+	private static final String USER_AGENT_MSIE = "MSIE";
+	private static final String USER_AGENT_TRIDENT = "Trident";
+	private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";//"Content-Disposition";
+	private static final String FILE_DOWNLOAD_HEADER_VAL = "attachment;filename=";
 	
 	private WebHelper(){};
 
@@ -198,4 +210,31 @@ public class WebHelper {
         return ip.split(",")[0];
     }
 
+    /**
+	 * 设置下载Http响应信息
+	 * @param request
+	 * @param response
+	 * @param contentType
+	 * @param downloadName
+	 * @throws Exception
+	 */
+	public static void setDownloadResponse(HttpServletRequest request, HttpServletResponse response, String contentType,String downloadName) throws Exception {
+		// 1..判断浏览器
+		String userAgent = request.getHeader(BROWSER_INFO_HEADER);
+		/*
+		 * 设置不同浏览器中  下载文件的文件名编码
+		 * IE11浏览器的user-agent使用MSIE容易识别为firefox  导致出错
+		 */
+		if (!userAgent.contains(USER_AGENT_MSIE) && !userAgent.contains(USER_AGENT_TRIDENT)) {
+			downloadName = new String(downloadName.getBytes(ENCODING_UTF8), ENCODING_ISO);
+		} else {
+			downloadName = URLEncoder.encode(downloadName, ENCODING_UTF8);
+		}
+
+		// 2.设置response
+		response.reset();
+		request.setCharacterEncoding(ENCODING_UTF8);
+		response.setHeader(FILE_DOWNLOAD_HEADER, FILE_DOWNLOAD_HEADER_VAL + downloadName);// 表示以附件形式可下载
+		response.setContentType(contentType);// 设置下载格式
+	}
 }
