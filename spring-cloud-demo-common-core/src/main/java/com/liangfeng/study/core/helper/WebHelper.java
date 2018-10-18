@@ -34,7 +34,7 @@ public class WebHelper {
 	private static final String USER_AGENT_MSIE = "MSIE";
 	private static final String USER_AGENT_TRIDENT = "Trident";
 	private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";//"Content-Disposition";
-	private static final String FILE_DOWNLOAD_HEADER_VAL = "attachment;filename=";
+	private static final String FILE_DOWNLOAD_HEADER_VAL = "attachment;filename=%s";
 	
 	private WebHelper(){};
 
@@ -234,7 +234,7 @@ public class WebHelper {
 		// 2.设置response
 		response.reset();
 		request.setCharacterEncoding(ENCODING_UTF8);
-		response.setHeader(FILE_DOWNLOAD_HEADER, FILE_DOWNLOAD_HEADER_VAL + downloadName);// 表示以附件形式可下载
+		response.setHeader(FILE_DOWNLOAD_HEADER, String.format(FILE_DOWNLOAD_HEADER_VAL,downloadName));// 表示以附件形式可下载
 		response.setContentType(contentType);// 设置下载格式
 	}
 }

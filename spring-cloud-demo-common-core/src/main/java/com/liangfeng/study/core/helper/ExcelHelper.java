@@ -54,8 +54,7 @@ public class ExcelHelper {
      * 文件下载请求头
      */
     private static final String FILE_DOWNLOAD_HEADER = "Content-Disposition";//"Content-Disposition";
-    private static final String FILE_DOWNLOAD_HEADER_VAL = "attachment;filename=";
-    private static final String SUFFIX_EXCEL = ".xls";
+    private static final String FILE_DOWNLOAD_HEADER_VAL = "attachment;filename=%s.xls";
     /**
      * EXCEL ContentType
      */
@@ -563,7 +562,7 @@ public class ExcelHelper {
         // 2.设置response
         response.reset();
         request.setCharacterEncoding(ENCODING);
-        response.setHeader(FILE_DOWNLOAD_HEADER, FILE_DOWNLOAD_HEADER_VAL + downloadName + SUFFIX_EXCEL);// 表示以附件形式可下载
+        response.setHeader(FILE_DOWNLOAD_HEADER, String.format(FILE_DOWNLOAD_HEADER_VAL,downloadName));// 表示以附件形式可下载
         response.setContentType(CONTENT_TYPE_EXCEL);// 设置下载格式为EXCEL
     }
 
