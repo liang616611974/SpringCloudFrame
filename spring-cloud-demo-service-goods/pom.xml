@@ -154,33 +154,87 @@
         </profile>
     </profiles>
 
-    <build>
-        <!-- 引入其他依赖包，打成可执行包 -->
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
-        </plugins>
+      <!-- 构建应用配置-->
+     <build>
 
-        <!-- 让其他配置文件读取到pom.xml文件配置的属性值 -->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+         <plugins>
+
+             <!-- 打包插件 -->
+             <plugin>
+                 <groupId>org.springframework.boot</groupId>
+                 <artifactId>spring-boot-maven-plugin</artifactId>
+                 <version>1.5.7.RELEASE</version>
+                 <executions>
+                     <execution>
+                         <goals>
+                             <goal>repackage</goal>
+                         </goals>
+                     </execution>
+                 </executions>
+                 <configuration>
+                     <includeSystemScope>true</includeSystemScope>
+                     <executable>true</executable>
+                 </configuration>
+             </plugin>
+
+             <!-- Docker Maven构建 -->
+              <plugin>
+                  <groupId>com.spotify</groupId>
+                  <artifactId>docker-maven-plugin</artifactId>
+                  <version>1.0.0</version>
+                  <configuration>
+                      <imageName>springcloud/${project.artifactId}</imageName>
+                      <dockerDirectory>src/main/docker</dockerDirectory><!-- 指定 Dockerfile 路径-->
+                      <dockerHost>${dockerHost}</dockerHost><!-- 指定 docker主机ip-->
+                      <!--将jar包拷贝到 Dockerfile 所在的目录下-->
+                      <resources>
+                          <resource>
+                              <!-- 这里的根目录是 Dockerfile 所在的目录-->
+                              <targetPath>/</targetPath>
+                              <directory>${project.build.directory}</directory>
+                              <include>${project.build.finalName}.jar</include>
+                          </resource>
+                          <!-- <resource>
+                               <targetPath>/</targetPath>
+                               <directory>${project.basedir}/docker/tool</directory>
+                               &lt;!&ndash;<include>*</include>&ndash;&gt;
+                           </resource>-->
+                      </resources>
+                  </configuration>
+                  <executions>
+                      <execution>
+                          <id>build-image</id>
+                          <phase>package</phase>
+                          <goals>
+                              <goal>build</goal>
+                          </goals>
+                      </execution>
+                      <execution>
+                          <id>tag-image</id>
+                          <phase>package</phase>
+                          <goals>
+                              <goal>tag</goal>
+                          </goals>
+                          <configuration>
+                              <image>springcloud/${project.artifactId}</image>
+                              <newName>springcloud/${project.artifactId}:${dockerTag}</newName>
+                          </configuration>
+                      </execution>
+                      <execution>
+                          <id>push-image</id>
+                          <phase>deploy</phase>
+                          <goals>
+                              <goal>push</goal>
+                          </goals>
+                          <configuration>
+                              <imageName>${dockerName}:${dockerTag}</imageName>
+                          </configuration>
+                      </execution>
+                  </executions>
+              </plugin>
+         </plugins>
+
+     </build>
 
 
 </project>
