@@ -5,8 +5,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import java.lang.reflect.Field;
 
 /**
  * @author Liangfeng
@@ -19,6 +22,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Response<T> {
+
 
     /**
      * 状态码
@@ -131,9 +135,19 @@ public class Response<T> {
         return new Response(Response.ResponseCode.SERVER_ERR.value(), errMsg,false, null);
     }
 
-    @Override
+ /*   @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }*/
+
+    @Override
+    public String toString() {
+        return  new ReflectionToStringBuilder(this, ToStringStyle.JSON_STYLE) {
+            @Override
+            protected boolean accept(Field field) {
+                return !field.getName().equals("responseBody");
+            }
+        }.toString();
     }
 
     /**
