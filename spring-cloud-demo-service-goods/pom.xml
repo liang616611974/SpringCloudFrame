@@ -129,7 +129,7 @@
             <properties>
                 <activeProfile>dev</activeProfile>
                 <dockerHost>http://192.168.248.129:2375</dockerHost>
-                <dockerTag>1.0.0</dockerTag>
+                <dockerDir>src/main/docker/dev</dockerDir>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -139,17 +139,15 @@
             <id>test</id>
             <properties>
                 <activeProfile>test</activeProfile>
-                <!--<dockerHost>http://10.2.145.156:2375</dockerHost>-->
                 <dockerHost>http://192.168.248.129:2375</dockerHost>
-                <!-- <imageName>springcloud/${project.artifactId}</imageName>
-                 <dockerDir>src/main/docker</dockerDir>-->
-                <dockerTag>1.0.0</dockerTag>
+                <dockerDir>src/main/docker/test</dockerDir>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <activeProfile>prod</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
             </properties>
         </profile>
     </profiles>
@@ -183,8 +181,8 @@
                   <artifactId>docker-maven-plugin</artifactId>
                   <version>1.0.0</version>
                   <configuration>
-                      <imageName>springcloud/${project.artifactId}</imageName>
-                      <dockerDirectory>src/main/docker</dockerDirectory><!-- 指定 Dockerfile 路径-->
+                      <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                      <dockerDirectory>${dockerDir}</dockerDirectory><!-- 指定 Dockerfile 路径-->
                       <dockerHost>${dockerHost}</dockerHost><!-- 指定 docker主机ip-->
                       <!--将jar包拷贝到 Dockerfile 所在的目录下-->
                       <resources>
@@ -194,6 +192,7 @@
                               <directory>${project.build.directory}</directory>
                               <include>${project.build.finalName}.jar</include>
                           </resource>
+                          <!--其它所需的资源-->
                           <!-- <resource>
                                <targetPath>/</targetPath>
                                <directory>${project.basedir}/docker/tool</directory>
@@ -201,6 +200,8 @@
                            </resource>-->
                       </resources>
                   </configuration>
+                  <!--绑定构建的生命周期-->
+                  <!--
                   <executions>
                       <execution>
                           <id>build-image</id>
@@ -216,8 +217,8 @@
                               <goal>tag</goal>
                           </goals>
                           <configuration>
-                              <image>springcloud/${project.artifactId}</image>
-                              <newName>springcloud/${project.artifactId}:${dockerTag}</newName>
+                              <image>${docker.image.prefix}/${project.artifactId}</image>
+                              <newName>${docker.image.prefix}/${project.artifactId}:${project.version}</newName>
                           </configuration>
                       </execution>
                       <execution>
@@ -227,10 +228,10 @@
                               <goal>push</goal>
                           </goals>
                           <configuration>
-                              <imageName>${dockerName}:${dockerTag}</imageName>
+                              <imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
                           </configuration>
                       </execution>
-                  </executions>
+                  </executions>-->
               </plugin>
          </plugins>
 
