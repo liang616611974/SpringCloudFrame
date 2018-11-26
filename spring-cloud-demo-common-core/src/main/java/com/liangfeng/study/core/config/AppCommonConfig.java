@@ -20,6 +20,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -106,6 +109,24 @@ public class AppCommonConfig {
         restTemplate.getMessageConverters().set(1, new StringHttpMessageConverter(Charsets.UTF_8));
 
         return restTemplate;
+    }
+
+    /**
+     * 给SpringTask提供一个多线程的TaskScheduler，
+     * 因为SpringTask默认是单线程的，如果task1和task2执行的相隔时间太短，而task1执行时间太长，会导致等待task1执行完后，再执行task2
+     */
+    @Configuration
+    @EnableScheduling
+    public class SchedulerConfig {
+        @Bean
+        public TaskScheduler taskScheduler() {
+            ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+            //线程池大小
+            scheduler.setPoolSize(10);
+            //线程名字前缀
+            scheduler.setThreadNamePrefix("spring-task-thread");
+            return scheduler;
+        }
     }
 
     @Component
