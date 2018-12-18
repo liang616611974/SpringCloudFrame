@@ -33,7 +33,16 @@ public class PropertiesHelper {
 	public static Properties getProperties() {
 		return p;
 	}
-	
+
+	/**
+	 * 获取配置文件字符串值
+	 * @param key 配置文件的键 默认值为""
+	 * @return
+	 */
+	public static String getStr(String key) {
+		return getStr(key, null);
+	}
+
 	/**
 	 * 获取配置文件字符串值
 	 * @param key 配置文件的键
@@ -55,29 +64,7 @@ public class PropertiesHelper {
 		} 
 		return p.getProperty(key);
 	}
-	
-	/**
-	 * 获取配置文件字符串值
-	 * @param key 配置文件的键 默认值为""
-	 * @return
-	 */
-	public static String getStr(String key) {
-		return getStr(key, null);
-	}
-	
-	/**
-	 * 获取配置文件Int值
-	 * @param key 配置文件的键
-	 * @param defaultVal 默认值
-	 * @return
-	 */
-	public static int getInt(String key,int defaultVal) {
-		if(StringUtils.isBlank(getStr(key))) {
-			return defaultVal;
-		}
-		return Integer.parseInt(key);
-	}
-	
+
 	/**
 	 * 获取配置文件Int值
 	 * @param key 配置文件的键 默认值为0
@@ -88,18 +75,43 @@ public class PropertiesHelper {
 	}
 
 	/**
-	 * 获取配置文件boolean值
+	 * 获取配置文件Int值
 	 * @param key 配置文件的键
 	 * @param defaultVal 默认值
 	 * @return
 	 */
-	public static boolean getBoolean(String key,boolean defaultVal){
-		if(StringUtils.isBlank(getStr(key))) {
+	public static int getInt(String key,int defaultVal) {
+		String val = getStr(key);
+		if(StringUtils.isBlank(val)) {
 			return defaultVal;
 		}
-		return Boolean.parseBoolean(key);
+		return Integer.parseInt(val);
 	}
-	
+
+	/**
+	 * 获取配置文件long值
+	 * @param key 配置文件的键 默认值为0
+	 * @return
+	 */
+	public static long getLong(String key){
+		return getLong(key,0);
+	}
+
+	/**
+	 * 获取配置文件Long值
+	 * @param key
+	 * @param defaultVal
+	 * @return
+	 */
+	public static long getLong(String key,long defaultVal) {
+		String val = getStr(key);
+		if(StringUtils.isBlank(val)) {
+			return defaultVal;
+		}
+		return Long.parseLong(val);
+	}
+
+
 	/**
 	 * 获取配置文件boolean值
 	 * @param key 配置文件的键 默认值为false
@@ -108,6 +120,20 @@ public class PropertiesHelper {
 	public static boolean getBoolean(String key){
 		return getBoolean(key,false);
 	}
+
+	/**
+	 * 获取配置文件boolean值
+	 * @param key 配置文件的键
+	 * @param defaultVal 默认值
+	 * @return
+	 */
+	public static boolean getBoolean(String key,boolean defaultVal){
+		String val = getStr(key);
+		if(StringUtils.isBlank(val)) {
+			return defaultVal;
+		}
+		return Boolean.parseBoolean(val);
+	}
 	
 	
 	/**
@@ -115,7 +141,7 @@ public class PropertiesHelper {
 	 * @param key
 	 * @return
 	 */
-	public String getSystemStr(String key) {
+	public static String getSystemStr(String key) {
 		String value = null;
 		value = System.getProperty(key);
 		if(StringUtils.isBlank(value)) {
