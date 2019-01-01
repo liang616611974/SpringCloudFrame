@@ -43,9 +43,22 @@
     <!-- 配置文件环境配置 开始 -->
     <profiles>
         <profile>
-            <id>native</id>
+            <id>native-dev</id>
             <properties>
                 <activeProfile>native</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <dockerDir>src/main/docker/dev</dockerDir>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>native-test</id>
+            <properties>
+                <activeProfile>native</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <dockerDir>src/main/docker/test</dockerDir>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -64,5 +77,51 @@
             </properties>
         </profile>
     </profiles>
+
+    <!-- 构建应用配置-->
+    <build>
+
+        <plugins>
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.7.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+
+            <!-- Docker Maven构建 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>${dockerDir}</dockerDirectory><!-- 指定 Dockerfile 路径-->
+                    <dockerHost>${dockerHost}</dockerHost><!-- 指定 docker主机ip-->
+                    <!--将jar包拷贝到 Dockerfile 所在的目录下-->
+                    <resources>
+                        <resource>
+                            <!-- 这里的根目录是 Dockerfile 所在的目录-->
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+
+    </build>
 
 </project>

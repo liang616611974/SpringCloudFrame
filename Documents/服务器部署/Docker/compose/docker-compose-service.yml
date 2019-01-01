@@ -1,0 +1,9 @@
+version: "2"
+services:
+  goods:
+    image: springcloud/spring-cloud-demo-service-goods
+    ports:
+    - "8091:8091"
+    external_links:
+    - "config"
+    - "eureka:test"

@@ -41,36 +41,114 @@
             <id>dev</id>
             <properties>
                 <activeProfile>dev</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <dockerDir>src/main/docker/test</dockerDir>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
-        <!--<profile>
-            <id>dev1</id>
-            <properties>
-                <activeProfile>dev1</activeProfile>
-            </properties>
-        </profile>
-        <profile>
-            <id>dev2</id>
-            <properties>
-                <activeProfile>dev2</activeProfile>
-            </properties>
-        </profile>-->
         <profile>
             <id>test</id>
             <properties>
                 <activeProfile>test</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
+                <dockerDir>src/main/docker/test</dockerDir>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <activeProfile>prod</activeProfile>
+                <dockerHost>http://192.168.248.129:2375</dockerHost>
             </properties>
         </profile>
     </profiles>
+
+    <!-- 构建应用配置-->
+    <build>
+
+        <plugins>
+            <!-- 打包插件 -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.7.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+
+            <!-- Docker Maven构建 -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <dockerDirectory>${dockerDir}</dockerDirectory><!-- 指定 Dockerfile 路径-->
+                    <dockerHost>${dockerHost}</dockerHost><!-- 指定 docker主机ip-->
+                    <!--将jar包拷贝到 Dockerfile 所在的目录下-->
+                    <resources>
+                        <resource>
+                            <!-- 这里的根目录是 Dockerfile 所在的目录-->
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                        <!--其它所需的资源-->
+                        <!-- <resource>
+                             <targetPath>/</targetPath>
+                             <directory>${project.basedir}/docker/tool</directory>
+                             &lt;!&ndash;<include>*</include>&ndash;&gt;
+                         </resource>-->
+                    </resources>
+                </configuration>
+                <!--绑定构建的生命周期-->
+                <!--
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>tag-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>
+                        </goals>
+                        <configuration>
+                            <image>${docker.image.prefix}/${project.artifactId}</image>
+                            <newName>${docker.image.prefix}/${project.artifactId}:${project.version}</newName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>push-image</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>push</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${docker.image.prefix}/${project.artifactId}:${project.version}</imageName>
+                        </configuration>
+                    </execution>
+                </executions>-->
+            </plugin>
+        </plugins>
+
+    </build>
+
 
 
 </project>
