@@ -2,13 +2,17 @@ version: "2"
 services:
   eureka:
     image: springcloud/spring-cloud-demo-web-eureka
+    container_name: eureka
     ports:
     - "8761:8761"
     environment:
     - "spring.profiles.active=test"
     hostname: test
   config:
-    image: cloud_test/config
+    image: springcloud/spring-cloud-demo-web-config
+    container_name: config
     ports:
     - "8888:8888"
     hostname: config
+    external_links:
+    - "eureka:test"

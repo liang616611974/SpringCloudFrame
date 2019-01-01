@@ -19,7 +19,7 @@
     <property name="FILE_PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%21thread] --- [%X{uuid},%X{remoteAddr},%X{requestURI},%X{userId}] --- %-50c{50} [%4L] : %msg%n"/>
 
     <!-- 文件输出路径 -->
-    <property name="FILE_PATH" value="${APP_LOG_PATH}/${APP_NAME}/"/>
+    <property name="FILE_PATH" value="${APP_LOG_PATH}"/>
 
 
     <!-- 开发环境 -->
