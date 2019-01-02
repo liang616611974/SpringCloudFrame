@@ -38,7 +38,7 @@
     <!-- 配置文件环境配置 开始 -->
     <profiles>
         <profile>
-            <id>dev</id>
+            <id>dev1</id>
             <properties>
                 <activeProfile>dev</activeProfile>
                 <dockerHost>http://192.168.248.129:2375</dockerHost>

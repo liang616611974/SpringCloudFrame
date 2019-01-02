@@ -43,18 +43,7 @@
     <!-- 配置文件环境配置 开始 -->
     <profiles>
         <profile>
-            <id>native-dev</id>
-            <properties>
-                <activeProfile>native</activeProfile>
-                <dockerHost>http://192.168.248.129:2375</dockerHost>
-                <dockerDir>src/main/docker/dev</dockerDir>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>native-test</id>
+            <id>native</id>
             <properties>
                 <activeProfile>native</activeProfile>
                 <dockerHost>http://192.168.248.129:2375</dockerHost>
