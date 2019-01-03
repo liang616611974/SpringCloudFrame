@@ -1,0 +1,4 @@
+# spring-cloud eureka
+127.0.0.1 liangfeng1 liangfeng2 liangfeng3
+127.0.0.1 eureka
+127.0.0.1 config

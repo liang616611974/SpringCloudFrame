@@ -1,19 +1,26 @@
-version: "2"
+version: "3"
 services:
   eureka:
     image: springcloud/spring-cloud-demo-web-eureka
     container_name: eureka
     ports:
-    - "8761:8761"
+      - "8761:8761"
     environment:
-    - "spring.profiles.active=test"
+      - "spring.profiles.active=test"
     hostname: test
+    volumes:
+      #- /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
   config:
     image: springcloud/spring-cloud-demo-web-config
     container_name: config
     ports:
-    - "8888:8888"
+      - "8888:8888"
     hostname: config
     #链接到另一个服务中的容器。 请指定服务名称和链接别名（SERVICE：ALIAS），或者仅指定服务名称。
-    links:
-    - "eureka:test"
+    #links:
+    #- "eureka:test"
+    volumes:
+      #- /etc/timezone:/etc/timezone
+      - /etc/localtime:/etc/localtime
+

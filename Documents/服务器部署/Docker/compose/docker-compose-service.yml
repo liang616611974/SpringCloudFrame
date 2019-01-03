@@ -6,6 +6,9 @@ services:
     ports:
     - "8091:8091"
     #链接到docker-compose.yml 外部的容器，甚至并非 Compose 管理的容器。参数格式跟 links 类似。
-    external_links:
-    - "config"
-    - "eureka:test"
+  #  external_links:
+#    - "config"
+ #   - "eureka:test"
+    volumes:
+    #- /etc/timezone:/etc/timezone
+    - /etc/localtime:/etc/localtime
