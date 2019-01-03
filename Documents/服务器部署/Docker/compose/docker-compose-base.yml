@@ -14,5 +14,6 @@ services:
     ports:
     - "8888:8888"
     hostname: config
-    external_links:
+    #链接到另一个服务中的容器。 请指定服务名称和链接别名（SERVICE：ALIAS），或者仅指定服务名称。
+    links:
     - "eureka:test"

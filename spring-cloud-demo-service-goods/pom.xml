@@ -128,8 +128,6 @@
             <id>dev</id>
             <properties>
                 <activeProfile>dev</activeProfile>
-                <dockerHost>http://192.168.248.129:2375</dockerHost>
-                <dockerDir>src/main/docker/dev</dockerDir>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -139,15 +137,12 @@
             <id>test</id>
             <properties>
                 <activeProfile>test</activeProfile>
-                <dockerHost>http://192.168.248.129:2375</dockerHost>
-                <dockerDir>src/main/docker/test</dockerDir>
             </properties>
         </profile>
         <profile>
             <id>prod</id>
             <properties>
                 <activeProfile>prod</activeProfile>
-                <dockerHost>http://192.168.248.129:2375</dockerHost>
             </properties>
         </profile>
     </profiles>
