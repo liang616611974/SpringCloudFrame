@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
+    <!-- 如果是从config中心读取配置，以下变量失效 -->
     <!-- 日志输出路径 -->
     <springProperty scope="context" name="APP_LOG_PATH" source="app.log.path"/>
 
@@ -79,10 +80,6 @@
             </encoder>
         </appender>
 
-        <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-
         <!-- 输出到本地文件 -->
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
@@ -102,7 +99,8 @@
             </layout>
         </appender>
 
-        <root level="${APP_LOG_LEVEL}">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
             <appender-ref ref="FILE"/>
         </root>
     </springProfile>
@@ -117,20 +115,16 @@
             </encoder>
         </appender>
 
-        <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-
-        <!-- 输出到本地文件 -->
+      <!--  &lt;!&ndash; 输出到本地文件 &ndash;&gt;
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <!-- 文件路径 -->
+            &lt;!&ndash; 文件路径 &ndash;&gt;
             <file>${FILE_PATH}/${APP_NAME}.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <!-- 文件名称 -->
+                &lt;!&ndash; 文件名称 &ndash;&gt;
                 <fileNamePattern>${FILE_PATH}/${APP_NAME}.%d{yyyy-MM-dd}.log.%i</fileNamePattern>
-                <!-- 文件最大保存历史数量 -->
+                &lt;!&ndash; 文件最大保存历史数量 &ndash;&gt;
                 <MaxHistory>30</MaxHistory>
-                <!-- 文件超过50M则分割 -->
+                &lt;!&ndash; 文件超过50M则分割 &ndash;&gt;
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                     <maxFileSize>50MB</maxFileSize>
                 </timeBasedFileNamingAndTriggeringPolicy>
@@ -139,9 +133,10 @@
                 <pattern>${FILE_PATTERN}</pattern>
             </layout>
         </appender>
-
+-->
         <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+            <!--<appender-ref ref="FILE"/>-->
         </root>
     </springProfile>
 </configuration>

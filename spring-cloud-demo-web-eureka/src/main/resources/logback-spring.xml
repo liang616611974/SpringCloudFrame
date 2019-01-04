@@ -79,10 +79,6 @@
             </encoder>
         </appender>
 
-        <root level="${APP_LOG_LEVEL}">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-
         <!-- 输出到本地文件 -->
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <!-- 文件路径 -->
@@ -104,6 +100,7 @@
 
         <root level="${APP_LOG_LEVEL}">
             <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
 
