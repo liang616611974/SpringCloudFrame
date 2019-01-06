@@ -16,6 +16,9 @@ WORKDIR /app-work
 # 复制文件到容器
 COPY spring-cloud-demo-web-config-1.0-SNAPSHOT.jar app.jar
 
+# 复制配置文件
+RUN mkdir /app/config
+COPY *.properties /app/config/
 
 # 指定语言环境
 ENV LANG C.UTF-8

@@ -1,6 +1,9 @@
 # 居于java镜像
 FROM java
 
+# 创建者
+MAINTAINER liangfeng 616611974@qq.com
+
 # 将本地文件夹挂载到当前的容器
 VOLUME /app
 

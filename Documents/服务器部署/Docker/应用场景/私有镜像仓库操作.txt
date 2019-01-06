@@ -1,0 +1,36 @@
+# 使用私有镜像仓库
+docker pull registry
+docker run -d -p 5000:5000 -v  /registry:/var/lib/registry --name registry  registry
+
+docker tag springcloud/spring-cloud-demo-web-eureka hub.liangfeng.com:5000/spring-cloud-demo-web-eureka:1.0
+docker tag springcloud/spring-cloud-demo-web-eureka 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+
+
+vim /etc/docker/daemon.json
+{
+    "registry-mirrors": [
+    "http://f1361db2.m.daocloud.io"
+     ],
+     "insecure-registries":["192.168.248.129:5000"]
+}
+
+systemctl restart docker
+docker start registry
+
+docker push 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+docker push hub.liangfeng.com:5000/spring-cloud-demo-web-eureka:1.0
+
+curl  http://192.168.248.129:5000/v2/_catalog
+curl  http://192.168.248.129:5000/v2/spring-cloud-demo-web-eureka/tags/list
+docker pull 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+
+#使用第三方插件删除仓库镜像
+curl  http://192.168.248.129:5000/v2/spring-cloud-demo-web-eureka/tags/list
+curl https://raw.githubusercontent.com/burnettk/delete-docker-registry-image/master/delete_docker_registry_image.py | tee /usr/local/bin/delete_docker_registry_image >/dev/null
+sudo chmod u+x /usr/local/bin/delete_docker_registry_image
+export REGISTRY_DATA_DIR=/registry/docker/registry/v2
+# 这个没有真正删除，只是打印调试日志
+delete_docker_registry_image --image spring-cloud-demo-web-eureka:1.0 --dry-run
+# 这个才是真正删除
+delete_docker_registry_image --image spring-cloud-demo-web-eureka:1.0
+curl  http://192.168.248.129:5000/v2/_catalog
