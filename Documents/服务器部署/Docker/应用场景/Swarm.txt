@@ -1,0 +1,41 @@
+ docker swarm init --advertise-addr 192.168.248.128
+
+ docker swarm join  --token SWMTKN-1-37fe5tarzcy50mazbe1e3ewyblkfk7xf9kx9ncanz0wx3q70e1-a7wn9tiepd114if6smuiqlez3 192.168.248.128:2377
+
+ docker node ls
+
+ docker run -d -p 5000:5000 -v  /registry:/var/lib/registry --name registry  registry
+
+ vim /etc/docker/daemon.json
+ {
+     "insecure-registries":["192.168.248.128:5000"]
+ }
+ systemctl restart docker
+
+
+ docker tag springcloud/spring-cloud-demo-web-eureka 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+ docker push 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+ curl  http://192.168.248.128:5000/v2/_catalog
+ curl  http://192.168.248.128:5000/v2/spring-cloud-demo-web-eureka/tags/list
+ docker pull 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+
+ docker network create --driver overlay springcloud_network
+
+ docker network ls
+
+ docker service create -p 8761:8761 --network springcloud_network --name eureka  192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+
+ docker service create -p 8761:8761 --network springcloud_network --name eureka --constraint 'node.hostname==node1' 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+
+
+docker service ls
+
+docker service ps eureka
+
+docker service rm eureka
+
+docker service scale eureka=3
+
+docker service inspect eureka
+
+docker exec -it e5ff50783af3 /bin/bash
