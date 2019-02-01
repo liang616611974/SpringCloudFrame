@@ -4,25 +4,34 @@ docker run -d -p 5000:5000 -v  /registry:/var/lib/registry --name registry  regi
 
 docker tag springcloud/spring-cloud-demo-web-eureka hub.liangfeng.com:5000/spring-cloud-demo-web-eureka:1.0
 docker tag springcloud/spring-cloud-demo-web-eureka 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+docker tag springcloud/spring-cloud-demo-web-eureka 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
 
-
+# 配置以下信息才能push镜像到仓库
 vim /etc/docker/daemon.json
 {
     "registry-mirrors": [
     "http://f1361db2.m.daocloud.io"
      ],
-     "insecure-registries":["192.168.248.129:5000"]
+     #"insecure-registries":["192.168.248.129:5000"]
+     #"insecure-registries":["192.168.248.129:5000"]
+     "insecure-registries":["192.168.237.128:5000"]
 }
 
 systemctl restart docker
 docker start registry
 
-docker push 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
 docker push hub.liangfeng.com:5000/spring-cloud-demo-web-eureka:1.0
+docker push 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+docker push 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
 
 curl  http://192.168.248.129:5000/v2/_catalog
+curl  http://192.168.237.128:5000/v2/_catalog
+
 curl  http://192.168.248.129:5000/v2/spring-cloud-demo-web-eureka/tags/list
+curl  http://192.168.237.128:5000/v2/spring-cloud-demo-web-eureka/tags/list
+
 docker pull 192.168.248.129:5000/spring-cloud-demo-web-eureka:1.0
+docker pull 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
 
 #使用第三方插件删除仓库镜像
 curl  http://192.168.248.129:5000/v2/spring-cloud-demo-web-eureka/tags/list

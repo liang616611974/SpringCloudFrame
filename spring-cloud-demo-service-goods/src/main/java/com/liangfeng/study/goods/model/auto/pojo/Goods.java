@@ -2,11 +2,12 @@ package com.liangfeng.study.goods.model.auto.pojo;
 
 
 import com.liangfeng.study.core.framework.base.BaseEntity;
-
-import java.util.Date;
-import java.math.BigDecimal;
-
 import lombok.Data;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -73,7 +74,5 @@ public class Goods extends BaseEntity{
 	 * 修改用户 mdf_user
 	 */
 	private Long mdfUser;
-	
-
 }
 

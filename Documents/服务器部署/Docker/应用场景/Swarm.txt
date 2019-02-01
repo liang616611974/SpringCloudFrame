@@ -1,9 +1,56 @@
- docker swarm init --advertise-addr 192.168.248.128
+Docker overlay需要系统内核是3.18以上支持所以我们先升级一下内核：
 
+1、导入key
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+2、安装elrepo的yum源
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+3、安装内核
+yum --enablerepo=elrepo-kernel install  kernel-ml-devel kernel-ml
+4、查看一下我们当前内核版本：
+[root@xiaoluotest ~]# uname -r
+3.10.0-514.16.1.el7.x86_64
+5、查看一下内核启动顺序：
+[root@xiaoluotest ~]# awk -F\' '$1=="menuentry " {print $2}' /etc/grub2.cfg
+CentOS Linux (3.10.0-514.16.1.el7.x86_64) 7 (Core)
+CentOS Linux (3.10.0-514.10.2.el7.x86_64) 7 (Core)
+CentOS Linux (4.10.0-1.el7.elrepo.x86_64) 7 (Core)
+CentOS Linux (3.10.0-514.6.1.el7.x86_64) 7 (Core)
+CentOS Linux (3.10.0-327.el7.x86_64) 7 (Core)
+CentOS Linux (0-rescue-09196b3ca8d141b88ff8d2d6399609d0) 7 (Core)
+##第一位是0，第二位是4.10的内核版本是2，所以我们给一个默认的启动顺序：
+6、修改启动顺序，并重启：
+[root@xiaoluotest ~]# grub2-set-default 2
+[root@xiaoluotest ~]# init
+升级完成：
+[root@xiaoluotest ~]# uname -r
+4.10.0-1.el7.elrepo.x86_64
+
+# 修改各个服务器主机名hostname
+hostname node1
+hostname node2
+hostname node3
+
+# 关闭防火墙或者增加2377端口的访问
+查看防火墙：iptables -L
+清空防火墙：iptables -F
+保存防火墙规则：service iptables save
+或者
+vim /etc/sysconfig/iptables
+加上
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 2377 -j ACCEPT
+重启防火墙：systemctl restart iptables
+
+ docker swarm init --advertise-addr 192.168.248.128
+ docker swarm init --advertise-addr 192.168.237.128
+
+ # 在其它服务器上执行以下命令加入swarm
  docker swarm join  --token SWMTKN-1-37fe5tarzcy50mazbe1e3ewyblkfk7xf9kx9ncanz0wx3q70e1-a7wn9tiepd114if6smuiqlez3 192.168.248.128:2377
+ docker swarm join --token SWMTKN-1-0ebgmoix8vnfyzh0i7wxstg1prq66wndmz90z3yhxrk7f1guys-9f9g40b4o154i7e030j188kcz 192.168.237.128:2377
 
  docker node ls
 
+
+# 上传镜像到私有仓库
  docker run -d -p 5000:5000 -v  /registry:/var/lib/registry --name registry  registry
 
  vim /etc/docker/daemon.json
@@ -17,13 +64,18 @@
  docker push 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
  curl  http://192.168.248.128:5000/v2/_catalog
  curl  http://192.168.248.128:5000/v2/spring-cloud-demo-web-eureka/tags/list
+
+ #在各节点服务器下载镜像
  docker pull 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+ docker pull 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
 
+# 创建一个Docker swarm可以通讯的overlay网络
  docker network create --driver overlay springcloud_network
-
  docker network ls
 
+# 启动容器
  docker service create -p 8761:8761 --network springcloud_network --name eureka  192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
+ docker service create -p 8761:8761 --network springcloud_network --name eureka  192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
 
  docker service create -p 8761:8761 --network springcloud_network --name eureka --constraint 'node.hostname==node1' 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
 

@@ -6,11 +6,12 @@ services:
     ports:
       - "8761:8761"
     environment:
+      - JVM_OPTS=-Xms16m -Xmn200m  -Xmx800m -XX:PermSize=16M -XX:MaxPermSize=250m
       - "spring.profiles.active=test"
     hostname: test
     volumes:
       #- /etc/timezone:/etc/timezone
-      - /etc/localtime:/etc/localtime
+      - /etc/localtime:/etc/localtime`
   config:
     image: springcloud/spring-cloud-demo-web-config
     container_name: config
