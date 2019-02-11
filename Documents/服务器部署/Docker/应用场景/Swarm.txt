@@ -56,6 +56,7 @@ vim /etc/sysconfig/iptables
  vim /etc/docker/daemon.json
  {
      "insecure-registries":["192.168.248.128:5000"]
+     "insecure-registries":["192.168.237.128:5000"]
  }
  systemctl restart docker
 
@@ -64,6 +65,11 @@ vim /etc/sysconfig/iptables
  docker push 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
  curl  http://192.168.248.128:5000/v2/_catalog
  curl  http://192.168.248.128:5000/v2/spring-cloud-demo-web-eureka/tags/list
+
+ docker tag springcloud/spring-cloud-demo-web-eureka 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
+ docker push 192.168.237.128:5000/spring-cloud-demo-web-eureka:1.0
+ curl  http://192.168.237.128:5000/v2/_catalog
+ curl  http://192.168.237.128:5000/v2/spring-cloud-demo-web-eureka/tags/list
 
  #在各节点服务器下载镜像
  docker pull 192.168.248.128:5000/spring-cloud-demo-web-eureka:1.0
