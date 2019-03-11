@@ -90,9 +90,13 @@
 
 
         <!-- log4jdbc-log4j2-jdbc4.1 打印数据源执行的sql日志 -->
-        <dependency>
+       <!-- <dependency>
             <groupId>org.bgee.log4jdbc-log4j2</groupId>
             <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+        </dependency>-->
+        <dependency>
+            <groupId>com.googlecode.log4jdbc</groupId>
+            <artifactId>log4jdbc</artifactId>
         </dependency>
 
         <!-- Commons 工具 -->
