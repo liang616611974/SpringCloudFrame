@@ -42,11 +42,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
-
-        <!-- 数据连接池 -->
+<!--
+        &lt;!&ndash; 数据连接池 &ndash;&gt;
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
+        </dependency>
+-->
+        <!-- 阿里系的Druid依赖包 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid-spring-boot.version}</version>
         </dependency>
 
         <!-- mybatis -->
