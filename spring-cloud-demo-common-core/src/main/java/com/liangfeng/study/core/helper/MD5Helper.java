@@ -1,6 +1,8 @@
 package com.liangfeng.study.core.helper;
 
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.security.MessageDigest;
 
 /**
@@ -13,49 +15,47 @@ import java.security.MessageDigest;
 public class MD5Helper {
 
     /**
-     * MD5加密
-     * @param pwd
-     * @return
+     * MD5 加密
+     *
+     * @param text 明文
+     * @param key  密钥
+     * @return 密文
      */
-    public final static String MD5(String pwd) {
-        //用于加密的字符
-        char md5String[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-                'A', 'B', 'C', 'D', 'E', 'F' };
+    public static String md5(String text, String key) {
+        //加密后的字符串
+        String encodeStr = null;
         try {
-            //使用平台的默认字符集将此 String 编码为 byte序列，并将结果存储到一个新的 byte数组中
-            byte[] btInput = pwd.getBytes();
-
-            //信息摘要是安全的单向哈希函数，它接收任意大小的数据，并输出固定长度的哈希值。
-            MessageDigest mdInst = MessageDigest.getInstance("MD5");
-
-            //MessageDigest对象通过使用 update方法处理数据， 使用指定的byte数组更新摘要
-            mdInst.update(btInput);
-
-            // 摘要更新之后，通过调用digest（）执行哈希计算，获得密文
-            byte[] md = mdInst.digest();
-
-            // 把密文转换成十六进制的字符串形式
-            int j = md.length;
-            char str[] = new char[j * 2];
-            int k = 0;
-            for (int i = 0; i < j; i++) {   //  i = 0
-                byte byte0 = md[i];  //95
-                str[k++] = md5String[byte0 >>> 4 & 0xf];    //    5
-                str[k++] = md5String[byte0 & 0xf];   //   F
-            }
-
-            //返回经过加密后的字符串
-            return new String(str);
-
+            encodeStr = DigestUtils.md5Hex(text + key);
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException("MD5加密发生异常", e);
         }
+        return encodeStr;
+    }
+
+    /**
+     * MD5 验证
+     *
+     * @param text 明文
+     * @param key  密钥
+     * @param md5  密文
+     * @return true/false
+     */
+    public static boolean verify(String text, String key, String md5) {
+        //根据传入的密钥进行验证
+        String md5Text = md5(text, key);
+        if (md5Text.equalsIgnoreCase(md5)) {
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
-        String key = "smart-gf-article" + "2018092714" + "crawl-recall";
-        String token = MD5Helper.MD5(key);
-        System.out.println(token);
+        String text = "test1234";
+        String key = "abcd";
+        String encodeStr = md5(text, key);
+        System.out.println("MD5加密后的字符串为:" + encodeStr);
+        System.out.println("MD5验证是否成功：" + verify(text, key, encodeStr));
     }
+
 
 }
