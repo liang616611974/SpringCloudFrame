@@ -3,6 +3,7 @@ package com.liangfeng.study.core.config;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @Profile({"dev","dev2","test"})
+@Slf4j
 public class WebApiSwaggerConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebApiSwaggerConfig.class);
+    //private static final Logger log = LoggerFactory.getLogger(WebApiSwaggerConfig.class);
 
     private static final String SWAGGER_NAME = "SwaggerApi";
 
@@ -35,7 +37,7 @@ public class WebApiSwaggerConfig {
     @Bean
     public Docket swaggerApi() {
         Docket docket = null;
-        logger.info("SwaggerApiConfig信息配置:{}",swaggerApiConfig);
+        log.info("SwaggerApiConfig信息配置:{}",swaggerApiConfig);
         // 是否启用swagger配置
         boolean b = Boolean.valueOf(swaggerApiConfig.getEnabled());
         if(!b) {
@@ -47,7 +49,7 @@ public class WebApiSwaggerConfig {
                     .build();
             return docket;
         }
-        logger.info("=======================注册 {} 开始=========================",SWAGGER_NAME);
+        log.info("=======================注册 {} 开始=========================",SWAGGER_NAME);
         try{
             docket = new Docket(DocumentationType.SWAGGER_2)
                     .apiInfo(apiInfo())
@@ -56,10 +58,10 @@ public class WebApiSwaggerConfig {
                     .paths(PathSelectors.any())
                     .build();
         }catch (Exception e){
-            logger.error("注册{}发生异常",SWAGGER_NAME,e);
+            log.error("注册{}发生异常",SWAGGER_NAME,e);
             throw new RuntimeException("注册" + SWAGGER_NAME + "发生异常", e);
         }
-        logger.info("=======================注册 {} 结束=========================",SWAGGER_NAME);
+        log.info("=======================注册 {} 结束=========================",SWAGGER_NAME);
         return docket;
     }
 

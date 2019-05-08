@@ -3,6 +3,7 @@ package com.liangfeng.study.core.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +24,10 @@ import java.util.List;
  * @date 2017/5/30 0030 上午 10:35
  */
 @Configuration
+@Slf4j
 public class WebMVCConfig extends WebMvcConfigurerAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebMVCConfig.class);
+    //private static final Logger log = LoggerFactory.getLogger(WebMVCConfig.class);
 
     /**
      * 注册拦截器
@@ -63,7 +65,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        logger.info("===================注册Jackson转换器[(BigDecimal转String),(Long转String)] 开始 ===================");
+        log.info("===================注册Jackson转换器[(BigDecimal转String),(Long转String)] 开始 ===================");
         MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
         /**
@@ -76,7 +78,7 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
         objectMapper.registerModule(simpleModule);
         messageConverter.setObjectMapper(objectMapper);
         converters.add(messageConverter);
-        logger.info("===================注册Jackson转换器[(BigDecimal转String),(Long转String)] 结束 ===================");
+        log.info("===================注册Jackson转换器[(BigDecimal转String),(Long转String)] 结束 ===================");
     }
 
     /* *//**

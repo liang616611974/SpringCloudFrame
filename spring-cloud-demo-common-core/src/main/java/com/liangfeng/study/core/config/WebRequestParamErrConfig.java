@@ -1,6 +1,7 @@
 package com.liangfeng.study.core.config;
 
 import com.liangfeng.study.core.web.dto.response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @Configuration
 @ControllerAdvice
+@Slf4j
 public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 
-	private static final Logger logger = LoggerFactory.getLogger(WebRequestParamErrConfig.class);
+	//private static final Logger log = LoggerFactory.getLogger(WebRequestParamErrConfig.class);
 
 	@Autowired
 	private AppCommonConfig.AppConfig appConfig;
@@ -43,7 +45,7 @@ public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
 		// 是否打印异常的堆栈信息
 		boolean isPrintStackTrace = Boolean.valueOf(appConfig.getPrintExceptionStackTrace());
-		logger.error("请求参数解析失败:{}",isPrintStackTrace + ex.getMessage());
+		log.error("请求参数解析失败:{}",isPrintStackTrace + ex.getMessage());
 		return new ResponseEntity<Object>(Response.paramErr(isPrintStackTrace?ex.getMessage():"请求参数解析失败"), headers, HttpStatus.OK);
 	}
 
@@ -65,7 +67,7 @@ public class WebRequestParamErrConfig extends ResponseEntityExceptionHandler {
 			sb.append(error.getDefaultMessage());
 			sb.append(",");
 		}
-		logger.info("请求参数验证失败:{}", sb.toString());
+		log.info("请求参数验证失败:{}", sb.toString());
 		return sb.toString();
 	}
 }

@@ -4,6 +4,7 @@ package com.liangfeng.study.core.config;
 import com.liangfeng.study.core.constant.AppConstant;
 import com.liangfeng.study.core.helper.UUIDHelper;
 import com.liangfeng.study.core.helper.WebHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -25,9 +26,10 @@ import javax.servlet.http.HttpServletResponse;
  * @date  2017/10/30 11:04
  */
 @Configuration
+@Slf4j
 public class AppLogMDCFilterConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(AppLogMDCFilterConfig.class);
+    //private static final Logger logger = LoggerFactory.getLogger(AppLogMDCFilterConfig.class);
 
     /** 日志记录过滤器名称 */
     private static final String LOGGER_FILTER_NAME = "LoggerMDCFilter";
@@ -39,17 +41,17 @@ public class AppLogMDCFilterConfig {
      */
     @Bean
     public FilterRegistrationBean loggerMDCFilter() {
-        logger.info("=======================注册 {} 开始=========================",LOGGER_FILTER_NAME);
+        log.info("=======================注册 {} 开始=========================",LOGGER_FILTER_NAME);
         FilterRegistrationBean loggerMDCFilter = null;
         try {
             loggerMDCFilter = new FilterRegistrationBean();
             loggerMDCFilter.addUrlPatterns("/*");
             loggerMDCFilter.setFilter(new LoggerMDCFilter());
         } catch (Exception e) {
-            logger.error("注册{}发生异常",LOGGER_FILTER_NAME, e);
+            log.error("注册{}发生异常",LOGGER_FILTER_NAME, e);
             throw new RuntimeException("注册" + LOGGER_FILTER_NAME + "发生异常", e);
         }
-        logger.info("=======================注册 {} 结束=========================",LOGGER_FILTER_NAME);
+        log.info("=======================注册 {} 结束=========================",LOGGER_FILTER_NAME);
         return loggerMDCFilter;
     }
 
@@ -85,7 +87,7 @@ public class AppLogMDCFilterConfig {
                 //5.放行
                 chain.doFilter(request, response);
             } catch (Exception e) {
-                logger.error("存放系统MDC日志属性发生异常", e);
+                log.error("存放系统MDC日志属性发生异常", e);
                 throw new RuntimeException("存放系统MDC日志属性发生异常", e);
             }
         }

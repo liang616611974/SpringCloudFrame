@@ -7,6 +7,7 @@ import com.liangfeng.study.core.helper.SpringContextHelper;
 import com.liangfeng.study.core.helper.WebHelper;
 import com.liangfeng.study.core.web.dto.request.AddOrMdfRequestbody;
 import com.liangfeng.study.core.web.dto.request.BaseRequestbody;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -29,9 +30,10 @@ import java.util.List;
  */
 @Component
 @Aspect
+@Slf4j
 public class WebRequestSetAndLogAopConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebRequestSetAndLogAopConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(WebRequestSetAndLogAopConfig.class);
 
     private static final ThreadLocal<Long> startTime = new ThreadLocal<Long>();
 
@@ -64,7 +66,7 @@ public class WebRequestSetAndLogAopConfig {
      * @param request
      */
     private void printBefore(JoinPoint joinPoint, HttpServletRequest request) {
-        logger.info("【 requestUrl:{} , httpMethod:{} , IP:{} , classMethod:{}.{} , args:{} 】",
+        log.info("【 requestUrl:{} , httpMethod:{} , IP:{} , classMethod:{}.{} , args:{} 】",
                 request.getRequestURL().toString(),
                 request.getMethod(),
                 WebHelper.getRequestIp(request),
@@ -79,7 +81,7 @@ public class WebRequestSetAndLogAopConfig {
      */
     private void printAfter(Object result) {
         // 打印结果和消耗时间
-        logger.info("【 result:{} , spendTime: {} milliseconds 】",
+        log.info("【 result:{} , spendTime: {} milliseconds 】",
                 result,
                 (System.currentTimeMillis() - startTime.get()));
     }

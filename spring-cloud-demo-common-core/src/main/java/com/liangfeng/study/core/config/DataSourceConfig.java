@@ -3,6 +3,7 @@ package com.liangfeng.study.core.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -35,9 +36,10 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ConfigurationProperties(prefix = "spring.druid.datasource")
 @Data
+@Slf4j
 public class DataSourceConfig implements TransactionManagementConfigurer{
 
-    private static final Logger logger = LoggerFactory.getLogger(DataSource.class);
+    //private static final Logger log = LoggerFactory.getLogger(DataSource.class);
 
     private String type;
     private String driverClassName;
@@ -121,7 +123,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
      * @return
      */
     public SqlSessionFactory createSqlSessionFactory(DataSource dataSource){
-        logger.info("===============创建 Mybatis SqlSessionFactory 开始===========");
+        log.info("===============创建 Mybatis SqlSessionFactory 开始===========");
         // 1.定义参数
         SqlSessionFactory sessionFactory = null;
         // 2.创建工厂对象
@@ -139,10 +141,10 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
             // 4.获取工厂对象
             sessionFactory = sessionFactoryBean.getObject();
         }catch (Exception e){
-            logger.error("创建 Mybatis SqlSessionFactory 发生异常", e);
+            log.error("创建 Mybatis SqlSessionFactory 发生异常", e);
             throw new ApplicationContextException("创建 Mybatis SqlSessionFactory 发生异常",e);
         }
-        logger.info("===============创建 Mybatis SqlSessionFactory 结束===========");
+        log.info("===============创建 Mybatis SqlSessionFactory 结束===========");
         // 5.返回工厂对象
         return sessionFactory;
     }
@@ -166,7 +168,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
      */
 
     public DataSource createDataSource(String url,String username,String password,String driverClassName) {
-        logger.info("===============创建数据源 {} 开始===========", url);
+        log.info("===============创建数据源 {} 开始===========", url);
         // 1.校验配置参数完整性
         if (StringUtils.isBlank(url) ||
                 StringUtils.isBlank(username) ||
@@ -212,10 +214,10 @@ public class DataSourceConfig implements TransactionManagementConfigurer{
         try {
             dataSource.setFilters(filters);//这是最关键的,否则SQL监控无法生效
         } catch (Exception e) {
-            logger.error("{} 创建数据连接池发生异常", url, e);
+            log.error("{} 创建数据连接池发生异常", url, e);
             throw new ApplicationContextException(url + " 创建数据连接池发生异常",e);
         }
-        logger.info("===============创建数据源 {} 结束===========", url);
+        log.info("===============创建数据源 {} 结束===========", url);
         return dataSource;
     }
 
