@@ -2,6 +2,7 @@ package com.liangfeng.study.core.config;
 
 import com.liangfeng.study.core.web.dto.response.Response;
 import com.liangfeng.study.core.exception.ParamException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,8 @@ import java.io.StringWriter;
  * @date 2017/10/27 17:34
  */
 @RestControllerAdvice
+@Slf4j
 public class WebRestExceptionHandlerConfig {
-
-    private static final Logger logger = LoggerFactory.getLogger(WebRestExceptionHandlerConfig.class);
 
     @Autowired
     private AppCommonConfig.AppConfig appConfig;
@@ -43,7 +43,8 @@ public class WebRestExceptionHandlerConfig {
     //@ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseStatus(HttpStatus.OK)
     public Object processException(ParamException exception) {
-        logger.error("系统自定义异常处理-ParamException", exception);
+        //logger.error("系统自定义异常处理-ParamException", exception);
+        log.info("参数错误：{}", exception.getMessage());
         return Response.paramErr(exception.getMessage());
     }
 
@@ -57,7 +58,7 @@ public class WebRestExceptionHandlerConfig {
     //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseStatus(HttpStatus.OK)
     public Object processException(RuntimeException exception) {
-        logger.error("系统自定义异常处理-RuntimeException", exception);
+        log.error("系统自定义异常处理-RuntimeException", exception);
         return getErrResponse(exception);
     }
 
@@ -71,7 +72,7 @@ public class WebRestExceptionHandlerConfig {
     //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseStatus(HttpStatus.OK)
     public Object processException(Exception exception) {
-        logger.error("系统自定义异常处理-exception", exception);
+        log.error("系统自定义异常处理-exception", exception);
         return getErrResponse(exception);
     }
 
